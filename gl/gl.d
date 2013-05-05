@@ -1,3 +1,4 @@
+// Written in the D programming language.
 module gl.gl;
 
 import std.algorithm;

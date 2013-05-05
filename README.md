@@ -11,9 +11,9 @@ The bindings are generated directly from the opengl specification. First the spe
 is converted to XML format using https://bitbucket.org/alfonse/gl-xml-specs/overview. A
 prebuilt XML file can be downloaded directly.
 
-Next the generator is run, passing in the path to the XML file on the command line. The
-generator is a simple C# program so will run on windows natively and on other platforms
-with mono installed. The output file "gl.d" will be saved in the current directory.
+The generator is a simple C# program so will run on windows natively and on other
+platforms with mono installed. It will look for "opengl.xml" and will output "gl.d" in the
+current directory.
 
 
 Using:

@@ -104,6 +104,7 @@ namespace SpecToD
                 enummap[elem.GetAttribute("name")] = elem;
             }
 
+            writer.WriteLine("// Written in the D programming language.");
             writer.WriteLine("module gl.gl;");
             writer.WriteLine();
             writer.WriteLine("import std.algorithm;");
