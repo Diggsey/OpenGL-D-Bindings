@@ -108,6 +108,7 @@ namespace SpecToD
             writer.WriteLine("module gl.gl;");
             writer.WriteLine();
             writer.WriteLine("import std.algorithm;");
+            writer.WriteLine("import std.traits;");
             writer.WriteLine();
 
             writer.WriteLine("// Opaque structs");
@@ -245,7 +246,7 @@ namespace SpecToD
                 }
                 else
                 {
-                    loaderCode.Add("\t\t\tbindFunc(" + name + ", `" + name + "`);");
+                    loaderCode.Add("\t\t\tbindFunc!(" + name + ");");
                     writer.WriteLine("\t" + returnType + " function" + "(" + paramlist + ") " + name + ";");
                 }
             }
@@ -256,9 +257,9 @@ namespace SpecToD
 
             writer.WriteLine("// GL loader");
             writer.WriteLine("template loadGL(alias binder, double glver, extensions...) {");
-            writer.WriteLine("\ttemplate bindFunc(T) {");
-            writer.WriteLine("\t\tvoid bindFunc(out T fptr, string name) {");
-            writer.WriteLine("\t\t\tfptr = cast(T)binder(name.ptr);");
+            writer.WriteLine("\ttemplate bindFunc(alias fptr) {");
+            writer.WriteLine("\t\tvoid bindFunc() {");
+            writer.WriteLine("\t\t\tfptr = cast(typeof(fptr))binder(__traits(identifier, fptr).ptr);");
             writer.WriteLine("\t\t}");
             writer.WriteLine("\t}");
             writer.WriteLine("\tvoid loadGL() {");

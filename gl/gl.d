@@ -2,6 +2,7 @@
 module gl.gl;
 
 import std.algorithm;
+import std.traits;
 
 // Opaque structs
 struct __GLsync;
@@ -7383,9 +7384,9 @@ extern(System) {
 }
 // GL loader
 template loadGL(alias binder, double glver, extensions...) {
-	template bindFunc(T) {
-		void bindFunc(out T fptr, string name) {
-			fptr = cast(T)binder(name.ptr);
+	template bindFunc(alias fptr) {
+		void bindFunc() {
+			fptr = cast(typeof(fptr))binder(__traits(identifier, fptr).ptr);
 		}
 	}
 	void loadGL() {
@@ -7398,2797 +7399,2797 @@ template loadGL(alias binder, double glver, extensions...) {
 		}
 		// GL 1.2
 		static if (glver >= 1.2) {
-			bindFunc(glBlendColor, `glBlendColor`);
-			bindFunc(glBlendEquation, `glBlendEquation`);
-			bindFunc(glBlendEquationi, `glBlendEquationi`);
-			bindFunc(glBlendEquationSeparatei, `glBlendEquationSeparatei`);
-			bindFunc(glBlendFunci, `glBlendFunci`);
-			bindFunc(glBlendFuncSeparatei, `glBlendFuncSeparatei`);
-			bindFunc(glColorSubTable, `glColorSubTable`);
-			bindFunc(glColorTable, `glColorTable`);
-			bindFunc(glColorTableParameterfv, `glColorTableParameterfv`);
-			bindFunc(glColorTableParameteriv, `glColorTableParameteriv`);
-			bindFunc(glConvolutionFilter1D, `glConvolutionFilter1D`);
-			bindFunc(glConvolutionFilter2D, `glConvolutionFilter2D`);
-			bindFunc(glConvolutionParameterf, `glConvolutionParameterf`);
-			bindFunc(glConvolutionParameterfv, `glConvolutionParameterfv`);
-			bindFunc(glConvolutionParameteri, `glConvolutionParameteri`);
-			bindFunc(glConvolutionParameteriv, `glConvolutionParameteriv`);
-			bindFunc(glCopyColorSubTable, `glCopyColorSubTable`);
-			bindFunc(glCopyColorTable, `glCopyColorTable`);
-			bindFunc(glCopyConvolutionFilter1D, `glCopyConvolutionFilter1D`);
-			bindFunc(glCopyConvolutionFilter2D, `glCopyConvolutionFilter2D`);
-			bindFunc(glCopyTexSubImage3D, `glCopyTexSubImage3D`);
-			bindFunc(glDrawRangeElements, `glDrawRangeElements`);
-			bindFunc(glFramebufferTexture, `glFramebufferTexture`);
-			bindFunc(glGetColorTable, `glGetColorTable`);
-			bindFunc(glGetColorTableParameterfv, `glGetColorTableParameterfv`);
-			bindFunc(glGetColorTableParameteriv, `glGetColorTableParameteriv`);
-			bindFunc(glGetConvolutionFilter, `glGetConvolutionFilter`);
-			bindFunc(glGetConvolutionParameterfv, `glGetConvolutionParameterfv`);
-			bindFunc(glGetConvolutionParameteriv, `glGetConvolutionParameteriv`);
-			bindFunc(glGetHistogram, `glGetHistogram`);
-			bindFunc(glGetHistogramParameterfv, `glGetHistogramParameterfv`);
-			bindFunc(glGetHistogramParameteriv, `glGetHistogramParameteriv`);
-			bindFunc(glGetMinmax, `glGetMinmax`);
-			bindFunc(glGetMinmaxParameterfv, `glGetMinmaxParameterfv`);
-			bindFunc(glGetMinmaxParameteriv, `glGetMinmaxParameteriv`);
-			bindFunc(glGetSeparableFilter, `glGetSeparableFilter`);
-			bindFunc(glHistogram, `glHistogram`);
-			bindFunc(glMinmax, `glMinmax`);
-			bindFunc(glMinSampleShading, `glMinSampleShading`);
-			bindFunc(glResetHistogram, `glResetHistogram`);
-			bindFunc(glResetMinmax, `glResetMinmax`);
-			bindFunc(glSeparableFilter2D, `glSeparableFilter2D`);
-			bindFunc(glTexImage3D, `glTexImage3D`);
-			bindFunc(glTexSubImage3D, `glTexSubImage3D`);
+			bindFunc!(glBlendColor);
+			bindFunc!(glBlendEquation);
+			bindFunc!(glBlendEquationi);
+			bindFunc!(glBlendEquationSeparatei);
+			bindFunc!(glBlendFunci);
+			bindFunc!(glBlendFuncSeparatei);
+			bindFunc!(glColorSubTable);
+			bindFunc!(glColorTable);
+			bindFunc!(glColorTableParameterfv);
+			bindFunc!(glColorTableParameteriv);
+			bindFunc!(glConvolutionFilter1D);
+			bindFunc!(glConvolutionFilter2D);
+			bindFunc!(glConvolutionParameterf);
+			bindFunc!(glConvolutionParameterfv);
+			bindFunc!(glConvolutionParameteri);
+			bindFunc!(glConvolutionParameteriv);
+			bindFunc!(glCopyColorSubTable);
+			bindFunc!(glCopyColorTable);
+			bindFunc!(glCopyConvolutionFilter1D);
+			bindFunc!(glCopyConvolutionFilter2D);
+			bindFunc!(glCopyTexSubImage3D);
+			bindFunc!(glDrawRangeElements);
+			bindFunc!(glFramebufferTexture);
+			bindFunc!(glGetColorTable);
+			bindFunc!(glGetColorTableParameterfv);
+			bindFunc!(glGetColorTableParameteriv);
+			bindFunc!(glGetConvolutionFilter);
+			bindFunc!(glGetConvolutionParameterfv);
+			bindFunc!(glGetConvolutionParameteriv);
+			bindFunc!(glGetHistogram);
+			bindFunc!(glGetHistogramParameterfv);
+			bindFunc!(glGetHistogramParameteriv);
+			bindFunc!(glGetMinmax);
+			bindFunc!(glGetMinmaxParameterfv);
+			bindFunc!(glGetMinmaxParameteriv);
+			bindFunc!(glGetSeparableFilter);
+			bindFunc!(glHistogram);
+			bindFunc!(glMinmax);
+			bindFunc!(glMinSampleShading);
+			bindFunc!(glResetHistogram);
+			bindFunc!(glResetMinmax);
+			bindFunc!(glSeparableFilter2D);
+			bindFunc!(glTexImage3D);
+			bindFunc!(glTexSubImage3D);
 		}
 		// GL 1.3
 		static if (glver >= 1.3) {
-			bindFunc(glActiveTexture, `glActiveTexture`);
-			bindFunc(glClientActiveTexture, `glClientActiveTexture`);
-			bindFunc(glCompressedTexImage1D, `glCompressedTexImage1D`);
-			bindFunc(glCompressedTexImage2D, `glCompressedTexImage2D`);
-			bindFunc(glCompressedTexImage3D, `glCompressedTexImage3D`);
-			bindFunc(glCompressedTexSubImage1D, `glCompressedTexSubImage1D`);
-			bindFunc(glCompressedTexSubImage2D, `glCompressedTexSubImage2D`);
-			bindFunc(glCompressedTexSubImage3D, `glCompressedTexSubImage3D`);
-			bindFunc(glGetCompressedTexImage, `glGetCompressedTexImage`);
-			bindFunc(glLoadTransposeMatrixd, `glLoadTransposeMatrixd`);
-			bindFunc(glLoadTransposeMatrixf, `glLoadTransposeMatrixf`);
-			bindFunc(glMultiTexCoord1d, `glMultiTexCoord1d`);
-			bindFunc(glMultiTexCoord1dv, `glMultiTexCoord1dv`);
-			bindFunc(glMultiTexCoord1f, `glMultiTexCoord1f`);
-			bindFunc(glMultiTexCoord1fv, `glMultiTexCoord1fv`);
-			bindFunc(glMultiTexCoord1i, `glMultiTexCoord1i`);
-			bindFunc(glMultiTexCoord1iv, `glMultiTexCoord1iv`);
-			bindFunc(glMultiTexCoord1s, `glMultiTexCoord1s`);
-			bindFunc(glMultiTexCoord1sv, `glMultiTexCoord1sv`);
-			bindFunc(glMultiTexCoord2d, `glMultiTexCoord2d`);
-			bindFunc(glMultiTexCoord2dv, `glMultiTexCoord2dv`);
-			bindFunc(glMultiTexCoord2f, `glMultiTexCoord2f`);
-			bindFunc(glMultiTexCoord2fv, `glMultiTexCoord2fv`);
-			bindFunc(glMultiTexCoord2i, `glMultiTexCoord2i`);
-			bindFunc(glMultiTexCoord2iv, `glMultiTexCoord2iv`);
-			bindFunc(glMultiTexCoord2s, `glMultiTexCoord2s`);
-			bindFunc(glMultiTexCoord2sv, `glMultiTexCoord2sv`);
-			bindFunc(glMultiTexCoord3d, `glMultiTexCoord3d`);
-			bindFunc(glMultiTexCoord3dv, `glMultiTexCoord3dv`);
-			bindFunc(glMultiTexCoord3f, `glMultiTexCoord3f`);
-			bindFunc(glMultiTexCoord3fv, `glMultiTexCoord3fv`);
-			bindFunc(glMultiTexCoord3i, `glMultiTexCoord3i`);
-			bindFunc(glMultiTexCoord3iv, `glMultiTexCoord3iv`);
-			bindFunc(glMultiTexCoord3s, `glMultiTexCoord3s`);
-			bindFunc(glMultiTexCoord3sv, `glMultiTexCoord3sv`);
-			bindFunc(glMultiTexCoord4d, `glMultiTexCoord4d`);
-			bindFunc(glMultiTexCoord4dv, `glMultiTexCoord4dv`);
-			bindFunc(glMultiTexCoord4f, `glMultiTexCoord4f`);
-			bindFunc(glMultiTexCoord4fv, `glMultiTexCoord4fv`);
-			bindFunc(glMultiTexCoord4i, `glMultiTexCoord4i`);
-			bindFunc(glMultiTexCoord4iv, `glMultiTexCoord4iv`);
-			bindFunc(glMultiTexCoord4s, `glMultiTexCoord4s`);
-			bindFunc(glMultiTexCoord4sv, `glMultiTexCoord4sv`);
-			bindFunc(glMultTransposeMatrixd, `glMultTransposeMatrixd`);
-			bindFunc(glMultTransposeMatrixf, `glMultTransposeMatrixf`);
-			bindFunc(glSampleCoverage, `glSampleCoverage`);
+			bindFunc!(glActiveTexture);
+			bindFunc!(glClientActiveTexture);
+			bindFunc!(glCompressedTexImage1D);
+			bindFunc!(glCompressedTexImage2D);
+			bindFunc!(glCompressedTexImage3D);
+			bindFunc!(glCompressedTexSubImage1D);
+			bindFunc!(glCompressedTexSubImage2D);
+			bindFunc!(glCompressedTexSubImage3D);
+			bindFunc!(glGetCompressedTexImage);
+			bindFunc!(glLoadTransposeMatrixd);
+			bindFunc!(glLoadTransposeMatrixf);
+			bindFunc!(glMultiTexCoord1d);
+			bindFunc!(glMultiTexCoord1dv);
+			bindFunc!(glMultiTexCoord1f);
+			bindFunc!(glMultiTexCoord1fv);
+			bindFunc!(glMultiTexCoord1i);
+			bindFunc!(glMultiTexCoord1iv);
+			bindFunc!(glMultiTexCoord1s);
+			bindFunc!(glMultiTexCoord1sv);
+			bindFunc!(glMultiTexCoord2d);
+			bindFunc!(glMultiTexCoord2dv);
+			bindFunc!(glMultiTexCoord2f);
+			bindFunc!(glMultiTexCoord2fv);
+			bindFunc!(glMultiTexCoord2i);
+			bindFunc!(glMultiTexCoord2iv);
+			bindFunc!(glMultiTexCoord2s);
+			bindFunc!(glMultiTexCoord2sv);
+			bindFunc!(glMultiTexCoord3d);
+			bindFunc!(glMultiTexCoord3dv);
+			bindFunc!(glMultiTexCoord3f);
+			bindFunc!(glMultiTexCoord3fv);
+			bindFunc!(glMultiTexCoord3i);
+			bindFunc!(glMultiTexCoord3iv);
+			bindFunc!(glMultiTexCoord3s);
+			bindFunc!(glMultiTexCoord3sv);
+			bindFunc!(glMultiTexCoord4d);
+			bindFunc!(glMultiTexCoord4dv);
+			bindFunc!(glMultiTexCoord4f);
+			bindFunc!(glMultiTexCoord4fv);
+			bindFunc!(glMultiTexCoord4i);
+			bindFunc!(glMultiTexCoord4iv);
+			bindFunc!(glMultiTexCoord4s);
+			bindFunc!(glMultiTexCoord4sv);
+			bindFunc!(glMultTransposeMatrixd);
+			bindFunc!(glMultTransposeMatrixf);
+			bindFunc!(glSampleCoverage);
 		}
 		// GL 1.4
 		static if (glver >= 1.4) {
-			bindFunc(glBlendFuncSeparate, `glBlendFuncSeparate`);
-			bindFunc(glFogCoordd, `glFogCoordd`);
-			bindFunc(glFogCoorddv, `glFogCoorddv`);
-			bindFunc(glFogCoordf, `glFogCoordf`);
-			bindFunc(glFogCoordfv, `glFogCoordfv`);
-			bindFunc(glFogCoordPointer, `glFogCoordPointer`);
-			bindFunc(glMultiDrawArrays, `glMultiDrawArrays`);
-			bindFunc(glMultiDrawElements, `glMultiDrawElements`);
-			bindFunc(glPointParameterf, `glPointParameterf`);
-			bindFunc(glPointParameterfv, `glPointParameterfv`);
-			bindFunc(glPointParameteri, `glPointParameteri`);
-			bindFunc(glPointParameteriv, `glPointParameteriv`);
-			bindFunc(glSecondaryColor3b, `glSecondaryColor3b`);
-			bindFunc(glSecondaryColor3bv, `glSecondaryColor3bv`);
-			bindFunc(glSecondaryColor3d, `glSecondaryColor3d`);
-			bindFunc(glSecondaryColor3dv, `glSecondaryColor3dv`);
-			bindFunc(glSecondaryColor3f, `glSecondaryColor3f`);
-			bindFunc(glSecondaryColor3fv, `glSecondaryColor3fv`);
-			bindFunc(glSecondaryColor3i, `glSecondaryColor3i`);
-			bindFunc(glSecondaryColor3iv, `glSecondaryColor3iv`);
-			bindFunc(glSecondaryColor3s, `glSecondaryColor3s`);
-			bindFunc(glSecondaryColor3sv, `glSecondaryColor3sv`);
-			bindFunc(glSecondaryColor3ub, `glSecondaryColor3ub`);
-			bindFunc(glSecondaryColor3ubv, `glSecondaryColor3ubv`);
-			bindFunc(glSecondaryColor3ui, `glSecondaryColor3ui`);
-			bindFunc(glSecondaryColor3uiv, `glSecondaryColor3uiv`);
-			bindFunc(glSecondaryColor3us, `glSecondaryColor3us`);
-			bindFunc(glSecondaryColor3usv, `glSecondaryColor3usv`);
-			bindFunc(glSecondaryColorPointer, `glSecondaryColorPointer`);
-			bindFunc(glWindowPos2d, `glWindowPos2d`);
-			bindFunc(glWindowPos2dv, `glWindowPos2dv`);
-			bindFunc(glWindowPos2f, `glWindowPos2f`);
-			bindFunc(glWindowPos2fv, `glWindowPos2fv`);
-			bindFunc(glWindowPos2i, `glWindowPos2i`);
-			bindFunc(glWindowPos2iv, `glWindowPos2iv`);
-			bindFunc(glWindowPos2s, `glWindowPos2s`);
-			bindFunc(glWindowPos2sv, `glWindowPos2sv`);
-			bindFunc(glWindowPos3d, `glWindowPos3d`);
-			bindFunc(glWindowPos3dv, `glWindowPos3dv`);
-			bindFunc(glWindowPos3f, `glWindowPos3f`);
-			bindFunc(glWindowPos3fv, `glWindowPos3fv`);
-			bindFunc(glWindowPos3i, `glWindowPos3i`);
-			bindFunc(glWindowPos3iv, `glWindowPos3iv`);
-			bindFunc(glWindowPos3s, `glWindowPos3s`);
-			bindFunc(glWindowPos3sv, `glWindowPos3sv`);
+			bindFunc!(glBlendFuncSeparate);
+			bindFunc!(glFogCoordd);
+			bindFunc!(glFogCoorddv);
+			bindFunc!(glFogCoordf);
+			bindFunc!(glFogCoordfv);
+			bindFunc!(glFogCoordPointer);
+			bindFunc!(glMultiDrawArrays);
+			bindFunc!(glMultiDrawElements);
+			bindFunc!(glPointParameterf);
+			bindFunc!(glPointParameterfv);
+			bindFunc!(glPointParameteri);
+			bindFunc!(glPointParameteriv);
+			bindFunc!(glSecondaryColor3b);
+			bindFunc!(glSecondaryColor3bv);
+			bindFunc!(glSecondaryColor3d);
+			bindFunc!(glSecondaryColor3dv);
+			bindFunc!(glSecondaryColor3f);
+			bindFunc!(glSecondaryColor3fv);
+			bindFunc!(glSecondaryColor3i);
+			bindFunc!(glSecondaryColor3iv);
+			bindFunc!(glSecondaryColor3s);
+			bindFunc!(glSecondaryColor3sv);
+			bindFunc!(glSecondaryColor3ub);
+			bindFunc!(glSecondaryColor3ubv);
+			bindFunc!(glSecondaryColor3ui);
+			bindFunc!(glSecondaryColor3uiv);
+			bindFunc!(glSecondaryColor3us);
+			bindFunc!(glSecondaryColor3usv);
+			bindFunc!(glSecondaryColorPointer);
+			bindFunc!(glWindowPos2d);
+			bindFunc!(glWindowPos2dv);
+			bindFunc!(glWindowPos2f);
+			bindFunc!(glWindowPos2fv);
+			bindFunc!(glWindowPos2i);
+			bindFunc!(glWindowPos2iv);
+			bindFunc!(glWindowPos2s);
+			bindFunc!(glWindowPos2sv);
+			bindFunc!(glWindowPos3d);
+			bindFunc!(glWindowPos3dv);
+			bindFunc!(glWindowPos3f);
+			bindFunc!(glWindowPos3fv);
+			bindFunc!(glWindowPos3i);
+			bindFunc!(glWindowPos3iv);
+			bindFunc!(glWindowPos3s);
+			bindFunc!(glWindowPos3sv);
 		}
 		// GL 1.5
 		static if (glver >= 1.5) {
-			bindFunc(glBeginQuery, `glBeginQuery`);
-			bindFunc(glBindBuffer, `glBindBuffer`);
-			bindFunc(glBufferData, `glBufferData`);
-			bindFunc(glBufferSubData, `glBufferSubData`);
-			bindFunc(glDeleteBuffers, `glDeleteBuffers`);
-			bindFunc(glDeleteQueries, `glDeleteQueries`);
-			bindFunc(glEndQuery, `glEndQuery`);
-			bindFunc(glGenBuffers, `glGenBuffers`);
-			bindFunc(glGenQueries, `glGenQueries`);
-			bindFunc(glGetBufferParameteriv, `glGetBufferParameteriv`);
-			bindFunc(glGetBufferPointerv, `glGetBufferPointerv`);
-			bindFunc(glGetBufferSubData, `glGetBufferSubData`);
-			bindFunc(glGetQueryiv, `glGetQueryiv`);
-			bindFunc(glGetQueryObjectiv, `glGetQueryObjectiv`);
-			bindFunc(glGetQueryObjectuiv, `glGetQueryObjectuiv`);
-			bindFunc(glIsBuffer, `glIsBuffer`);
-			bindFunc(glIsQuery, `glIsQuery`);
-			bindFunc(glMapBuffer, `glMapBuffer`);
-			bindFunc(glUnmapBuffer, `glUnmapBuffer`);
+			bindFunc!(glBeginQuery);
+			bindFunc!(glBindBuffer);
+			bindFunc!(glBufferData);
+			bindFunc!(glBufferSubData);
+			bindFunc!(glDeleteBuffers);
+			bindFunc!(glDeleteQueries);
+			bindFunc!(glEndQuery);
+			bindFunc!(glGenBuffers);
+			bindFunc!(glGenQueries);
+			bindFunc!(glGetBufferParameteriv);
+			bindFunc!(glGetBufferPointerv);
+			bindFunc!(glGetBufferSubData);
+			bindFunc!(glGetQueryiv);
+			bindFunc!(glGetQueryObjectiv);
+			bindFunc!(glGetQueryObjectuiv);
+			bindFunc!(glIsBuffer);
+			bindFunc!(glIsQuery);
+			bindFunc!(glMapBuffer);
+			bindFunc!(glUnmapBuffer);
 		}
 		// GL 2.0
 		static if (glver >= 2.0) {
-			bindFunc(glAttachShader, `glAttachShader`);
-			bindFunc(glBindAttribLocation, `glBindAttribLocation`);
-			bindFunc(glBlendEquationSeparate, `glBlendEquationSeparate`);
-			bindFunc(glCompileShader, `glCompileShader`);
-			bindFunc(glCreateProgram, `glCreateProgram`);
-			bindFunc(glCreateShader, `glCreateShader`);
-			bindFunc(glDeleteProgram, `glDeleteProgram`);
-			bindFunc(glDeleteShader, `glDeleteShader`);
-			bindFunc(glDetachShader, `glDetachShader`);
-			bindFunc(glDisableVertexAttribArray, `glDisableVertexAttribArray`);
-			bindFunc(glDrawBuffers, `glDrawBuffers`);
-			bindFunc(glEnableVertexAttribArray, `glEnableVertexAttribArray`);
-			bindFunc(glGetActiveAttrib, `glGetActiveAttrib`);
-			bindFunc(glGetActiveUniform, `glGetActiveUniform`);
-			bindFunc(glGetAttachedShaders, `glGetAttachedShaders`);
-			bindFunc(glGetAttribLocation, `glGetAttribLocation`);
-			bindFunc(glGetProgramInfoLog, `glGetProgramInfoLog`);
-			bindFunc(glGetProgramiv, `glGetProgramiv`);
-			bindFunc(glGetShaderInfoLog, `glGetShaderInfoLog`);
-			bindFunc(glGetShaderiv, `glGetShaderiv`);
-			bindFunc(glGetShaderSource, `glGetShaderSource`);
-			bindFunc(glGetUniformfv, `glGetUniformfv`);
-			bindFunc(glGetUniformiv, `glGetUniformiv`);
-			bindFunc(glGetUniformLocation, `glGetUniformLocation`);
-			bindFunc(glGetVertexAttribdv, `glGetVertexAttribdv`);
-			bindFunc(glGetVertexAttribfv, `glGetVertexAttribfv`);
-			bindFunc(glGetVertexAttribiv, `glGetVertexAttribiv`);
-			bindFunc(glGetVertexAttribPointerv, `glGetVertexAttribPointerv`);
-			bindFunc(glIsProgram, `glIsProgram`);
-			bindFunc(glIsShader, `glIsShader`);
-			bindFunc(glLinkProgram, `glLinkProgram`);
-			bindFunc(glShaderSource, `glShaderSource`);
-			bindFunc(glStencilFuncSeparate, `glStencilFuncSeparate`);
-			bindFunc(glStencilMaskSeparate, `glStencilMaskSeparate`);
-			bindFunc(glStencilOpSeparate, `glStencilOpSeparate`);
-			bindFunc(glUniform1f, `glUniform1f`);
-			bindFunc(glUniform1fv, `glUniform1fv`);
-			bindFunc(glUniform1i, `glUniform1i`);
-			bindFunc(glUniform1iv, `glUniform1iv`);
-			bindFunc(glUniform2f, `glUniform2f`);
-			bindFunc(glUniform2fv, `glUniform2fv`);
-			bindFunc(glUniform2i, `glUniform2i`);
-			bindFunc(glUniform2iv, `glUniform2iv`);
-			bindFunc(glUniform3f, `glUniform3f`);
-			bindFunc(glUniform3fv, `glUniform3fv`);
-			bindFunc(glUniform3i, `glUniform3i`);
-			bindFunc(glUniform3iv, `glUniform3iv`);
-			bindFunc(glUniform4f, `glUniform4f`);
-			bindFunc(glUniform4fv, `glUniform4fv`);
-			bindFunc(glUniform4i, `glUniform4i`);
-			bindFunc(glUniform4iv, `glUniform4iv`);
-			bindFunc(glUniformMatrix2fv, `glUniformMatrix2fv`);
-			bindFunc(glUniformMatrix3fv, `glUniformMatrix3fv`);
-			bindFunc(glUniformMatrix4fv, `glUniformMatrix4fv`);
-			bindFunc(glUseProgram, `glUseProgram`);
-			bindFunc(glValidateProgram, `glValidateProgram`);
-			bindFunc(glVertexAttrib1d, `glVertexAttrib1d`);
-			bindFunc(glVertexAttrib1dv, `glVertexAttrib1dv`);
-			bindFunc(glVertexAttrib1f, `glVertexAttrib1f`);
-			bindFunc(glVertexAttrib1fv, `glVertexAttrib1fv`);
-			bindFunc(glVertexAttrib1s, `glVertexAttrib1s`);
-			bindFunc(glVertexAttrib1sv, `glVertexAttrib1sv`);
-			bindFunc(glVertexAttrib2d, `glVertexAttrib2d`);
-			bindFunc(glVertexAttrib2dv, `glVertexAttrib2dv`);
-			bindFunc(glVertexAttrib2f, `glVertexAttrib2f`);
-			bindFunc(glVertexAttrib2fv, `glVertexAttrib2fv`);
-			bindFunc(glVertexAttrib2s, `glVertexAttrib2s`);
-			bindFunc(glVertexAttrib2sv, `glVertexAttrib2sv`);
-			bindFunc(glVertexAttrib3d, `glVertexAttrib3d`);
-			bindFunc(glVertexAttrib3dv, `glVertexAttrib3dv`);
-			bindFunc(glVertexAttrib3f, `glVertexAttrib3f`);
-			bindFunc(glVertexAttrib3fv, `glVertexAttrib3fv`);
-			bindFunc(glVertexAttrib3s, `glVertexAttrib3s`);
-			bindFunc(glVertexAttrib3sv, `glVertexAttrib3sv`);
-			bindFunc(glVertexAttrib4bv, `glVertexAttrib4bv`);
-			bindFunc(glVertexAttrib4d, `glVertexAttrib4d`);
-			bindFunc(glVertexAttrib4dv, `glVertexAttrib4dv`);
-			bindFunc(glVertexAttrib4f, `glVertexAttrib4f`);
-			bindFunc(glVertexAttrib4fv, `glVertexAttrib4fv`);
-			bindFunc(glVertexAttrib4iv, `glVertexAttrib4iv`);
-			bindFunc(glVertexAttrib4Nbv, `glVertexAttrib4Nbv`);
-			bindFunc(glVertexAttrib4Niv, `glVertexAttrib4Niv`);
-			bindFunc(glVertexAttrib4Nsv, `glVertexAttrib4Nsv`);
-			bindFunc(glVertexAttrib4Nub, `glVertexAttrib4Nub`);
-			bindFunc(glVertexAttrib4Nubv, `glVertexAttrib4Nubv`);
-			bindFunc(glVertexAttrib4Nuiv, `glVertexAttrib4Nuiv`);
-			bindFunc(glVertexAttrib4Nusv, `glVertexAttrib4Nusv`);
-			bindFunc(glVertexAttrib4s, `glVertexAttrib4s`);
-			bindFunc(glVertexAttrib4sv, `glVertexAttrib4sv`);
-			bindFunc(glVertexAttrib4ubv, `glVertexAttrib4ubv`);
-			bindFunc(glVertexAttrib4uiv, `glVertexAttrib4uiv`);
-			bindFunc(glVertexAttrib4usv, `glVertexAttrib4usv`);
-			bindFunc(glVertexAttribPointer, `glVertexAttribPointer`);
+			bindFunc!(glAttachShader);
+			bindFunc!(glBindAttribLocation);
+			bindFunc!(glBlendEquationSeparate);
+			bindFunc!(glCompileShader);
+			bindFunc!(glCreateProgram);
+			bindFunc!(glCreateShader);
+			bindFunc!(glDeleteProgram);
+			bindFunc!(glDeleteShader);
+			bindFunc!(glDetachShader);
+			bindFunc!(glDisableVertexAttribArray);
+			bindFunc!(glDrawBuffers);
+			bindFunc!(glEnableVertexAttribArray);
+			bindFunc!(glGetActiveAttrib);
+			bindFunc!(glGetActiveUniform);
+			bindFunc!(glGetAttachedShaders);
+			bindFunc!(glGetAttribLocation);
+			bindFunc!(glGetProgramInfoLog);
+			bindFunc!(glGetProgramiv);
+			bindFunc!(glGetShaderInfoLog);
+			bindFunc!(glGetShaderiv);
+			bindFunc!(glGetShaderSource);
+			bindFunc!(glGetUniformfv);
+			bindFunc!(glGetUniformiv);
+			bindFunc!(glGetUniformLocation);
+			bindFunc!(glGetVertexAttribdv);
+			bindFunc!(glGetVertexAttribfv);
+			bindFunc!(glGetVertexAttribiv);
+			bindFunc!(glGetVertexAttribPointerv);
+			bindFunc!(glIsProgram);
+			bindFunc!(glIsShader);
+			bindFunc!(glLinkProgram);
+			bindFunc!(glShaderSource);
+			bindFunc!(glStencilFuncSeparate);
+			bindFunc!(glStencilMaskSeparate);
+			bindFunc!(glStencilOpSeparate);
+			bindFunc!(glUniform1f);
+			bindFunc!(glUniform1fv);
+			bindFunc!(glUniform1i);
+			bindFunc!(glUniform1iv);
+			bindFunc!(glUniform2f);
+			bindFunc!(glUniform2fv);
+			bindFunc!(glUniform2i);
+			bindFunc!(glUniform2iv);
+			bindFunc!(glUniform3f);
+			bindFunc!(glUniform3fv);
+			bindFunc!(glUniform3i);
+			bindFunc!(glUniform3iv);
+			bindFunc!(glUniform4f);
+			bindFunc!(glUniform4fv);
+			bindFunc!(glUniform4i);
+			bindFunc!(glUniform4iv);
+			bindFunc!(glUniformMatrix2fv);
+			bindFunc!(glUniformMatrix3fv);
+			bindFunc!(glUniformMatrix4fv);
+			bindFunc!(glUseProgram);
+			bindFunc!(glValidateProgram);
+			bindFunc!(glVertexAttrib1d);
+			bindFunc!(glVertexAttrib1dv);
+			bindFunc!(glVertexAttrib1f);
+			bindFunc!(glVertexAttrib1fv);
+			bindFunc!(glVertexAttrib1s);
+			bindFunc!(glVertexAttrib1sv);
+			bindFunc!(glVertexAttrib2d);
+			bindFunc!(glVertexAttrib2dv);
+			bindFunc!(glVertexAttrib2f);
+			bindFunc!(glVertexAttrib2fv);
+			bindFunc!(glVertexAttrib2s);
+			bindFunc!(glVertexAttrib2sv);
+			bindFunc!(glVertexAttrib3d);
+			bindFunc!(glVertexAttrib3dv);
+			bindFunc!(glVertexAttrib3f);
+			bindFunc!(glVertexAttrib3fv);
+			bindFunc!(glVertexAttrib3s);
+			bindFunc!(glVertexAttrib3sv);
+			bindFunc!(glVertexAttrib4bv);
+			bindFunc!(glVertexAttrib4d);
+			bindFunc!(glVertexAttrib4dv);
+			bindFunc!(glVertexAttrib4f);
+			bindFunc!(glVertexAttrib4fv);
+			bindFunc!(glVertexAttrib4iv);
+			bindFunc!(glVertexAttrib4Nbv);
+			bindFunc!(glVertexAttrib4Niv);
+			bindFunc!(glVertexAttrib4Nsv);
+			bindFunc!(glVertexAttrib4Nub);
+			bindFunc!(glVertexAttrib4Nubv);
+			bindFunc!(glVertexAttrib4Nuiv);
+			bindFunc!(glVertexAttrib4Nusv);
+			bindFunc!(glVertexAttrib4s);
+			bindFunc!(glVertexAttrib4sv);
+			bindFunc!(glVertexAttrib4ubv);
+			bindFunc!(glVertexAttrib4uiv);
+			bindFunc!(glVertexAttrib4usv);
+			bindFunc!(glVertexAttribPointer);
 		}
 		// GL 2.1
 		static if (glver >= 2.1) {
-			bindFunc(glUniformMatrix2x3fv, `glUniformMatrix2x3fv`);
-			bindFunc(glUniformMatrix2x4fv, `glUniformMatrix2x4fv`);
-			bindFunc(glUniformMatrix3x2fv, `glUniformMatrix3x2fv`);
-			bindFunc(glUniformMatrix3x4fv, `glUniformMatrix3x4fv`);
-			bindFunc(glUniformMatrix4x2fv, `glUniformMatrix4x2fv`);
-			bindFunc(glUniformMatrix4x3fv, `glUniformMatrix4x3fv`);
+			bindFunc!(glUniformMatrix2x3fv);
+			bindFunc!(glUniformMatrix2x4fv);
+			bindFunc!(glUniformMatrix3x2fv);
+			bindFunc!(glUniformMatrix3x4fv);
+			bindFunc!(glUniformMatrix4x2fv);
+			bindFunc!(glUniformMatrix4x3fv);
 		}
 		// GL 3.0
 		static if (glver >= 3.0) {
-			bindFunc(glBeginConditionalRender, `glBeginConditionalRender`);
-			bindFunc(glBeginTransformFeedback, `glBeginTransformFeedback`);
-			bindFunc(glBindBufferBase, `glBindBufferBase`);
-			bindFunc(glBindBufferRange, `glBindBufferRange`);
-			bindFunc(glBindFragDataLocation, `glBindFragDataLocation`);
-			bindFunc(glClampColor, `glClampColor`);
-			bindFunc(glClearBufferfi, `glClearBufferfi`);
-			bindFunc(glClearBufferfv, `glClearBufferfv`);
-			bindFunc(glClearBufferiv, `glClearBufferiv`);
-			bindFunc(glClearBufferuiv, `glClearBufferuiv`);
-			bindFunc(glColorMaski, `glColorMaski`);
-			bindFunc(glDisablei, `glDisablei`);
-			bindFunc(glEnablei, `glEnablei`);
-			bindFunc(glEndConditionalRender, `glEndConditionalRender`);
-			bindFunc(glEndTransformFeedback, `glEndTransformFeedback`);
-			bindFunc(glGetBooleani_v, `glGetBooleani_v`);
-			bindFunc(glGetFragDataLocation, `glGetFragDataLocation`);
-			bindFunc(glGetIntegeri_v, `glGetIntegeri_v`);
-			bindFunc(glGetStringi, `glGetStringi`);
-			bindFunc(glGetTexParameterIiv, `glGetTexParameterIiv`);
-			bindFunc(glGetTexParameterIuiv, `glGetTexParameterIuiv`);
-			bindFunc(glGetTransformFeedbackVarying, `glGetTransformFeedbackVarying`);
-			bindFunc(glGetUniformuiv, `glGetUniformuiv`);
-			bindFunc(glGetVertexAttribIiv, `glGetVertexAttribIiv`);
-			bindFunc(glGetVertexAttribIuiv, `glGetVertexAttribIuiv`);
-			bindFunc(glIsEnabledi, `glIsEnabledi`);
-			bindFunc(glTexParameterIiv, `glTexParameterIiv`);
-			bindFunc(glTexParameterIuiv, `glTexParameterIuiv`);
-			bindFunc(glTransformFeedbackVaryings, `glTransformFeedbackVaryings`);
-			bindFunc(glUniform1ui, `glUniform1ui`);
-			bindFunc(glUniform1uiv, `glUniform1uiv`);
-			bindFunc(glUniform2ui, `glUniform2ui`);
-			bindFunc(glUniform2uiv, `glUniform2uiv`);
-			bindFunc(glUniform3ui, `glUniform3ui`);
-			bindFunc(glUniform3uiv, `glUniform3uiv`);
-			bindFunc(glUniform4ui, `glUniform4ui`);
-			bindFunc(glUniform4uiv, `glUniform4uiv`);
-			bindFunc(glVertexAttribI1i, `glVertexAttribI1i`);
-			bindFunc(glVertexAttribI1iv, `glVertexAttribI1iv`);
-			bindFunc(glVertexAttribI1ui, `glVertexAttribI1ui`);
-			bindFunc(glVertexAttribI1uiv, `glVertexAttribI1uiv`);
-			bindFunc(glVertexAttribI2i, `glVertexAttribI2i`);
-			bindFunc(glVertexAttribI2iv, `glVertexAttribI2iv`);
-			bindFunc(glVertexAttribI2ui, `glVertexAttribI2ui`);
-			bindFunc(glVertexAttribI2uiv, `glVertexAttribI2uiv`);
-			bindFunc(glVertexAttribI3i, `glVertexAttribI3i`);
-			bindFunc(glVertexAttribI3iv, `glVertexAttribI3iv`);
-			bindFunc(glVertexAttribI3ui, `glVertexAttribI3ui`);
-			bindFunc(glVertexAttribI3uiv, `glVertexAttribI3uiv`);
-			bindFunc(glVertexAttribI4bv, `glVertexAttribI4bv`);
-			bindFunc(glVertexAttribI4i, `glVertexAttribI4i`);
-			bindFunc(glVertexAttribI4iv, `glVertexAttribI4iv`);
-			bindFunc(glVertexAttribI4sv, `glVertexAttribI4sv`);
-			bindFunc(glVertexAttribI4ubv, `glVertexAttribI4ubv`);
-			bindFunc(glVertexAttribI4ui, `glVertexAttribI4ui`);
-			bindFunc(glVertexAttribI4uiv, `glVertexAttribI4uiv`);
-			bindFunc(glVertexAttribI4usv, `glVertexAttribI4usv`);
-			bindFunc(glVertexAttribIPointer, `glVertexAttribIPointer`);
+			bindFunc!(glBeginConditionalRender);
+			bindFunc!(glBeginTransformFeedback);
+			bindFunc!(glBindBufferBase);
+			bindFunc!(glBindBufferRange);
+			bindFunc!(glBindFragDataLocation);
+			bindFunc!(glClampColor);
+			bindFunc!(glClearBufferfi);
+			bindFunc!(glClearBufferfv);
+			bindFunc!(glClearBufferiv);
+			bindFunc!(glClearBufferuiv);
+			bindFunc!(glColorMaski);
+			bindFunc!(glDisablei);
+			bindFunc!(glEnablei);
+			bindFunc!(glEndConditionalRender);
+			bindFunc!(glEndTransformFeedback);
+			bindFunc!(glGetBooleani_v);
+			bindFunc!(glGetFragDataLocation);
+			bindFunc!(glGetIntegeri_v);
+			bindFunc!(glGetStringi);
+			bindFunc!(glGetTexParameterIiv);
+			bindFunc!(glGetTexParameterIuiv);
+			bindFunc!(glGetTransformFeedbackVarying);
+			bindFunc!(glGetUniformuiv);
+			bindFunc!(glGetVertexAttribIiv);
+			bindFunc!(glGetVertexAttribIuiv);
+			bindFunc!(glIsEnabledi);
+			bindFunc!(glTexParameterIiv);
+			bindFunc!(glTexParameterIuiv);
+			bindFunc!(glTransformFeedbackVaryings);
+			bindFunc!(glUniform1ui);
+			bindFunc!(glUniform1uiv);
+			bindFunc!(glUniform2ui);
+			bindFunc!(glUniform2uiv);
+			bindFunc!(glUniform3ui);
+			bindFunc!(glUniform3uiv);
+			bindFunc!(glUniform4ui);
+			bindFunc!(glUniform4uiv);
+			bindFunc!(glVertexAttribI1i);
+			bindFunc!(glVertexAttribI1iv);
+			bindFunc!(glVertexAttribI1ui);
+			bindFunc!(glVertexAttribI1uiv);
+			bindFunc!(glVertexAttribI2i);
+			bindFunc!(glVertexAttribI2iv);
+			bindFunc!(glVertexAttribI2ui);
+			bindFunc!(glVertexAttribI2uiv);
+			bindFunc!(glVertexAttribI3i);
+			bindFunc!(glVertexAttribI3iv);
+			bindFunc!(glVertexAttribI3ui);
+			bindFunc!(glVertexAttribI3uiv);
+			bindFunc!(glVertexAttribI4bv);
+			bindFunc!(glVertexAttribI4i);
+			bindFunc!(glVertexAttribI4iv);
+			bindFunc!(glVertexAttribI4sv);
+			bindFunc!(glVertexAttribI4ubv);
+			bindFunc!(glVertexAttribI4ui);
+			bindFunc!(glVertexAttribI4uiv);
+			bindFunc!(glVertexAttribI4usv);
+			bindFunc!(glVertexAttribIPointer);
 		}
 		// GL 3.1
 		static if (glver >= 3.1) {
-			bindFunc(glDrawArraysInstanced, `glDrawArraysInstanced`);
-			bindFunc(glDrawElementsInstanced, `glDrawElementsInstanced`);
-			bindFunc(glPrimitiveRestartIndex, `glPrimitiveRestartIndex`);
-			bindFunc(glTexBuffer, `glTexBuffer`);
+			bindFunc!(glDrawArraysInstanced);
+			bindFunc!(glDrawElementsInstanced);
+			bindFunc!(glPrimitiveRestartIndex);
+			bindFunc!(glTexBuffer);
 		}
 		// GL 3.2
 		static if (glver >= 3.2) {
-			bindFunc(glGetBufferParameteri64v, `glGetBufferParameteri64v`);
-			bindFunc(glGetInteger64i_v, `glGetInteger64i_v`);
+			bindFunc!(glGetBufferParameteri64v);
+			bindFunc!(glGetInteger64i_v);
 		}
 		// GL 3DFX_tbuffer
 		static if (usingExt(`3DFX_tbuffer`)) {
-			bindFunc(glTbufferMask3DFX, `glTbufferMask3DFX`);
+			bindFunc!(glTbufferMask3DFX);
 		}
 		// GL AMD_debug_output
 		static if (usingExt(`AMD_debug_output`)) {
-			bindFunc(glDebugMessageCallbackAMD, `glDebugMessageCallbackAMD`);
-			bindFunc(glDebugMessageEnableAMD, `glDebugMessageEnableAMD`);
-			bindFunc(glDebugMessageInsertAMD, `glDebugMessageInsertAMD`);
-			bindFunc(glGetDebugMessageLogAMD, `glGetDebugMessageLogAMD`);
+			bindFunc!(glDebugMessageCallbackAMD);
+			bindFunc!(glDebugMessageEnableAMD);
+			bindFunc!(glDebugMessageInsertAMD);
+			bindFunc!(glGetDebugMessageLogAMD);
 		}
 		// GL AMD_draw_buffers_blend
 		static if (usingExt(`AMD_draw_buffers_blend`)) {
-			bindFunc(glBlendEquationIndexedAMD, `glBlendEquationIndexedAMD`);
-			bindFunc(glBlendEquationSeparateIndexedAMD, `glBlendEquationSeparateIndexedAMD`);
-			bindFunc(glBlendFuncIndexedAMD, `glBlendFuncIndexedAMD`);
-			bindFunc(glBlendFuncSeparateIndexedAMD, `glBlendFuncSeparateIndexedAMD`);
+			bindFunc!(glBlendEquationIndexedAMD);
+			bindFunc!(glBlendEquationSeparateIndexedAMD);
+			bindFunc!(glBlendFuncIndexedAMD);
+			bindFunc!(glBlendFuncSeparateIndexedAMD);
 		}
 		// GL AMD_multi_draw_indirect
 		static if (usingExt(`AMD_multi_draw_indirect`)) {
-			bindFunc(glMultiDrawArraysIndirectAMD, `glMultiDrawArraysIndirectAMD`);
-			bindFunc(glMultiDrawElementsIndirectAMD, `glMultiDrawElementsIndirectAMD`);
+			bindFunc!(glMultiDrawArraysIndirectAMD);
+			bindFunc!(glMultiDrawElementsIndirectAMD);
 		}
 		// GL AMD_name_gen_delete
 		static if (usingExt(`AMD_name_gen_delete`)) {
-			bindFunc(glDeleteNamesAMD, `glDeleteNamesAMD`);
-			bindFunc(glGenNamesAMD, `glGenNamesAMD`);
-			bindFunc(glIsNameAMD, `glIsNameAMD`);
+			bindFunc!(glDeleteNamesAMD);
+			bindFunc!(glGenNamesAMD);
+			bindFunc!(glIsNameAMD);
 		}
 		// GL AMD_performance_monitor
 		static if (usingExt(`AMD_performance_monitor`)) {
-			bindFunc(glBeginPerfMonitorAMD, `glBeginPerfMonitorAMD`);
-			bindFunc(glDeletePerfMonitorsAMD, `glDeletePerfMonitorsAMD`);
-			bindFunc(glEndPerfMonitorAMD, `glEndPerfMonitorAMD`);
-			bindFunc(glGenPerfMonitorsAMD, `glGenPerfMonitorsAMD`);
-			bindFunc(glGetPerfMonitorCounterDataAMD, `glGetPerfMonitorCounterDataAMD`);
-			bindFunc(glGetPerfMonitorCounterInfoAMD, `glGetPerfMonitorCounterInfoAMD`);
-			bindFunc(glGetPerfMonitorCountersAMD, `glGetPerfMonitorCountersAMD`);
-			bindFunc(glGetPerfMonitorCounterStringAMD, `glGetPerfMonitorCounterStringAMD`);
-			bindFunc(glGetPerfMonitorGroupsAMD, `glGetPerfMonitorGroupsAMD`);
-			bindFunc(glGetPerfMonitorGroupStringAMD, `glGetPerfMonitorGroupStringAMD`);
-			bindFunc(glSelectPerfMonitorCountersAMD, `glSelectPerfMonitorCountersAMD`);
+			bindFunc!(glBeginPerfMonitorAMD);
+			bindFunc!(glDeletePerfMonitorsAMD);
+			bindFunc!(glEndPerfMonitorAMD);
+			bindFunc!(glGenPerfMonitorsAMD);
+			bindFunc!(glGetPerfMonitorCounterDataAMD);
+			bindFunc!(glGetPerfMonitorCounterInfoAMD);
+			bindFunc!(glGetPerfMonitorCountersAMD);
+			bindFunc!(glGetPerfMonitorCounterStringAMD);
+			bindFunc!(glGetPerfMonitorGroupsAMD);
+			bindFunc!(glGetPerfMonitorGroupStringAMD);
+			bindFunc!(glSelectPerfMonitorCountersAMD);
 		}
 		// GL AMD_sample_positions
 		static if (usingExt(`AMD_sample_positions`)) {
-			bindFunc(glSetMultisamplefvAMD, `glSetMultisamplefvAMD`);
+			bindFunc!(glSetMultisamplefvAMD);
 		}
 		// GL AMD_sparse_texture
 		static if (usingExt(`AMD_sparse_texture`)) {
-			bindFunc(glTexStorageSparseAMD, `glTexStorageSparseAMD`);
-			bindFunc(glTextureStorageSparseAMD, `glTextureStorageSparseAMD`);
+			bindFunc!(glTexStorageSparseAMD);
+			bindFunc!(glTextureStorageSparseAMD);
 		}
 		// GL AMD_stencil_operation_extended
 		static if (usingExt(`AMD_stencil_operation_extended`)) {
-			bindFunc(glStencilOpValueAMD, `glStencilOpValueAMD`);
+			bindFunc!(glStencilOpValueAMD);
 		}
 		// GL AMD_vertex_shader_tessellator
 		static if (usingExt(`AMD_vertex_shader_tessellator`)) {
-			bindFunc(glTessellationFactorAMD, `glTessellationFactorAMD`);
-			bindFunc(glTessellationModeAMD, `glTessellationModeAMD`);
+			bindFunc!(glTessellationFactorAMD);
+			bindFunc!(glTessellationModeAMD);
 		}
 		// GL APPLE_element_array
 		static if (usingExt(`APPLE_element_array`)) {
-			bindFunc(glDrawElementArrayAPPLE, `glDrawElementArrayAPPLE`);
-			bindFunc(glDrawRangeElementArrayAPPLE, `glDrawRangeElementArrayAPPLE`);
-			bindFunc(glElementPointerAPPLE, `glElementPointerAPPLE`);
-			bindFunc(glMultiDrawElementArrayAPPLE, `glMultiDrawElementArrayAPPLE`);
-			bindFunc(glMultiDrawRangeElementArrayAPPLE, `glMultiDrawRangeElementArrayAPPLE`);
+			bindFunc!(glDrawElementArrayAPPLE);
+			bindFunc!(glDrawRangeElementArrayAPPLE);
+			bindFunc!(glElementPointerAPPLE);
+			bindFunc!(glMultiDrawElementArrayAPPLE);
+			bindFunc!(glMultiDrawRangeElementArrayAPPLE);
 		}
 		// GL APPLE_fence
 		static if (usingExt(`APPLE_fence`)) {
-			bindFunc(glDeleteFencesAPPLE, `glDeleteFencesAPPLE`);
-			bindFunc(glFinishFenceAPPLE, `glFinishFenceAPPLE`);
-			bindFunc(glFinishObjectAPPLE, `glFinishObjectAPPLE`);
-			bindFunc(glGenFencesAPPLE, `glGenFencesAPPLE`);
-			bindFunc(glIsFenceAPPLE, `glIsFenceAPPLE`);
-			bindFunc(glSetFenceAPPLE, `glSetFenceAPPLE`);
-			bindFunc(glTestFenceAPPLE, `glTestFenceAPPLE`);
-			bindFunc(glTestObjectAPPLE, `glTestObjectAPPLE`);
+			bindFunc!(glDeleteFencesAPPLE);
+			bindFunc!(glFinishFenceAPPLE);
+			bindFunc!(glFinishObjectAPPLE);
+			bindFunc!(glGenFencesAPPLE);
+			bindFunc!(glIsFenceAPPLE);
+			bindFunc!(glSetFenceAPPLE);
+			bindFunc!(glTestFenceAPPLE);
+			bindFunc!(glTestObjectAPPLE);
 		}
 		// GL APPLE_flush_buffer_range
 		static if (usingExt(`APPLE_flush_buffer_range`)) {
-			bindFunc(glBufferParameteriAPPLE, `glBufferParameteriAPPLE`);
-			bindFunc(glFlushMappedBufferRangeAPPLE, `glFlushMappedBufferRangeAPPLE`);
+			bindFunc!(glBufferParameteriAPPLE);
+			bindFunc!(glFlushMappedBufferRangeAPPLE);
 		}
 		// GL APPLE_object_purgeable
 		static if (usingExt(`APPLE_object_purgeable`)) {
-			bindFunc(glGetObjectParameterivAPPLE, `glGetObjectParameterivAPPLE`);
-			bindFunc(glObjectPurgeableAPPLE, `glObjectPurgeableAPPLE`);
-			bindFunc(glObjectUnpurgeableAPPLE, `glObjectUnpurgeableAPPLE`);
+			bindFunc!(glGetObjectParameterivAPPLE);
+			bindFunc!(glObjectPurgeableAPPLE);
+			bindFunc!(glObjectUnpurgeableAPPLE);
 		}
 		// GL APPLE_texture_range
 		static if (usingExt(`APPLE_texture_range`)) {
-			bindFunc(glGetTexParameterPointervAPPLE, `glGetTexParameterPointervAPPLE`);
-			bindFunc(glTextureRangeAPPLE, `glTextureRangeAPPLE`);
+			bindFunc!(glGetTexParameterPointervAPPLE);
+			bindFunc!(glTextureRangeAPPLE);
 		}
 		// GL APPLE_vertex_array_object
 		static if (usingExt(`APPLE_vertex_array_object`)) {
-			bindFunc(glBindVertexArrayAPPLE, `glBindVertexArrayAPPLE`);
-			bindFunc(glDeleteVertexArraysAPPLE, `glDeleteVertexArraysAPPLE`);
-			bindFunc(glGenVertexArraysAPPLE, `glGenVertexArraysAPPLE`);
-			bindFunc(glIsVertexArrayAPPLE, `glIsVertexArrayAPPLE`);
+			bindFunc!(glBindVertexArrayAPPLE);
+			bindFunc!(glDeleteVertexArraysAPPLE);
+			bindFunc!(glGenVertexArraysAPPLE);
+			bindFunc!(glIsVertexArrayAPPLE);
 		}
 		// GL APPLE_vertex_array_range
 		static if (usingExt(`APPLE_vertex_array_range`)) {
-			bindFunc(glFlushVertexArrayRangeAPPLE, `glFlushVertexArrayRangeAPPLE`);
-			bindFunc(glVertexArrayParameteriAPPLE, `glVertexArrayParameteriAPPLE`);
-			bindFunc(glVertexArrayRangeAPPLE, `glVertexArrayRangeAPPLE`);
+			bindFunc!(glFlushVertexArrayRangeAPPLE);
+			bindFunc!(glVertexArrayParameteriAPPLE);
+			bindFunc!(glVertexArrayRangeAPPLE);
 		}
 		// GL APPLE_vertex_program_evaluators
 		static if (usingExt(`APPLE_vertex_program_evaluators`)) {
-			bindFunc(glDisableVertexAttribAPPLE, `glDisableVertexAttribAPPLE`);
-			bindFunc(glEnableVertexAttribAPPLE, `glEnableVertexAttribAPPLE`);
-			bindFunc(glIsVertexAttribEnabledAPPLE, `glIsVertexAttribEnabledAPPLE`);
-			bindFunc(glMapVertexAttrib1dAPPLE, `glMapVertexAttrib1dAPPLE`);
-			bindFunc(glMapVertexAttrib1fAPPLE, `glMapVertexAttrib1fAPPLE`);
-			bindFunc(glMapVertexAttrib2dAPPLE, `glMapVertexAttrib2dAPPLE`);
-			bindFunc(glMapVertexAttrib2fAPPLE, `glMapVertexAttrib2fAPPLE`);
+			bindFunc!(glDisableVertexAttribAPPLE);
+			bindFunc!(glEnableVertexAttribAPPLE);
+			bindFunc!(glIsVertexAttribEnabledAPPLE);
+			bindFunc!(glMapVertexAttrib1dAPPLE);
+			bindFunc!(glMapVertexAttrib1fAPPLE);
+			bindFunc!(glMapVertexAttrib2dAPPLE);
+			bindFunc!(glMapVertexAttrib2fAPPLE);
 		}
 		// GL ARB_base_instance
 		static if (usingExt(`ARB_base_instance`)) {
-			bindFunc(glDrawArraysInstancedBaseInstance, `glDrawArraysInstancedBaseInstance`);
-			bindFunc(glDrawElementsInstancedBaseInstance, `glDrawElementsInstancedBaseInstance`);
-			bindFunc(glDrawElementsInstancedBaseVertexBaseInstance, `glDrawElementsInstancedBaseVertexBaseInstance`);
+			bindFunc!(glDrawArraysInstancedBaseInstance);
+			bindFunc!(glDrawElementsInstancedBaseInstance);
+			bindFunc!(glDrawElementsInstancedBaseVertexBaseInstance);
 		}
 		// GL ARB_blend_func_extended
 		static if (usingExt(`ARB_blend_func_extended`)) {
-			bindFunc(glBindFragDataLocationIndexed, `glBindFragDataLocationIndexed`);
-			bindFunc(glGetFragDataIndex, `glGetFragDataIndex`);
+			bindFunc!(glBindFragDataLocationIndexed);
+			bindFunc!(glGetFragDataIndex);
 		}
 		// GL ARB_cl_event
 		static if (usingExt(`ARB_cl_event`)) {
-			bindFunc(glCreateSyncFromCLeventARB, `glCreateSyncFromCLeventARB`);
+			bindFunc!(glCreateSyncFromCLeventARB);
 		}
 		// GL ARB_clear_buffer_object
 		static if (usingExt(`ARB_clear_buffer_object`)) {
-			bindFunc(glClearBufferData, `glClearBufferData`);
-			bindFunc(glClearBufferSubData, `glClearBufferSubData`);
-			bindFunc(glClearNamedBufferDataEXT, `glClearNamedBufferDataEXT`);
-			bindFunc(glClearNamedBufferSubDataEXT, `glClearNamedBufferSubDataEXT`);
+			bindFunc!(glClearBufferData);
+			bindFunc!(glClearBufferSubData);
+			bindFunc!(glClearNamedBufferDataEXT);
+			bindFunc!(glClearNamedBufferSubDataEXT);
 		}
 		// GL ARB_color_buffer_float
 		static if (usingExt(`ARB_color_buffer_float`)) {
-			bindFunc(glClampColorARB, `glClampColorARB`);
+			bindFunc!(glClampColorARB);
 		}
 		// GL ARB_compute_shader
 		static if (usingExt(`ARB_compute_shader`)) {
-			bindFunc(glDispatchCompute, `glDispatchCompute`);
-			bindFunc(glDispatchComputeIndirect, `glDispatchComputeIndirect`);
+			bindFunc!(glDispatchCompute);
+			bindFunc!(glDispatchComputeIndirect);
 		}
 		// GL ARB_copy_buffer
 		static if (usingExt(`ARB_copy_buffer`)) {
-			bindFunc(glCopyBufferSubData, `glCopyBufferSubData`);
+			bindFunc!(glCopyBufferSubData);
 		}
 		// GL ARB_copy_image
 		static if (usingExt(`ARB_copy_image`)) {
-			bindFunc(glCopyImageSubData, `glCopyImageSubData`);
+			bindFunc!(glCopyImageSubData);
 		}
 		// GL ARB_debug_output
 		static if (usingExt(`ARB_debug_output`)) {
-			bindFunc(glDebugMessageCallbackARB, `glDebugMessageCallbackARB`);
-			bindFunc(glDebugMessageControlARB, `glDebugMessageControlARB`);
-			bindFunc(glDebugMessageInsertARB, `glDebugMessageInsertARB`);
-			bindFunc(glGetDebugMessageLogARB, `glGetDebugMessageLogARB`);
+			bindFunc!(glDebugMessageCallbackARB);
+			bindFunc!(glDebugMessageControlARB);
+			bindFunc!(glDebugMessageInsertARB);
+			bindFunc!(glGetDebugMessageLogARB);
 		}
 		// GL ARB_draw_buffers
 		static if (usingExt(`ARB_draw_buffers`)) {
-			bindFunc(glDrawBuffersARB, `glDrawBuffersARB`);
+			bindFunc!(glDrawBuffersARB);
 		}
 		// GL ARB_draw_buffers_blend
 		static if (usingExt(`ARB_draw_buffers_blend`)) {
-			bindFunc(glBlendEquationiARB, `glBlendEquationiARB`);
-			bindFunc(glBlendEquationSeparateiARB, `glBlendEquationSeparateiARB`);
-			bindFunc(glBlendFunciARB, `glBlendFunciARB`);
-			bindFunc(glBlendFuncSeparateiARB, `glBlendFuncSeparateiARB`);
+			bindFunc!(glBlendEquationiARB);
+			bindFunc!(glBlendEquationSeparateiARB);
+			bindFunc!(glBlendFunciARB);
+			bindFunc!(glBlendFuncSeparateiARB);
 		}
 		// GL ARB_draw_elements_base_vertex
 		static if (usingExt(`ARB_draw_elements_base_vertex`)) {
-			bindFunc(glDrawElementsBaseVertex, `glDrawElementsBaseVertex`);
-			bindFunc(glDrawElementsInstancedBaseVertex, `glDrawElementsInstancedBaseVertex`);
-			bindFunc(glDrawRangeElementsBaseVertex, `glDrawRangeElementsBaseVertex`);
-			bindFunc(glMultiDrawElementsBaseVertex, `glMultiDrawElementsBaseVertex`);
+			bindFunc!(glDrawElementsBaseVertex);
+			bindFunc!(glDrawElementsInstancedBaseVertex);
+			bindFunc!(glDrawRangeElementsBaseVertex);
+			bindFunc!(glMultiDrawElementsBaseVertex);
 		}
 		// GL ARB_draw_indirect
 		static if (usingExt(`ARB_draw_indirect`)) {
-			bindFunc(glDrawArraysIndirect, `glDrawArraysIndirect`);
-			bindFunc(glDrawElementsIndirect, `glDrawElementsIndirect`);
+			bindFunc!(glDrawArraysIndirect);
+			bindFunc!(glDrawElementsIndirect);
 		}
 		// GL ARB_draw_instanced
 		static if (usingExt(`ARB_draw_instanced`)) {
-			bindFunc(glDrawArraysInstancedARB, `glDrawArraysInstancedARB`);
-			bindFunc(glDrawElementsInstancedARB, `glDrawElementsInstancedARB`);
+			bindFunc!(glDrawArraysInstancedARB);
+			bindFunc!(glDrawElementsInstancedARB);
 		}
 		// GL ARB_ES2_compatibility
 		static if (usingExt(`ARB_ES2_compatibility`)) {
-			bindFunc(glClearDepthf, `glClearDepthf`);
-			bindFunc(glDepthRangef, `glDepthRangef`);
-			bindFunc(glGetShaderPrecisionFormat, `glGetShaderPrecisionFormat`);
-			bindFunc(glReleaseShaderCompiler, `glReleaseShaderCompiler`);
-			bindFunc(glShaderBinary, `glShaderBinary`);
+			bindFunc!(glClearDepthf);
+			bindFunc!(glDepthRangef);
+			bindFunc!(glGetShaderPrecisionFormat);
+			bindFunc!(glReleaseShaderCompiler);
+			bindFunc!(glShaderBinary);
 		}
 		// GL ARB_framebuffer_no_attachments
 		static if (usingExt(`ARB_framebuffer_no_attachments`)) {
-			bindFunc(glFramebufferParameteri, `glFramebufferParameteri`);
-			bindFunc(glGetFramebufferParameteriv, `glGetFramebufferParameteriv`);
-			bindFunc(glGetNamedFramebufferParameterivEXT, `glGetNamedFramebufferParameterivEXT`);
-			bindFunc(glNamedFramebufferParameteriEXT, `glNamedFramebufferParameteriEXT`);
+			bindFunc!(glFramebufferParameteri);
+			bindFunc!(glGetFramebufferParameteriv);
+			bindFunc!(glGetNamedFramebufferParameterivEXT);
+			bindFunc!(glNamedFramebufferParameteriEXT);
 		}
 		// GL ARB_framebuffer_object
 		static if (usingExt(`ARB_framebuffer_object`)) {
-			bindFunc(glBindFramebuffer, `glBindFramebuffer`);
-			bindFunc(glBindRenderbuffer, `glBindRenderbuffer`);
-			bindFunc(glBlitFramebuffer, `glBlitFramebuffer`);
-			bindFunc(glCheckFramebufferStatus, `glCheckFramebufferStatus`);
-			bindFunc(glDeleteFramebuffers, `glDeleteFramebuffers`);
-			bindFunc(glDeleteRenderbuffers, `glDeleteRenderbuffers`);
-			bindFunc(glFramebufferRenderbuffer, `glFramebufferRenderbuffer`);
-			bindFunc(glFramebufferTexture1D, `glFramebufferTexture1D`);
-			bindFunc(glFramebufferTexture2D, `glFramebufferTexture2D`);
-			bindFunc(glFramebufferTexture3D, `glFramebufferTexture3D`);
-			bindFunc(glFramebufferTextureLayer, `glFramebufferTextureLayer`);
-			bindFunc(glGenerateMipmap, `glGenerateMipmap`);
-			bindFunc(glGenFramebuffers, `glGenFramebuffers`);
-			bindFunc(glGenRenderbuffers, `glGenRenderbuffers`);
-			bindFunc(glGetFramebufferAttachmentParameteriv, `glGetFramebufferAttachmentParameteriv`);
-			bindFunc(glGetRenderbufferParameteriv, `glGetRenderbufferParameteriv`);
-			bindFunc(glIsFramebuffer, `glIsFramebuffer`);
-			bindFunc(glIsRenderbuffer, `glIsRenderbuffer`);
-			bindFunc(glRenderbufferStorage, `glRenderbufferStorage`);
-			bindFunc(glRenderbufferStorageMultisample, `glRenderbufferStorageMultisample`);
+			bindFunc!(glBindFramebuffer);
+			bindFunc!(glBindRenderbuffer);
+			bindFunc!(glBlitFramebuffer);
+			bindFunc!(glCheckFramebufferStatus);
+			bindFunc!(glDeleteFramebuffers);
+			bindFunc!(glDeleteRenderbuffers);
+			bindFunc!(glFramebufferRenderbuffer);
+			bindFunc!(glFramebufferTexture1D);
+			bindFunc!(glFramebufferTexture2D);
+			bindFunc!(glFramebufferTexture3D);
+			bindFunc!(glFramebufferTextureLayer);
+			bindFunc!(glGenerateMipmap);
+			bindFunc!(glGenFramebuffers);
+			bindFunc!(glGenRenderbuffers);
+			bindFunc!(glGetFramebufferAttachmentParameteriv);
+			bindFunc!(glGetRenderbufferParameteriv);
+			bindFunc!(glIsFramebuffer);
+			bindFunc!(glIsRenderbuffer);
+			bindFunc!(glRenderbufferStorage);
+			bindFunc!(glRenderbufferStorageMultisample);
 		}
 		// GL ARB_geometry_shader4
 		static if (usingExt(`ARB_geometry_shader4`)) {
-			bindFunc(glFramebufferTextureARB, `glFramebufferTextureARB`);
-			bindFunc(glFramebufferTextureFaceARB, `glFramebufferTextureFaceARB`);
-			bindFunc(glFramebufferTextureLayerARB, `glFramebufferTextureLayerARB`);
-			bindFunc(glProgramParameteriARB, `glProgramParameteriARB`);
+			bindFunc!(glFramebufferTextureARB);
+			bindFunc!(glFramebufferTextureFaceARB);
+			bindFunc!(glFramebufferTextureLayerARB);
+			bindFunc!(glProgramParameteriARB);
 		}
 		// GL ARB_get_program_binary
 		static if (usingExt(`ARB_get_program_binary`)) {
-			bindFunc(glGetProgramBinary, `glGetProgramBinary`);
-			bindFunc(glProgramBinary, `glProgramBinary`);
-			bindFunc(glProgramParameteri, `glProgramParameteri`);
+			bindFunc!(glGetProgramBinary);
+			bindFunc!(glProgramBinary);
+			bindFunc!(glProgramParameteri);
 		}
 		// GL ARB_gpu_shader_fp64
 		static if (usingExt(`ARB_gpu_shader_fp64`)) {
-			bindFunc(glGetUniformdv, `glGetUniformdv`);
-			bindFunc(glUniform1d, `glUniform1d`);
-			bindFunc(glUniform1dv, `glUniform1dv`);
-			bindFunc(glUniform2d, `glUniform2d`);
-			bindFunc(glUniform2dv, `glUniform2dv`);
-			bindFunc(glUniform3d, `glUniform3d`);
-			bindFunc(glUniform3dv, `glUniform3dv`);
-			bindFunc(glUniform4d, `glUniform4d`);
-			bindFunc(glUniform4dv, `glUniform4dv`);
-			bindFunc(glUniformMatrix2dv, `glUniformMatrix2dv`);
-			bindFunc(glUniformMatrix2x3dv, `glUniformMatrix2x3dv`);
-			bindFunc(glUniformMatrix2x4dv, `glUniformMatrix2x4dv`);
-			bindFunc(glUniformMatrix3dv, `glUniformMatrix3dv`);
-			bindFunc(glUniformMatrix3x2dv, `glUniformMatrix3x2dv`);
-			bindFunc(glUniformMatrix3x4dv, `glUniformMatrix3x4dv`);
-			bindFunc(glUniformMatrix4dv, `glUniformMatrix4dv`);
-			bindFunc(glUniformMatrix4x2dv, `glUniformMatrix4x2dv`);
-			bindFunc(glUniformMatrix4x3dv, `glUniformMatrix4x3dv`);
+			bindFunc!(glGetUniformdv);
+			bindFunc!(glUniform1d);
+			bindFunc!(glUniform1dv);
+			bindFunc!(glUniform2d);
+			bindFunc!(glUniform2dv);
+			bindFunc!(glUniform3d);
+			bindFunc!(glUniform3dv);
+			bindFunc!(glUniform4d);
+			bindFunc!(glUniform4dv);
+			bindFunc!(glUniformMatrix2dv);
+			bindFunc!(glUniformMatrix2x3dv);
+			bindFunc!(glUniformMatrix2x4dv);
+			bindFunc!(glUniformMatrix3dv);
+			bindFunc!(glUniformMatrix3x2dv);
+			bindFunc!(glUniformMatrix3x4dv);
+			bindFunc!(glUniformMatrix4dv);
+			bindFunc!(glUniformMatrix4x2dv);
+			bindFunc!(glUniformMatrix4x3dv);
 		}
 		// GL ARB_instanced_arrays
 		static if (usingExt(`ARB_instanced_arrays`)) {
-			bindFunc(glVertexAttribDivisorARB, `glVertexAttribDivisorARB`);
+			bindFunc!(glVertexAttribDivisorARB);
 		}
 		// GL ARB_internalformat_query
 		static if (usingExt(`ARB_internalformat_query`)) {
-			bindFunc(glGetInternalformativ, `glGetInternalformativ`);
+			bindFunc!(glGetInternalformativ);
 		}
 		// GL ARB_internalformat_query2
 		static if (usingExt(`ARB_internalformat_query2`)) {
-			bindFunc(glGetInternalformati64v, `glGetInternalformati64v`);
+			bindFunc!(glGetInternalformati64v);
 		}
 		// GL ARB_invalidate_subdata
 		static if (usingExt(`ARB_invalidate_subdata`)) {
-			bindFunc(glInvalidateBufferData, `glInvalidateBufferData`);
-			bindFunc(glInvalidateBufferSubData, `glInvalidateBufferSubData`);
-			bindFunc(glInvalidateFramebuffer, `glInvalidateFramebuffer`);
-			bindFunc(glInvalidateSubFramebuffer, `glInvalidateSubFramebuffer`);
-			bindFunc(glInvalidateTexImage, `glInvalidateTexImage`);
-			bindFunc(glInvalidateTexSubImage, `glInvalidateTexSubImage`);
+			bindFunc!(glInvalidateBufferData);
+			bindFunc!(glInvalidateBufferSubData);
+			bindFunc!(glInvalidateFramebuffer);
+			bindFunc!(glInvalidateSubFramebuffer);
+			bindFunc!(glInvalidateTexImage);
+			bindFunc!(glInvalidateTexSubImage);
 		}
 		// GL ARB_map_buffer_range
 		static if (usingExt(`ARB_map_buffer_range`)) {
-			bindFunc(glFlushMappedBufferRange, `glFlushMappedBufferRange`);
-			bindFunc(glMapBufferRange, `glMapBufferRange`);
+			bindFunc!(glFlushMappedBufferRange);
+			bindFunc!(glMapBufferRange);
 		}
 		// GL ARB_matrix_palette
 		static if (usingExt(`ARB_matrix_palette`)) {
-			bindFunc(glCurrentPaletteMatrixARB, `glCurrentPaletteMatrixARB`);
-			bindFunc(glMatrixIndexPointerARB, `glMatrixIndexPointerARB`);
-			bindFunc(glMatrixIndexubvARB, `glMatrixIndexubvARB`);
-			bindFunc(glMatrixIndexuivARB, `glMatrixIndexuivARB`);
-			bindFunc(glMatrixIndexusvARB, `glMatrixIndexusvARB`);
+			bindFunc!(glCurrentPaletteMatrixARB);
+			bindFunc!(glMatrixIndexPointerARB);
+			bindFunc!(glMatrixIndexubvARB);
+			bindFunc!(glMatrixIndexuivARB);
+			bindFunc!(glMatrixIndexusvARB);
 		}
 		// GL ARB_multi_draw_indirect
 		static if (usingExt(`ARB_multi_draw_indirect`)) {
-			bindFunc(glMultiDrawArraysIndirect, `glMultiDrawArraysIndirect`);
-			bindFunc(glMultiDrawElementsIndirect, `glMultiDrawElementsIndirect`);
+			bindFunc!(glMultiDrawArraysIndirect);
+			bindFunc!(glMultiDrawElementsIndirect);
 		}
 		// GL ARB_multisample
 		static if (usingExt(`ARB_multisample`)) {
-			bindFunc(glSampleCoverageARB, `glSampleCoverageARB`);
+			bindFunc!(glSampleCoverageARB);
 		}
 		// GL ARB_multitexture
 		static if (usingExt(`ARB_multitexture`)) {
-			bindFunc(glActiveTextureARB, `glActiveTextureARB`);
-			bindFunc(glClientActiveTextureARB, `glClientActiveTextureARB`);
-			bindFunc(glMultiTexCoord1dARB, `glMultiTexCoord1dARB`);
-			bindFunc(glMultiTexCoord1dvARB, `glMultiTexCoord1dvARB`);
-			bindFunc(glMultiTexCoord1fARB, `glMultiTexCoord1fARB`);
-			bindFunc(glMultiTexCoord1fvARB, `glMultiTexCoord1fvARB`);
-			bindFunc(glMultiTexCoord1iARB, `glMultiTexCoord1iARB`);
-			bindFunc(glMultiTexCoord1ivARB, `glMultiTexCoord1ivARB`);
-			bindFunc(glMultiTexCoord1sARB, `glMultiTexCoord1sARB`);
-			bindFunc(glMultiTexCoord1svARB, `glMultiTexCoord1svARB`);
-			bindFunc(glMultiTexCoord2dARB, `glMultiTexCoord2dARB`);
-			bindFunc(glMultiTexCoord2dvARB, `glMultiTexCoord2dvARB`);
-			bindFunc(glMultiTexCoord2fARB, `glMultiTexCoord2fARB`);
-			bindFunc(glMultiTexCoord2fvARB, `glMultiTexCoord2fvARB`);
-			bindFunc(glMultiTexCoord2iARB, `glMultiTexCoord2iARB`);
-			bindFunc(glMultiTexCoord2ivARB, `glMultiTexCoord2ivARB`);
-			bindFunc(glMultiTexCoord2sARB, `glMultiTexCoord2sARB`);
-			bindFunc(glMultiTexCoord2svARB, `glMultiTexCoord2svARB`);
-			bindFunc(glMultiTexCoord3dARB, `glMultiTexCoord3dARB`);
-			bindFunc(glMultiTexCoord3dvARB, `glMultiTexCoord3dvARB`);
-			bindFunc(glMultiTexCoord3fARB, `glMultiTexCoord3fARB`);
-			bindFunc(glMultiTexCoord3fvARB, `glMultiTexCoord3fvARB`);
-			bindFunc(glMultiTexCoord3iARB, `glMultiTexCoord3iARB`);
-			bindFunc(glMultiTexCoord3ivARB, `glMultiTexCoord3ivARB`);
-			bindFunc(glMultiTexCoord3sARB, `glMultiTexCoord3sARB`);
-			bindFunc(glMultiTexCoord3svARB, `glMultiTexCoord3svARB`);
-			bindFunc(glMultiTexCoord4dARB, `glMultiTexCoord4dARB`);
-			bindFunc(glMultiTexCoord4dvARB, `glMultiTexCoord4dvARB`);
-			bindFunc(glMultiTexCoord4fARB, `glMultiTexCoord4fARB`);
-			bindFunc(glMultiTexCoord4fvARB, `glMultiTexCoord4fvARB`);
-			bindFunc(glMultiTexCoord4iARB, `glMultiTexCoord4iARB`);
-			bindFunc(glMultiTexCoord4ivARB, `glMultiTexCoord4ivARB`);
-			bindFunc(glMultiTexCoord4sARB, `glMultiTexCoord4sARB`);
-			bindFunc(glMultiTexCoord4svARB, `glMultiTexCoord4svARB`);
+			bindFunc!(glActiveTextureARB);
+			bindFunc!(glClientActiveTextureARB);
+			bindFunc!(glMultiTexCoord1dARB);
+			bindFunc!(glMultiTexCoord1dvARB);
+			bindFunc!(glMultiTexCoord1fARB);
+			bindFunc!(glMultiTexCoord1fvARB);
+			bindFunc!(glMultiTexCoord1iARB);
+			bindFunc!(glMultiTexCoord1ivARB);
+			bindFunc!(glMultiTexCoord1sARB);
+			bindFunc!(glMultiTexCoord1svARB);
+			bindFunc!(glMultiTexCoord2dARB);
+			bindFunc!(glMultiTexCoord2dvARB);
+			bindFunc!(glMultiTexCoord2fARB);
+			bindFunc!(glMultiTexCoord2fvARB);
+			bindFunc!(glMultiTexCoord2iARB);
+			bindFunc!(glMultiTexCoord2ivARB);
+			bindFunc!(glMultiTexCoord2sARB);
+			bindFunc!(glMultiTexCoord2svARB);
+			bindFunc!(glMultiTexCoord3dARB);
+			bindFunc!(glMultiTexCoord3dvARB);
+			bindFunc!(glMultiTexCoord3fARB);
+			bindFunc!(glMultiTexCoord3fvARB);
+			bindFunc!(glMultiTexCoord3iARB);
+			bindFunc!(glMultiTexCoord3ivARB);
+			bindFunc!(glMultiTexCoord3sARB);
+			bindFunc!(glMultiTexCoord3svARB);
+			bindFunc!(glMultiTexCoord4dARB);
+			bindFunc!(glMultiTexCoord4dvARB);
+			bindFunc!(glMultiTexCoord4fARB);
+			bindFunc!(glMultiTexCoord4fvARB);
+			bindFunc!(glMultiTexCoord4iARB);
+			bindFunc!(glMultiTexCoord4ivARB);
+			bindFunc!(glMultiTexCoord4sARB);
+			bindFunc!(glMultiTexCoord4svARB);
 		}
 		// GL ARB_occlusion_query
 		static if (usingExt(`ARB_occlusion_query`)) {
-			bindFunc(glBeginQueryARB, `glBeginQueryARB`);
-			bindFunc(glDeleteQueriesARB, `glDeleteQueriesARB`);
-			bindFunc(glEndQueryARB, `glEndQueryARB`);
-			bindFunc(glGenQueriesARB, `glGenQueriesARB`);
-			bindFunc(glGetQueryivARB, `glGetQueryivARB`);
-			bindFunc(glGetQueryObjectivARB, `glGetQueryObjectivARB`);
-			bindFunc(glGetQueryObjectuivARB, `glGetQueryObjectuivARB`);
-			bindFunc(glIsQueryARB, `glIsQueryARB`);
+			bindFunc!(glBeginQueryARB);
+			bindFunc!(glDeleteQueriesARB);
+			bindFunc!(glEndQueryARB);
+			bindFunc!(glGenQueriesARB);
+			bindFunc!(glGetQueryivARB);
+			bindFunc!(glGetQueryObjectivARB);
+			bindFunc!(glGetQueryObjectuivARB);
+			bindFunc!(glIsQueryARB);
 		}
 		// GL ARB_point_parameters
 		static if (usingExt(`ARB_point_parameters`)) {
-			bindFunc(glPointParameterfARB, `glPointParameterfARB`);
-			bindFunc(glPointParameterfvARB, `glPointParameterfvARB`);
+			bindFunc!(glPointParameterfARB);
+			bindFunc!(glPointParameterfvARB);
 		}
 		// GL ARB_program_interface_query
 		static if (usingExt(`ARB_program_interface_query`)) {
-			bindFunc(glGetProgramInterfaceiv, `glGetProgramInterfaceiv`);
-			bindFunc(glGetProgramResourceIndex, `glGetProgramResourceIndex`);
-			bindFunc(glGetProgramResourceiv, `glGetProgramResourceiv`);
-			bindFunc(glGetProgramResourceLocation, `glGetProgramResourceLocation`);
-			bindFunc(glGetProgramResourceLocationIndex, `glGetProgramResourceLocationIndex`);
-			bindFunc(glGetProgramResourceName, `glGetProgramResourceName`);
+			bindFunc!(glGetProgramInterfaceiv);
+			bindFunc!(glGetProgramResourceIndex);
+			bindFunc!(glGetProgramResourceiv);
+			bindFunc!(glGetProgramResourceLocation);
+			bindFunc!(glGetProgramResourceLocationIndex);
+			bindFunc!(glGetProgramResourceName);
 		}
 		// GL ARB_provoking_vertex
 		static if (usingExt(`ARB_provoking_vertex`)) {
-			bindFunc(glProvokingVertex, `glProvokingVertex`);
+			bindFunc!(glProvokingVertex);
 		}
 		// GL ARB_robustness
 		static if (usingExt(`ARB_robustness`)) {
-			bindFunc(glGetGraphicsResetStatusARB, `glGetGraphicsResetStatusARB`);
-			bindFunc(glGetnColorTableARB, `glGetnColorTableARB`);
-			bindFunc(glGetnCompressedTexImageARB, `glGetnCompressedTexImageARB`);
-			bindFunc(glGetnConvolutionFilterARB, `glGetnConvolutionFilterARB`);
-			bindFunc(glGetnHistogramARB, `glGetnHistogramARB`);
-			bindFunc(glGetnMapdvARB, `glGetnMapdvARB`);
-			bindFunc(glGetnMapfvARB, `glGetnMapfvARB`);
-			bindFunc(glGetnMapivARB, `glGetnMapivARB`);
-			bindFunc(glGetnMinmaxARB, `glGetnMinmaxARB`);
-			bindFunc(glGetnPixelMapfvARB, `glGetnPixelMapfvARB`);
-			bindFunc(glGetnPixelMapuivARB, `glGetnPixelMapuivARB`);
-			bindFunc(glGetnPixelMapusvARB, `glGetnPixelMapusvARB`);
-			bindFunc(glGetnPolygonStippleARB, `glGetnPolygonStippleARB`);
-			bindFunc(glGetnSeparableFilterARB, `glGetnSeparableFilterARB`);
-			bindFunc(glGetnTexImageARB, `glGetnTexImageARB`);
-			bindFunc(glGetnUniformdvARB, `glGetnUniformdvARB`);
-			bindFunc(glGetnUniformfvARB, `glGetnUniformfvARB`);
-			bindFunc(glGetnUniformivARB, `glGetnUniformivARB`);
-			bindFunc(glGetnUniformuivARB, `glGetnUniformuivARB`);
-			bindFunc(glReadnPixelsARB, `glReadnPixelsARB`);
+			bindFunc!(glGetGraphicsResetStatusARB);
+			bindFunc!(glGetnColorTableARB);
+			bindFunc!(glGetnCompressedTexImageARB);
+			bindFunc!(glGetnConvolutionFilterARB);
+			bindFunc!(glGetnHistogramARB);
+			bindFunc!(glGetnMapdvARB);
+			bindFunc!(glGetnMapfvARB);
+			bindFunc!(glGetnMapivARB);
+			bindFunc!(glGetnMinmaxARB);
+			bindFunc!(glGetnPixelMapfvARB);
+			bindFunc!(glGetnPixelMapuivARB);
+			bindFunc!(glGetnPixelMapusvARB);
+			bindFunc!(glGetnPolygonStippleARB);
+			bindFunc!(glGetnSeparableFilterARB);
+			bindFunc!(glGetnTexImageARB);
+			bindFunc!(glGetnUniformdvARB);
+			bindFunc!(glGetnUniformfvARB);
+			bindFunc!(glGetnUniformivARB);
+			bindFunc!(glGetnUniformuivARB);
+			bindFunc!(glReadnPixelsARB);
 		}
 		// GL ARB_sample_shading
 		static if (usingExt(`ARB_sample_shading`)) {
-			bindFunc(glMinSampleShadingARB, `glMinSampleShadingARB`);
+			bindFunc!(glMinSampleShadingARB);
 		}
 		// GL ARB_sampler_objects
 		static if (usingExt(`ARB_sampler_objects`)) {
-			bindFunc(glBindSampler, `glBindSampler`);
-			bindFunc(glDeleteSamplers, `glDeleteSamplers`);
-			bindFunc(glGenSamplers, `glGenSamplers`);
-			bindFunc(glGetSamplerParameterfv, `glGetSamplerParameterfv`);
-			bindFunc(glGetSamplerParameterIiv, `glGetSamplerParameterIiv`);
-			bindFunc(glGetSamplerParameterIuiv, `glGetSamplerParameterIuiv`);
-			bindFunc(glGetSamplerParameteriv, `glGetSamplerParameteriv`);
-			bindFunc(glIsSampler, `glIsSampler`);
-			bindFunc(glSamplerParameterf, `glSamplerParameterf`);
-			bindFunc(glSamplerParameterfv, `glSamplerParameterfv`);
-			bindFunc(glSamplerParameteri, `glSamplerParameteri`);
-			bindFunc(glSamplerParameterIiv, `glSamplerParameterIiv`);
-			bindFunc(glSamplerParameterIuiv, `glSamplerParameterIuiv`);
-			bindFunc(glSamplerParameteriv, `glSamplerParameteriv`);
+			bindFunc!(glBindSampler);
+			bindFunc!(glDeleteSamplers);
+			bindFunc!(glGenSamplers);
+			bindFunc!(glGetSamplerParameterfv);
+			bindFunc!(glGetSamplerParameterIiv);
+			bindFunc!(glGetSamplerParameterIuiv);
+			bindFunc!(glGetSamplerParameteriv);
+			bindFunc!(glIsSampler);
+			bindFunc!(glSamplerParameterf);
+			bindFunc!(glSamplerParameterfv);
+			bindFunc!(glSamplerParameteri);
+			bindFunc!(glSamplerParameterIiv);
+			bindFunc!(glSamplerParameterIuiv);
+			bindFunc!(glSamplerParameteriv);
 		}
 		// GL ARB_separate_shader_objects
 		static if (usingExt(`ARB_separate_shader_objects`)) {
-			bindFunc(glActiveShaderProgram, `glActiveShaderProgram`);
-			bindFunc(glBindProgramPipeline, `glBindProgramPipeline`);
-			bindFunc(glCreateShaderProgramv, `glCreateShaderProgramv`);
-			bindFunc(glDeleteProgramPipelines, `glDeleteProgramPipelines`);
-			bindFunc(glGenProgramPipelines, `glGenProgramPipelines`);
-			bindFunc(glGetProgramPipelineInfoLog, `glGetProgramPipelineInfoLog`);
-			bindFunc(glGetProgramPipelineiv, `glGetProgramPipelineiv`);
-			bindFunc(glIsProgramPipeline, `glIsProgramPipeline`);
-			bindFunc(glProgramUniform1d, `glProgramUniform1d`);
-			bindFunc(glProgramUniform1dv, `glProgramUniform1dv`);
-			bindFunc(glProgramUniform1f, `glProgramUniform1f`);
-			bindFunc(glProgramUniform1fv, `glProgramUniform1fv`);
-			bindFunc(glProgramUniform1i, `glProgramUniform1i`);
-			bindFunc(glProgramUniform1iv, `glProgramUniform1iv`);
-			bindFunc(glProgramUniform1ui, `glProgramUniform1ui`);
-			bindFunc(glProgramUniform1uiv, `glProgramUniform1uiv`);
-			bindFunc(glProgramUniform2d, `glProgramUniform2d`);
-			bindFunc(glProgramUniform2dv, `glProgramUniform2dv`);
-			bindFunc(glProgramUniform2f, `glProgramUniform2f`);
-			bindFunc(glProgramUniform2fv, `glProgramUniform2fv`);
-			bindFunc(glProgramUniform2i, `glProgramUniform2i`);
-			bindFunc(glProgramUniform2iv, `glProgramUniform2iv`);
-			bindFunc(glProgramUniform2ui, `glProgramUniform2ui`);
-			bindFunc(glProgramUniform2uiv, `glProgramUniform2uiv`);
-			bindFunc(glProgramUniform3d, `glProgramUniform3d`);
-			bindFunc(glProgramUniform3dv, `glProgramUniform3dv`);
-			bindFunc(glProgramUniform3f, `glProgramUniform3f`);
-			bindFunc(glProgramUniform3fv, `glProgramUniform3fv`);
-			bindFunc(glProgramUniform3i, `glProgramUniform3i`);
-			bindFunc(glProgramUniform3iv, `glProgramUniform3iv`);
-			bindFunc(glProgramUniform3ui, `glProgramUniform3ui`);
-			bindFunc(glProgramUniform3uiv, `glProgramUniform3uiv`);
-			bindFunc(glProgramUniform4d, `glProgramUniform4d`);
-			bindFunc(glProgramUniform4dv, `glProgramUniform4dv`);
-			bindFunc(glProgramUniform4f, `glProgramUniform4f`);
-			bindFunc(glProgramUniform4fv, `glProgramUniform4fv`);
-			bindFunc(glProgramUniform4i, `glProgramUniform4i`);
-			bindFunc(glProgramUniform4iv, `glProgramUniform4iv`);
-			bindFunc(glProgramUniform4ui, `glProgramUniform4ui`);
-			bindFunc(glProgramUniform4uiv, `glProgramUniform4uiv`);
-			bindFunc(glProgramUniformMatrix2dv, `glProgramUniformMatrix2dv`);
-			bindFunc(glProgramUniformMatrix2fv, `glProgramUniformMatrix2fv`);
-			bindFunc(glProgramUniformMatrix2x3dv, `glProgramUniformMatrix2x3dv`);
-			bindFunc(glProgramUniformMatrix2x3fv, `glProgramUniformMatrix2x3fv`);
-			bindFunc(glProgramUniformMatrix2x4dv, `glProgramUniformMatrix2x4dv`);
-			bindFunc(glProgramUniformMatrix2x4fv, `glProgramUniformMatrix2x4fv`);
-			bindFunc(glProgramUniformMatrix3dv, `glProgramUniformMatrix3dv`);
-			bindFunc(glProgramUniformMatrix3fv, `glProgramUniformMatrix3fv`);
-			bindFunc(glProgramUniformMatrix3x2dv, `glProgramUniformMatrix3x2dv`);
-			bindFunc(glProgramUniformMatrix3x2fv, `glProgramUniformMatrix3x2fv`);
-			bindFunc(glProgramUniformMatrix3x4dv, `glProgramUniformMatrix3x4dv`);
-			bindFunc(glProgramUniformMatrix3x4fv, `glProgramUniformMatrix3x4fv`);
-			bindFunc(glProgramUniformMatrix4dv, `glProgramUniformMatrix4dv`);
-			bindFunc(glProgramUniformMatrix4fv, `glProgramUniformMatrix4fv`);
-			bindFunc(glProgramUniformMatrix4x2dv, `glProgramUniformMatrix4x2dv`);
-			bindFunc(glProgramUniformMatrix4x2fv, `glProgramUniformMatrix4x2fv`);
-			bindFunc(glProgramUniformMatrix4x3dv, `glProgramUniformMatrix4x3dv`);
-			bindFunc(glProgramUniformMatrix4x3fv, `glProgramUniformMatrix4x3fv`);
-			bindFunc(glUseProgramStages, `glUseProgramStages`);
-			bindFunc(glValidateProgramPipeline, `glValidateProgramPipeline`);
+			bindFunc!(glActiveShaderProgram);
+			bindFunc!(glBindProgramPipeline);
+			bindFunc!(glCreateShaderProgramv);
+			bindFunc!(glDeleteProgramPipelines);
+			bindFunc!(glGenProgramPipelines);
+			bindFunc!(glGetProgramPipelineInfoLog);
+			bindFunc!(glGetProgramPipelineiv);
+			bindFunc!(glIsProgramPipeline);
+			bindFunc!(glProgramUniform1d);
+			bindFunc!(glProgramUniform1dv);
+			bindFunc!(glProgramUniform1f);
+			bindFunc!(glProgramUniform1fv);
+			bindFunc!(glProgramUniform1i);
+			bindFunc!(glProgramUniform1iv);
+			bindFunc!(glProgramUniform1ui);
+			bindFunc!(glProgramUniform1uiv);
+			bindFunc!(glProgramUniform2d);
+			bindFunc!(glProgramUniform2dv);
+			bindFunc!(glProgramUniform2f);
+			bindFunc!(glProgramUniform2fv);
+			bindFunc!(glProgramUniform2i);
+			bindFunc!(glProgramUniform2iv);
+			bindFunc!(glProgramUniform2ui);
+			bindFunc!(glProgramUniform2uiv);
+			bindFunc!(glProgramUniform3d);
+			bindFunc!(glProgramUniform3dv);
+			bindFunc!(glProgramUniform3f);
+			bindFunc!(glProgramUniform3fv);
+			bindFunc!(glProgramUniform3i);
+			bindFunc!(glProgramUniform3iv);
+			bindFunc!(glProgramUniform3ui);
+			bindFunc!(glProgramUniform3uiv);
+			bindFunc!(glProgramUniform4d);
+			bindFunc!(glProgramUniform4dv);
+			bindFunc!(glProgramUniform4f);
+			bindFunc!(glProgramUniform4fv);
+			bindFunc!(glProgramUniform4i);
+			bindFunc!(glProgramUniform4iv);
+			bindFunc!(glProgramUniform4ui);
+			bindFunc!(glProgramUniform4uiv);
+			bindFunc!(glProgramUniformMatrix2dv);
+			bindFunc!(glProgramUniformMatrix2fv);
+			bindFunc!(glProgramUniformMatrix2x3dv);
+			bindFunc!(glProgramUniformMatrix2x3fv);
+			bindFunc!(glProgramUniformMatrix2x4dv);
+			bindFunc!(glProgramUniformMatrix2x4fv);
+			bindFunc!(glProgramUniformMatrix3dv);
+			bindFunc!(glProgramUniformMatrix3fv);
+			bindFunc!(glProgramUniformMatrix3x2dv);
+			bindFunc!(glProgramUniformMatrix3x2fv);
+			bindFunc!(glProgramUniformMatrix3x4dv);
+			bindFunc!(glProgramUniformMatrix3x4fv);
+			bindFunc!(glProgramUniformMatrix4dv);
+			bindFunc!(glProgramUniformMatrix4fv);
+			bindFunc!(glProgramUniformMatrix4x2dv);
+			bindFunc!(glProgramUniformMatrix4x2fv);
+			bindFunc!(glProgramUniformMatrix4x3dv);
+			bindFunc!(glProgramUniformMatrix4x3fv);
+			bindFunc!(glUseProgramStages);
+			bindFunc!(glValidateProgramPipeline);
 		}
 		// GL ARB_shader_atomic_counters
 		static if (usingExt(`ARB_shader_atomic_counters`)) {
-			bindFunc(glGetActiveAtomicCounterBufferiv, `glGetActiveAtomicCounterBufferiv`);
+			bindFunc!(glGetActiveAtomicCounterBufferiv);
 		}
 		// GL ARB_shader_image_load_store
 		static if (usingExt(`ARB_shader_image_load_store`)) {
-			bindFunc(glBindImageTexture, `glBindImageTexture`);
-			bindFunc(glMemoryBarrier, `glMemoryBarrier`);
+			bindFunc!(glBindImageTexture);
+			bindFunc!(glMemoryBarrier);
 		}
 		// GL ARB_shader_objects
 		static if (usingExt(`ARB_shader_objects`)) {
-			bindFunc(glAttachObjectARB, `glAttachObjectARB`);
-			bindFunc(glCompileShaderARB, `glCompileShaderARB`);
-			bindFunc(glCreateProgramObjectARB, `glCreateProgramObjectARB`);
-			bindFunc(glCreateShaderObjectARB, `glCreateShaderObjectARB`);
-			bindFunc(glDeleteObjectARB, `glDeleteObjectARB`);
-			bindFunc(glDetachObjectARB, `glDetachObjectARB`);
-			bindFunc(glGetActiveUniformARB, `glGetActiveUniformARB`);
-			bindFunc(glGetAttachedObjectsARB, `glGetAttachedObjectsARB`);
-			bindFunc(glGetHandleARB, `glGetHandleARB`);
-			bindFunc(glGetInfoLogARB, `glGetInfoLogARB`);
-			bindFunc(glGetObjectParameterfvARB, `glGetObjectParameterfvARB`);
-			bindFunc(glGetObjectParameterivARB, `glGetObjectParameterivARB`);
-			bindFunc(glGetShaderSourceARB, `glGetShaderSourceARB`);
-			bindFunc(glGetUniformfvARB, `glGetUniformfvARB`);
-			bindFunc(glGetUniformivARB, `glGetUniformivARB`);
-			bindFunc(glGetUniformLocationARB, `glGetUniformLocationARB`);
-			bindFunc(glLinkProgramARB, `glLinkProgramARB`);
-			bindFunc(glShaderSourceARB, `glShaderSourceARB`);
-			bindFunc(glUniform1fARB, `glUniform1fARB`);
-			bindFunc(glUniform1fvARB, `glUniform1fvARB`);
-			bindFunc(glUniform1iARB, `glUniform1iARB`);
-			bindFunc(glUniform1ivARB, `glUniform1ivARB`);
-			bindFunc(glUniform2fARB, `glUniform2fARB`);
-			bindFunc(glUniform2fvARB, `glUniform2fvARB`);
-			bindFunc(glUniform2iARB, `glUniform2iARB`);
-			bindFunc(glUniform2ivARB, `glUniform2ivARB`);
-			bindFunc(glUniform3fARB, `glUniform3fARB`);
-			bindFunc(glUniform3fvARB, `glUniform3fvARB`);
-			bindFunc(glUniform3iARB, `glUniform3iARB`);
-			bindFunc(glUniform3ivARB, `glUniform3ivARB`);
-			bindFunc(glUniform4fARB, `glUniform4fARB`);
-			bindFunc(glUniform4fvARB, `glUniform4fvARB`);
-			bindFunc(glUniform4iARB, `glUniform4iARB`);
-			bindFunc(glUniform4ivARB, `glUniform4ivARB`);
-			bindFunc(glUniformMatrix2fvARB, `glUniformMatrix2fvARB`);
-			bindFunc(glUniformMatrix3fvARB, `glUniformMatrix3fvARB`);
-			bindFunc(glUniformMatrix4fvARB, `glUniformMatrix4fvARB`);
-			bindFunc(glUseProgramObjectARB, `glUseProgramObjectARB`);
-			bindFunc(glValidateProgramARB, `glValidateProgramARB`);
+			bindFunc!(glAttachObjectARB);
+			bindFunc!(glCompileShaderARB);
+			bindFunc!(glCreateProgramObjectARB);
+			bindFunc!(glCreateShaderObjectARB);
+			bindFunc!(glDeleteObjectARB);
+			bindFunc!(glDetachObjectARB);
+			bindFunc!(glGetActiveUniformARB);
+			bindFunc!(glGetAttachedObjectsARB);
+			bindFunc!(glGetHandleARB);
+			bindFunc!(glGetInfoLogARB);
+			bindFunc!(glGetObjectParameterfvARB);
+			bindFunc!(glGetObjectParameterivARB);
+			bindFunc!(glGetShaderSourceARB);
+			bindFunc!(glGetUniformfvARB);
+			bindFunc!(glGetUniformivARB);
+			bindFunc!(glGetUniformLocationARB);
+			bindFunc!(glLinkProgramARB);
+			bindFunc!(glShaderSourceARB);
+			bindFunc!(glUniform1fARB);
+			bindFunc!(glUniform1fvARB);
+			bindFunc!(glUniform1iARB);
+			bindFunc!(glUniform1ivARB);
+			bindFunc!(glUniform2fARB);
+			bindFunc!(glUniform2fvARB);
+			bindFunc!(glUniform2iARB);
+			bindFunc!(glUniform2ivARB);
+			bindFunc!(glUniform3fARB);
+			bindFunc!(glUniform3fvARB);
+			bindFunc!(glUniform3iARB);
+			bindFunc!(glUniform3ivARB);
+			bindFunc!(glUniform4fARB);
+			bindFunc!(glUniform4fvARB);
+			bindFunc!(glUniform4iARB);
+			bindFunc!(glUniform4ivARB);
+			bindFunc!(glUniformMatrix2fvARB);
+			bindFunc!(glUniformMatrix3fvARB);
+			bindFunc!(glUniformMatrix4fvARB);
+			bindFunc!(glUseProgramObjectARB);
+			bindFunc!(glValidateProgramARB);
 		}
 		// GL ARB_shader_storage_buffer_object
 		static if (usingExt(`ARB_shader_storage_buffer_object`)) {
-			bindFunc(glShaderStorageBlockBinding, `glShaderStorageBlockBinding`);
+			bindFunc!(glShaderStorageBlockBinding);
 		}
 		// GL ARB_shader_subroutine
 		static if (usingExt(`ARB_shader_subroutine`)) {
-			bindFunc(glGetActiveSubroutineName, `glGetActiveSubroutineName`);
-			bindFunc(glGetActiveSubroutineUniformiv, `glGetActiveSubroutineUniformiv`);
-			bindFunc(glGetActiveSubroutineUniformName, `glGetActiveSubroutineUniformName`);
-			bindFunc(glGetProgramStageiv, `glGetProgramStageiv`);
-			bindFunc(glGetSubroutineIndex, `glGetSubroutineIndex`);
-			bindFunc(glGetSubroutineUniformLocation, `glGetSubroutineUniformLocation`);
-			bindFunc(glGetUniformSubroutineuiv, `glGetUniformSubroutineuiv`);
-			bindFunc(glUniformSubroutinesuiv, `glUniformSubroutinesuiv`);
+			bindFunc!(glGetActiveSubroutineName);
+			bindFunc!(glGetActiveSubroutineUniformiv);
+			bindFunc!(glGetActiveSubroutineUniformName);
+			bindFunc!(glGetProgramStageiv);
+			bindFunc!(glGetSubroutineIndex);
+			bindFunc!(glGetSubroutineUniformLocation);
+			bindFunc!(glGetUniformSubroutineuiv);
+			bindFunc!(glUniformSubroutinesuiv);
 		}
 		// GL ARB_shading_language_include
 		static if (usingExt(`ARB_shading_language_include`)) {
-			bindFunc(glCompileShaderIncludeARB, `glCompileShaderIncludeARB`);
-			bindFunc(glDeleteNamedStringARB, `glDeleteNamedStringARB`);
-			bindFunc(glGetNamedStringARB, `glGetNamedStringARB`);
-			bindFunc(glGetNamedStringivARB, `glGetNamedStringivARB`);
-			bindFunc(glIsNamedStringARB, `glIsNamedStringARB`);
-			bindFunc(glNamedStringARB, `glNamedStringARB`);
+			bindFunc!(glCompileShaderIncludeARB);
+			bindFunc!(glDeleteNamedStringARB);
+			bindFunc!(glGetNamedStringARB);
+			bindFunc!(glGetNamedStringivARB);
+			bindFunc!(glIsNamedStringARB);
+			bindFunc!(glNamedStringARB);
 		}
 		// GL ARB_sync
 		static if (usingExt(`ARB_sync`)) {
-			bindFunc(glClientWaitSync, `glClientWaitSync`);
-			bindFunc(glDeleteSync, `glDeleteSync`);
-			bindFunc(glFenceSync, `glFenceSync`);
-			bindFunc(glGetInteger64v, `glGetInteger64v`);
-			bindFunc(glGetSynciv, `glGetSynciv`);
-			bindFunc(glIsSync, `glIsSync`);
-			bindFunc(glWaitSync, `glWaitSync`);
+			bindFunc!(glClientWaitSync);
+			bindFunc!(glDeleteSync);
+			bindFunc!(glFenceSync);
+			bindFunc!(glGetInteger64v);
+			bindFunc!(glGetSynciv);
+			bindFunc!(glIsSync);
+			bindFunc!(glWaitSync);
 		}
 		// GL ARB_tessellation_shader
 		static if (usingExt(`ARB_tessellation_shader`)) {
-			bindFunc(glPatchParameterfv, `glPatchParameterfv`);
-			bindFunc(glPatchParameteri, `glPatchParameteri`);
+			bindFunc!(glPatchParameterfv);
+			bindFunc!(glPatchParameteri);
 		}
 		// GL ARB_texture_buffer_object
 		static if (usingExt(`ARB_texture_buffer_object`)) {
-			bindFunc(glTexBufferARB, `glTexBufferARB`);
+			bindFunc!(glTexBufferARB);
 		}
 		// GL ARB_texture_buffer_range
 		static if (usingExt(`ARB_texture_buffer_range`)) {
-			bindFunc(glTexBufferRange, `glTexBufferRange`);
-			bindFunc(glTextureBufferRangeEXT, `glTextureBufferRangeEXT`);
+			bindFunc!(glTexBufferRange);
+			bindFunc!(glTextureBufferRangeEXT);
 		}
 		// GL ARB_texture_compression
 		static if (usingExt(`ARB_texture_compression`)) {
-			bindFunc(glCompressedTexImage1DARB, `glCompressedTexImage1DARB`);
-			bindFunc(glCompressedTexImage2DARB, `glCompressedTexImage2DARB`);
-			bindFunc(glCompressedTexImage3DARB, `glCompressedTexImage3DARB`);
-			bindFunc(glCompressedTexSubImage1DARB, `glCompressedTexSubImage1DARB`);
-			bindFunc(glCompressedTexSubImage2DARB, `glCompressedTexSubImage2DARB`);
-			bindFunc(glCompressedTexSubImage3DARB, `glCompressedTexSubImage3DARB`);
-			bindFunc(glGetCompressedTexImageARB, `glGetCompressedTexImageARB`);
+			bindFunc!(glCompressedTexImage1DARB);
+			bindFunc!(glCompressedTexImage2DARB);
+			bindFunc!(glCompressedTexImage3DARB);
+			bindFunc!(glCompressedTexSubImage1DARB);
+			bindFunc!(glCompressedTexSubImage2DARB);
+			bindFunc!(glCompressedTexSubImage3DARB);
+			bindFunc!(glGetCompressedTexImageARB);
 		}
 		// GL ARB_texture_multisample
 		static if (usingExt(`ARB_texture_multisample`)) {
-			bindFunc(glGetMultisamplefv, `glGetMultisamplefv`);
-			bindFunc(glSampleMaski, `glSampleMaski`);
-			bindFunc(glTexImage2DMultisample, `glTexImage2DMultisample`);
-			bindFunc(glTexImage3DMultisample, `glTexImage3DMultisample`);
+			bindFunc!(glGetMultisamplefv);
+			bindFunc!(glSampleMaski);
+			bindFunc!(glTexImage2DMultisample);
+			bindFunc!(glTexImage3DMultisample);
 		}
 		// GL ARB_texture_storage
 		static if (usingExt(`ARB_texture_storage`)) {
-			bindFunc(glTexStorage1D, `glTexStorage1D`);
-			bindFunc(glTexStorage2D, `glTexStorage2D`);
-			bindFunc(glTexStorage3D, `glTexStorage3D`);
-			bindFunc(glTextureStorage1DEXT, `glTextureStorage1DEXT`);
-			bindFunc(glTextureStorage2DEXT, `glTextureStorage2DEXT`);
-			bindFunc(glTextureStorage3DEXT, `glTextureStorage3DEXT`);
+			bindFunc!(glTexStorage1D);
+			bindFunc!(glTexStorage2D);
+			bindFunc!(glTexStorage3D);
+			bindFunc!(glTextureStorage1DEXT);
+			bindFunc!(glTextureStorage2DEXT);
+			bindFunc!(glTextureStorage3DEXT);
 		}
 		// GL ARB_texture_storage_multisample
 		static if (usingExt(`ARB_texture_storage_multisample`)) {
-			bindFunc(glTexStorage2DMultisample, `glTexStorage2DMultisample`);
-			bindFunc(glTexStorage3DMultisample, `glTexStorage3DMultisample`);
-			bindFunc(glTextureStorage2DMultisampleEXT, `glTextureStorage2DMultisampleEXT`);
-			bindFunc(glTextureStorage3DMultisampleEXT, `glTextureStorage3DMultisampleEXT`);
+			bindFunc!(glTexStorage2DMultisample);
+			bindFunc!(glTexStorage3DMultisample);
+			bindFunc!(glTextureStorage2DMultisampleEXT);
+			bindFunc!(glTextureStorage3DMultisampleEXT);
 		}
 		// GL ARB_texture_view
 		static if (usingExt(`ARB_texture_view`)) {
-			bindFunc(glTextureView, `glTextureView`);
+			bindFunc!(glTextureView);
 		}
 		// GL ARB_timer_query
 		static if (usingExt(`ARB_timer_query`)) {
-			bindFunc(glGetQueryObjecti64v, `glGetQueryObjecti64v`);
-			bindFunc(glGetQueryObjectui64v, `glGetQueryObjectui64v`);
-			bindFunc(glQueryCounter, `glQueryCounter`);
+			bindFunc!(glGetQueryObjecti64v);
+			bindFunc!(glGetQueryObjectui64v);
+			bindFunc!(glQueryCounter);
 		}
 		// GL ARB_transform_feedback_instanced
 		static if (usingExt(`ARB_transform_feedback_instanced`)) {
-			bindFunc(glDrawTransformFeedbackInstanced, `glDrawTransformFeedbackInstanced`);
-			bindFunc(glDrawTransformFeedbackStreamInstanced, `glDrawTransformFeedbackStreamInstanced`);
+			bindFunc!(glDrawTransformFeedbackInstanced);
+			bindFunc!(glDrawTransformFeedbackStreamInstanced);
 		}
 		// GL ARB_transform_feedback2
 		static if (usingExt(`ARB_transform_feedback2`)) {
-			bindFunc(glBindTransformFeedback, `glBindTransformFeedback`);
-			bindFunc(glDeleteTransformFeedbacks, `glDeleteTransformFeedbacks`);
-			bindFunc(glDrawTransformFeedback, `glDrawTransformFeedback`);
-			bindFunc(glGenTransformFeedbacks, `glGenTransformFeedbacks`);
-			bindFunc(glIsTransformFeedback, `glIsTransformFeedback`);
-			bindFunc(glPauseTransformFeedback, `glPauseTransformFeedback`);
-			bindFunc(glResumeTransformFeedback, `glResumeTransformFeedback`);
+			bindFunc!(glBindTransformFeedback);
+			bindFunc!(glDeleteTransformFeedbacks);
+			bindFunc!(glDrawTransformFeedback);
+			bindFunc!(glGenTransformFeedbacks);
+			bindFunc!(glIsTransformFeedback);
+			bindFunc!(glPauseTransformFeedback);
+			bindFunc!(glResumeTransformFeedback);
 		}
 		// GL ARB_transform_feedback3
 		static if (usingExt(`ARB_transform_feedback3`)) {
-			bindFunc(glBeginQueryIndexed, `glBeginQueryIndexed`);
-			bindFunc(glDrawTransformFeedbackStream, `glDrawTransformFeedbackStream`);
-			bindFunc(glEndQueryIndexed, `glEndQueryIndexed`);
-			bindFunc(glGetQueryIndexediv, `glGetQueryIndexediv`);
+			bindFunc!(glBeginQueryIndexed);
+			bindFunc!(glDrawTransformFeedbackStream);
+			bindFunc!(glEndQueryIndexed);
+			bindFunc!(glGetQueryIndexediv);
 		}
 		// GL ARB_transpose_matrix
 		static if (usingExt(`ARB_transpose_matrix`)) {
-			bindFunc(glLoadTransposeMatrixdARB, `glLoadTransposeMatrixdARB`);
-			bindFunc(glLoadTransposeMatrixfARB, `glLoadTransposeMatrixfARB`);
-			bindFunc(glMultTransposeMatrixdARB, `glMultTransposeMatrixdARB`);
-			bindFunc(glMultTransposeMatrixfARB, `glMultTransposeMatrixfARB`);
+			bindFunc!(glLoadTransposeMatrixdARB);
+			bindFunc!(glLoadTransposeMatrixfARB);
+			bindFunc!(glMultTransposeMatrixdARB);
+			bindFunc!(glMultTransposeMatrixfARB);
 		}
 		// GL ARB_uniform_buffer_object
 		static if (usingExt(`ARB_uniform_buffer_object`)) {
-			bindFunc(glGetActiveUniformBlockiv, `glGetActiveUniformBlockiv`);
-			bindFunc(glGetActiveUniformBlockName, `glGetActiveUniformBlockName`);
-			bindFunc(glGetActiveUniformName, `glGetActiveUniformName`);
-			bindFunc(glGetActiveUniformsiv, `glGetActiveUniformsiv`);
-			bindFunc(glGetUniformBlockIndex, `glGetUniformBlockIndex`);
-			bindFunc(glGetUniformIndices, `glGetUniformIndices`);
-			bindFunc(glUniformBlockBinding, `glUniformBlockBinding`);
+			bindFunc!(glGetActiveUniformBlockiv);
+			bindFunc!(glGetActiveUniformBlockName);
+			bindFunc!(glGetActiveUniformName);
+			bindFunc!(glGetActiveUniformsiv);
+			bindFunc!(glGetUniformBlockIndex);
+			bindFunc!(glGetUniformIndices);
+			bindFunc!(glUniformBlockBinding);
 		}
 		// GL ARB_vertex_array_object
 		static if (usingExt(`ARB_vertex_array_object`)) {
-			bindFunc(glBindVertexArray, `glBindVertexArray`);
-			bindFunc(glDeleteVertexArrays, `glDeleteVertexArrays`);
-			bindFunc(glGenVertexArrays, `glGenVertexArrays`);
-			bindFunc(glIsVertexArray, `glIsVertexArray`);
+			bindFunc!(glBindVertexArray);
+			bindFunc!(glDeleteVertexArrays);
+			bindFunc!(glGenVertexArrays);
+			bindFunc!(glIsVertexArray);
 		}
 		// GL ARB_vertex_attrib_64bit
 		static if (usingExt(`ARB_vertex_attrib_64bit`)) {
-			bindFunc(glGetVertexAttribLdv, `glGetVertexAttribLdv`);
-			bindFunc(glVertexAttribL1d, `glVertexAttribL1d`);
-			bindFunc(glVertexAttribL1dv, `glVertexAttribL1dv`);
-			bindFunc(glVertexAttribL2d, `glVertexAttribL2d`);
-			bindFunc(glVertexAttribL2dv, `glVertexAttribL2dv`);
-			bindFunc(glVertexAttribL3d, `glVertexAttribL3d`);
-			bindFunc(glVertexAttribL3dv, `glVertexAttribL3dv`);
-			bindFunc(glVertexAttribL4d, `glVertexAttribL4d`);
-			bindFunc(glVertexAttribL4dv, `glVertexAttribL4dv`);
-			bindFunc(glVertexAttribLPointer, `glVertexAttribLPointer`);
+			bindFunc!(glGetVertexAttribLdv);
+			bindFunc!(glVertexAttribL1d);
+			bindFunc!(glVertexAttribL1dv);
+			bindFunc!(glVertexAttribL2d);
+			bindFunc!(glVertexAttribL2dv);
+			bindFunc!(glVertexAttribL3d);
+			bindFunc!(glVertexAttribL3dv);
+			bindFunc!(glVertexAttribL4d);
+			bindFunc!(glVertexAttribL4dv);
+			bindFunc!(glVertexAttribLPointer);
 		}
 		// GL ARB_vertex_attrib_binding
 		static if (usingExt(`ARB_vertex_attrib_binding`)) {
-			bindFunc(glBindVertexBuffer, `glBindVertexBuffer`);
-			bindFunc(glVertexArrayBindVertexBufferEXT, `glVertexArrayBindVertexBufferEXT`);
-			bindFunc(glVertexArrayVertexAttribBindingEXT, `glVertexArrayVertexAttribBindingEXT`);
-			bindFunc(glVertexArrayVertexAttribFormatEXT, `glVertexArrayVertexAttribFormatEXT`);
-			bindFunc(glVertexArrayVertexAttribIFormatEXT, `glVertexArrayVertexAttribIFormatEXT`);
-			bindFunc(glVertexArrayVertexAttribLFormatEXT, `glVertexArrayVertexAttribLFormatEXT`);
-			bindFunc(glVertexArrayVertexBindingDivisorEXT, `glVertexArrayVertexBindingDivisorEXT`);
-			bindFunc(glVertexAttribBinding, `glVertexAttribBinding`);
-			bindFunc(glVertexAttribFormat, `glVertexAttribFormat`);
-			bindFunc(glVertexAttribIFormat, `glVertexAttribIFormat`);
-			bindFunc(glVertexAttribLFormat, `glVertexAttribLFormat`);
-			bindFunc(glVertexBindingDivisor, `glVertexBindingDivisor`);
+			bindFunc!(glBindVertexBuffer);
+			bindFunc!(glVertexArrayBindVertexBufferEXT);
+			bindFunc!(glVertexArrayVertexAttribBindingEXT);
+			bindFunc!(glVertexArrayVertexAttribFormatEXT);
+			bindFunc!(glVertexArrayVertexAttribIFormatEXT);
+			bindFunc!(glVertexArrayVertexAttribLFormatEXT);
+			bindFunc!(glVertexArrayVertexBindingDivisorEXT);
+			bindFunc!(glVertexAttribBinding);
+			bindFunc!(glVertexAttribFormat);
+			bindFunc!(glVertexAttribIFormat);
+			bindFunc!(glVertexAttribLFormat);
+			bindFunc!(glVertexBindingDivisor);
 		}
 		// GL ARB_vertex_blend
 		static if (usingExt(`ARB_vertex_blend`)) {
-			bindFunc(glVertexBlendARB, `glVertexBlendARB`);
-			bindFunc(glWeightbvARB, `glWeightbvARB`);
-			bindFunc(glWeightdvARB, `glWeightdvARB`);
-			bindFunc(glWeightfvARB, `glWeightfvARB`);
-			bindFunc(glWeightivARB, `glWeightivARB`);
-			bindFunc(glWeightPointerARB, `glWeightPointerARB`);
-			bindFunc(glWeightsvARB, `glWeightsvARB`);
-			bindFunc(glWeightubvARB, `glWeightubvARB`);
-			bindFunc(glWeightuivARB, `glWeightuivARB`);
-			bindFunc(glWeightusvARB, `glWeightusvARB`);
+			bindFunc!(glVertexBlendARB);
+			bindFunc!(glWeightbvARB);
+			bindFunc!(glWeightdvARB);
+			bindFunc!(glWeightfvARB);
+			bindFunc!(glWeightivARB);
+			bindFunc!(glWeightPointerARB);
+			bindFunc!(glWeightsvARB);
+			bindFunc!(glWeightubvARB);
+			bindFunc!(glWeightuivARB);
+			bindFunc!(glWeightusvARB);
 		}
 		// GL ARB_vertex_buffer_object
 		static if (usingExt(`ARB_vertex_buffer_object`)) {
-			bindFunc(glBindBufferARB, `glBindBufferARB`);
-			bindFunc(glBufferDataARB, `glBufferDataARB`);
-			bindFunc(glBufferSubDataARB, `glBufferSubDataARB`);
-			bindFunc(glDeleteBuffersARB, `glDeleteBuffersARB`);
-			bindFunc(glGenBuffersARB, `glGenBuffersARB`);
-			bindFunc(glGetBufferParameterivARB, `glGetBufferParameterivARB`);
-			bindFunc(glGetBufferPointervARB, `glGetBufferPointervARB`);
-			bindFunc(glGetBufferSubDataARB, `glGetBufferSubDataARB`);
-			bindFunc(glIsBufferARB, `glIsBufferARB`);
-			bindFunc(glMapBufferARB, `glMapBufferARB`);
-			bindFunc(glUnmapBufferARB, `glUnmapBufferARB`);
+			bindFunc!(glBindBufferARB);
+			bindFunc!(glBufferDataARB);
+			bindFunc!(glBufferSubDataARB);
+			bindFunc!(glDeleteBuffersARB);
+			bindFunc!(glGenBuffersARB);
+			bindFunc!(glGetBufferParameterivARB);
+			bindFunc!(glGetBufferPointervARB);
+			bindFunc!(glGetBufferSubDataARB);
+			bindFunc!(glIsBufferARB);
+			bindFunc!(glMapBufferARB);
+			bindFunc!(glUnmapBufferARB);
 		}
 		// GL ARB_vertex_program
 		static if (usingExt(`ARB_vertex_program`)) {
-			bindFunc(glBindProgramARB, `glBindProgramARB`);
-			bindFunc(glDeleteProgramsARB, `glDeleteProgramsARB`);
-			bindFunc(glDisableVertexAttribArrayARB, `glDisableVertexAttribArrayARB`);
-			bindFunc(glEnableVertexAttribArrayARB, `glEnableVertexAttribArrayARB`);
-			bindFunc(glGenProgramsARB, `glGenProgramsARB`);
-			bindFunc(glGetProgramEnvParameterdvARB, `glGetProgramEnvParameterdvARB`);
-			bindFunc(glGetProgramEnvParameterfvARB, `glGetProgramEnvParameterfvARB`);
-			bindFunc(glGetProgramivARB, `glGetProgramivARB`);
-			bindFunc(glGetProgramLocalParameterdvARB, `glGetProgramLocalParameterdvARB`);
-			bindFunc(glGetProgramLocalParameterfvARB, `glGetProgramLocalParameterfvARB`);
-			bindFunc(glGetProgramStringARB, `glGetProgramStringARB`);
-			bindFunc(glGetVertexAttribdvARB, `glGetVertexAttribdvARB`);
-			bindFunc(glGetVertexAttribfvARB, `glGetVertexAttribfvARB`);
-			bindFunc(glGetVertexAttribivARB, `glGetVertexAttribivARB`);
-			bindFunc(glGetVertexAttribPointervARB, `glGetVertexAttribPointervARB`);
-			bindFunc(glIsProgramARB, `glIsProgramARB`);
-			bindFunc(glProgramEnvParameter4dARB, `glProgramEnvParameter4dARB`);
-			bindFunc(glProgramEnvParameter4dvARB, `glProgramEnvParameter4dvARB`);
-			bindFunc(glProgramEnvParameter4fARB, `glProgramEnvParameter4fARB`);
-			bindFunc(glProgramEnvParameter4fvARB, `glProgramEnvParameter4fvARB`);
-			bindFunc(glProgramLocalParameter4dARB, `glProgramLocalParameter4dARB`);
-			bindFunc(glProgramLocalParameter4dvARB, `glProgramLocalParameter4dvARB`);
-			bindFunc(glProgramLocalParameter4fARB, `glProgramLocalParameter4fARB`);
-			bindFunc(glProgramLocalParameter4fvARB, `glProgramLocalParameter4fvARB`);
-			bindFunc(glProgramStringARB, `glProgramStringARB`);
-			bindFunc(glVertexAttrib1dARB, `glVertexAttrib1dARB`);
-			bindFunc(glVertexAttrib1dvARB, `glVertexAttrib1dvARB`);
-			bindFunc(glVertexAttrib1fARB, `glVertexAttrib1fARB`);
-			bindFunc(glVertexAttrib1fvARB, `glVertexAttrib1fvARB`);
-			bindFunc(glVertexAttrib1sARB, `glVertexAttrib1sARB`);
-			bindFunc(glVertexAttrib1svARB, `glVertexAttrib1svARB`);
-			bindFunc(glVertexAttrib2dARB, `glVertexAttrib2dARB`);
-			bindFunc(glVertexAttrib2dvARB, `glVertexAttrib2dvARB`);
-			bindFunc(glVertexAttrib2fARB, `glVertexAttrib2fARB`);
-			bindFunc(glVertexAttrib2fvARB, `glVertexAttrib2fvARB`);
-			bindFunc(glVertexAttrib2sARB, `glVertexAttrib2sARB`);
-			bindFunc(glVertexAttrib2svARB, `glVertexAttrib2svARB`);
-			bindFunc(glVertexAttrib3dARB, `glVertexAttrib3dARB`);
-			bindFunc(glVertexAttrib3dvARB, `glVertexAttrib3dvARB`);
-			bindFunc(glVertexAttrib3fARB, `glVertexAttrib3fARB`);
-			bindFunc(glVertexAttrib3fvARB, `glVertexAttrib3fvARB`);
-			bindFunc(glVertexAttrib3sARB, `glVertexAttrib3sARB`);
-			bindFunc(glVertexAttrib3svARB, `glVertexAttrib3svARB`);
-			bindFunc(glVertexAttrib4bvARB, `glVertexAttrib4bvARB`);
-			bindFunc(glVertexAttrib4dARB, `glVertexAttrib4dARB`);
-			bindFunc(glVertexAttrib4dvARB, `glVertexAttrib4dvARB`);
-			bindFunc(glVertexAttrib4fARB, `glVertexAttrib4fARB`);
-			bindFunc(glVertexAttrib4fvARB, `glVertexAttrib4fvARB`);
-			bindFunc(glVertexAttrib4ivARB, `glVertexAttrib4ivARB`);
-			bindFunc(glVertexAttrib4NbvARB, `glVertexAttrib4NbvARB`);
-			bindFunc(glVertexAttrib4NivARB, `glVertexAttrib4NivARB`);
-			bindFunc(glVertexAttrib4NsvARB, `glVertexAttrib4NsvARB`);
-			bindFunc(glVertexAttrib4NubARB, `glVertexAttrib4NubARB`);
-			bindFunc(glVertexAttrib4NubvARB, `glVertexAttrib4NubvARB`);
-			bindFunc(glVertexAttrib4NuivARB, `glVertexAttrib4NuivARB`);
-			bindFunc(glVertexAttrib4NusvARB, `glVertexAttrib4NusvARB`);
-			bindFunc(glVertexAttrib4sARB, `glVertexAttrib4sARB`);
-			bindFunc(glVertexAttrib4svARB, `glVertexAttrib4svARB`);
-			bindFunc(glVertexAttrib4ubvARB, `glVertexAttrib4ubvARB`);
-			bindFunc(glVertexAttrib4uivARB, `glVertexAttrib4uivARB`);
-			bindFunc(glVertexAttrib4usvARB, `glVertexAttrib4usvARB`);
-			bindFunc(glVertexAttribPointerARB, `glVertexAttribPointerARB`);
+			bindFunc!(glBindProgramARB);
+			bindFunc!(glDeleteProgramsARB);
+			bindFunc!(glDisableVertexAttribArrayARB);
+			bindFunc!(glEnableVertexAttribArrayARB);
+			bindFunc!(glGenProgramsARB);
+			bindFunc!(glGetProgramEnvParameterdvARB);
+			bindFunc!(glGetProgramEnvParameterfvARB);
+			bindFunc!(glGetProgramivARB);
+			bindFunc!(glGetProgramLocalParameterdvARB);
+			bindFunc!(glGetProgramLocalParameterfvARB);
+			bindFunc!(glGetProgramStringARB);
+			bindFunc!(glGetVertexAttribdvARB);
+			bindFunc!(glGetVertexAttribfvARB);
+			bindFunc!(glGetVertexAttribivARB);
+			bindFunc!(glGetVertexAttribPointervARB);
+			bindFunc!(glIsProgramARB);
+			bindFunc!(glProgramEnvParameter4dARB);
+			bindFunc!(glProgramEnvParameter4dvARB);
+			bindFunc!(glProgramEnvParameter4fARB);
+			bindFunc!(glProgramEnvParameter4fvARB);
+			bindFunc!(glProgramLocalParameter4dARB);
+			bindFunc!(glProgramLocalParameter4dvARB);
+			bindFunc!(glProgramLocalParameter4fARB);
+			bindFunc!(glProgramLocalParameter4fvARB);
+			bindFunc!(glProgramStringARB);
+			bindFunc!(glVertexAttrib1dARB);
+			bindFunc!(glVertexAttrib1dvARB);
+			bindFunc!(glVertexAttrib1fARB);
+			bindFunc!(glVertexAttrib1fvARB);
+			bindFunc!(glVertexAttrib1sARB);
+			bindFunc!(glVertexAttrib1svARB);
+			bindFunc!(glVertexAttrib2dARB);
+			bindFunc!(glVertexAttrib2dvARB);
+			bindFunc!(glVertexAttrib2fARB);
+			bindFunc!(glVertexAttrib2fvARB);
+			bindFunc!(glVertexAttrib2sARB);
+			bindFunc!(glVertexAttrib2svARB);
+			bindFunc!(glVertexAttrib3dARB);
+			bindFunc!(glVertexAttrib3dvARB);
+			bindFunc!(glVertexAttrib3fARB);
+			bindFunc!(glVertexAttrib3fvARB);
+			bindFunc!(glVertexAttrib3sARB);
+			bindFunc!(glVertexAttrib3svARB);
+			bindFunc!(glVertexAttrib4bvARB);
+			bindFunc!(glVertexAttrib4dARB);
+			bindFunc!(glVertexAttrib4dvARB);
+			bindFunc!(glVertexAttrib4fARB);
+			bindFunc!(glVertexAttrib4fvARB);
+			bindFunc!(glVertexAttrib4ivARB);
+			bindFunc!(glVertexAttrib4NbvARB);
+			bindFunc!(glVertexAttrib4NivARB);
+			bindFunc!(glVertexAttrib4NsvARB);
+			bindFunc!(glVertexAttrib4NubARB);
+			bindFunc!(glVertexAttrib4NubvARB);
+			bindFunc!(glVertexAttrib4NuivARB);
+			bindFunc!(glVertexAttrib4NusvARB);
+			bindFunc!(glVertexAttrib4sARB);
+			bindFunc!(glVertexAttrib4svARB);
+			bindFunc!(glVertexAttrib4ubvARB);
+			bindFunc!(glVertexAttrib4uivARB);
+			bindFunc!(glVertexAttrib4usvARB);
+			bindFunc!(glVertexAttribPointerARB);
 		}
 		// GL ARB_vertex_shader
 		static if (usingExt(`ARB_vertex_shader`)) {
-			bindFunc(glBindAttribLocationARB, `glBindAttribLocationARB`);
-			bindFunc(glGetActiveAttribARB, `glGetActiveAttribARB`);
-			bindFunc(glGetAttribLocationARB, `glGetAttribLocationARB`);
+			bindFunc!(glBindAttribLocationARB);
+			bindFunc!(glGetActiveAttribARB);
+			bindFunc!(glGetAttribLocationARB);
 		}
 		// GL ARB_vertex_type_2_10_10_10_rev
 		static if (usingExt(`ARB_vertex_type_2_10_10_10_rev`)) {
-			bindFunc(glColorP3ui, `glColorP3ui`);
-			bindFunc(glColorP3uiv, `glColorP3uiv`);
-			bindFunc(glColorP4ui, `glColorP4ui`);
-			bindFunc(glColorP4uiv, `glColorP4uiv`);
-			bindFunc(glMultiTexCoordP1ui, `glMultiTexCoordP1ui`);
-			bindFunc(glMultiTexCoordP1uiv, `glMultiTexCoordP1uiv`);
-			bindFunc(glMultiTexCoordP2ui, `glMultiTexCoordP2ui`);
-			bindFunc(glMultiTexCoordP2uiv, `glMultiTexCoordP2uiv`);
-			bindFunc(glMultiTexCoordP3ui, `glMultiTexCoordP3ui`);
-			bindFunc(glMultiTexCoordP3uiv, `glMultiTexCoordP3uiv`);
-			bindFunc(glMultiTexCoordP4ui, `glMultiTexCoordP4ui`);
-			bindFunc(glMultiTexCoordP4uiv, `glMultiTexCoordP4uiv`);
-			bindFunc(glNormalP3ui, `glNormalP3ui`);
-			bindFunc(glNormalP3uiv, `glNormalP3uiv`);
-			bindFunc(glSecondaryColorP3ui, `glSecondaryColorP3ui`);
-			bindFunc(glSecondaryColorP3uiv, `glSecondaryColorP3uiv`);
-			bindFunc(glTexCoordP1ui, `glTexCoordP1ui`);
-			bindFunc(glTexCoordP1uiv, `glTexCoordP1uiv`);
-			bindFunc(glTexCoordP2ui, `glTexCoordP2ui`);
-			bindFunc(glTexCoordP2uiv, `glTexCoordP2uiv`);
-			bindFunc(glTexCoordP3ui, `glTexCoordP3ui`);
-			bindFunc(glTexCoordP3uiv, `glTexCoordP3uiv`);
-			bindFunc(glTexCoordP4ui, `glTexCoordP4ui`);
-			bindFunc(glTexCoordP4uiv, `glTexCoordP4uiv`);
-			bindFunc(glVertexAttribP1ui, `glVertexAttribP1ui`);
-			bindFunc(glVertexAttribP1uiv, `glVertexAttribP1uiv`);
-			bindFunc(glVertexAttribP2ui, `glVertexAttribP2ui`);
-			bindFunc(glVertexAttribP2uiv, `glVertexAttribP2uiv`);
-			bindFunc(glVertexAttribP3ui, `glVertexAttribP3ui`);
-			bindFunc(glVertexAttribP3uiv, `glVertexAttribP3uiv`);
-			bindFunc(glVertexAttribP4ui, `glVertexAttribP4ui`);
-			bindFunc(glVertexAttribP4uiv, `glVertexAttribP4uiv`);
-			bindFunc(glVertexP2ui, `glVertexP2ui`);
-			bindFunc(glVertexP2uiv, `glVertexP2uiv`);
-			bindFunc(glVertexP3ui, `glVertexP3ui`);
-			bindFunc(glVertexP3uiv, `glVertexP3uiv`);
-			bindFunc(glVertexP4ui, `glVertexP4ui`);
-			bindFunc(glVertexP4uiv, `glVertexP4uiv`);
+			bindFunc!(glColorP3ui);
+			bindFunc!(glColorP3uiv);
+			bindFunc!(glColorP4ui);
+			bindFunc!(glColorP4uiv);
+			bindFunc!(glMultiTexCoordP1ui);
+			bindFunc!(glMultiTexCoordP1uiv);
+			bindFunc!(glMultiTexCoordP2ui);
+			bindFunc!(glMultiTexCoordP2uiv);
+			bindFunc!(glMultiTexCoordP3ui);
+			bindFunc!(glMultiTexCoordP3uiv);
+			bindFunc!(glMultiTexCoordP4ui);
+			bindFunc!(glMultiTexCoordP4uiv);
+			bindFunc!(glNormalP3ui);
+			bindFunc!(glNormalP3uiv);
+			bindFunc!(glSecondaryColorP3ui);
+			bindFunc!(glSecondaryColorP3uiv);
+			bindFunc!(glTexCoordP1ui);
+			bindFunc!(glTexCoordP1uiv);
+			bindFunc!(glTexCoordP2ui);
+			bindFunc!(glTexCoordP2uiv);
+			bindFunc!(glTexCoordP3ui);
+			bindFunc!(glTexCoordP3uiv);
+			bindFunc!(glTexCoordP4ui);
+			bindFunc!(glTexCoordP4uiv);
+			bindFunc!(glVertexAttribP1ui);
+			bindFunc!(glVertexAttribP1uiv);
+			bindFunc!(glVertexAttribP2ui);
+			bindFunc!(glVertexAttribP2uiv);
+			bindFunc!(glVertexAttribP3ui);
+			bindFunc!(glVertexAttribP3uiv);
+			bindFunc!(glVertexAttribP4ui);
+			bindFunc!(glVertexAttribP4uiv);
+			bindFunc!(glVertexP2ui);
+			bindFunc!(glVertexP2uiv);
+			bindFunc!(glVertexP3ui);
+			bindFunc!(glVertexP3uiv);
+			bindFunc!(glVertexP4ui);
+			bindFunc!(glVertexP4uiv);
 		}
 		// GL ARB_viewport_array
 		static if (usingExt(`ARB_viewport_array`)) {
-			bindFunc(glDepthRangeArrayv, `glDepthRangeArrayv`);
-			bindFunc(glDepthRangeIndexed, `glDepthRangeIndexed`);
-			bindFunc(glGetDoublei_v, `glGetDoublei_v`);
-			bindFunc(glGetFloati_v, `glGetFloati_v`);
-			bindFunc(glScissorArrayv, `glScissorArrayv`);
-			bindFunc(glScissorIndexed, `glScissorIndexed`);
-			bindFunc(glScissorIndexedv, `glScissorIndexedv`);
-			bindFunc(glViewportArrayv, `glViewportArrayv`);
-			bindFunc(glViewportIndexedf, `glViewportIndexedf`);
-			bindFunc(glViewportIndexedfv, `glViewportIndexedfv`);
+			bindFunc!(glDepthRangeArrayv);
+			bindFunc!(glDepthRangeIndexed);
+			bindFunc!(glGetDoublei_v);
+			bindFunc!(glGetFloati_v);
+			bindFunc!(glScissorArrayv);
+			bindFunc!(glScissorIndexed);
+			bindFunc!(glScissorIndexedv);
+			bindFunc!(glViewportArrayv);
+			bindFunc!(glViewportIndexedf);
+			bindFunc!(glViewportIndexedfv);
 		}
 		// GL ARB_window_pos
 		static if (usingExt(`ARB_window_pos`)) {
-			bindFunc(glWindowPos2dARB, `glWindowPos2dARB`);
-			bindFunc(glWindowPos2dvARB, `glWindowPos2dvARB`);
-			bindFunc(glWindowPos2fARB, `glWindowPos2fARB`);
-			bindFunc(glWindowPos2fvARB, `glWindowPos2fvARB`);
-			bindFunc(glWindowPos2iARB, `glWindowPos2iARB`);
-			bindFunc(glWindowPos2ivARB, `glWindowPos2ivARB`);
-			bindFunc(glWindowPos2sARB, `glWindowPos2sARB`);
-			bindFunc(glWindowPos2svARB, `glWindowPos2svARB`);
-			bindFunc(glWindowPos3dARB, `glWindowPos3dARB`);
-			bindFunc(glWindowPos3dvARB, `glWindowPos3dvARB`);
-			bindFunc(glWindowPos3fARB, `glWindowPos3fARB`);
-			bindFunc(glWindowPos3fvARB, `glWindowPos3fvARB`);
-			bindFunc(glWindowPos3iARB, `glWindowPos3iARB`);
-			bindFunc(glWindowPos3ivARB, `glWindowPos3ivARB`);
-			bindFunc(glWindowPos3sARB, `glWindowPos3sARB`);
-			bindFunc(glWindowPos3svARB, `glWindowPos3svARB`);
+			bindFunc!(glWindowPos2dARB);
+			bindFunc!(glWindowPos2dvARB);
+			bindFunc!(glWindowPos2fARB);
+			bindFunc!(glWindowPos2fvARB);
+			bindFunc!(glWindowPos2iARB);
+			bindFunc!(glWindowPos2ivARB);
+			bindFunc!(glWindowPos2sARB);
+			bindFunc!(glWindowPos2svARB);
+			bindFunc!(glWindowPos3dARB);
+			bindFunc!(glWindowPos3dvARB);
+			bindFunc!(glWindowPos3fARB);
+			bindFunc!(glWindowPos3fvARB);
+			bindFunc!(glWindowPos3iARB);
+			bindFunc!(glWindowPos3ivARB);
+			bindFunc!(glWindowPos3sARB);
+			bindFunc!(glWindowPos3svARB);
 		}
 		// GL ATI_draw_buffers
 		static if (usingExt(`ATI_draw_buffers`)) {
-			bindFunc(glDrawBuffersATI, `glDrawBuffersATI`);
+			bindFunc!(glDrawBuffersATI);
 		}
 		// GL ATI_element_array
 		static if (usingExt(`ATI_element_array`)) {
-			bindFunc(glDrawElementArrayATI, `glDrawElementArrayATI`);
-			bindFunc(glDrawRangeElementArrayATI, `glDrawRangeElementArrayATI`);
-			bindFunc(glElementPointerATI, `glElementPointerATI`);
+			bindFunc!(glDrawElementArrayATI);
+			bindFunc!(glDrawRangeElementArrayATI);
+			bindFunc!(glElementPointerATI);
 		}
 		// GL ATI_envmap_bumpmap
 		static if (usingExt(`ATI_envmap_bumpmap`)) {
-			bindFunc(glGetTexBumpParameterfvATI, `glGetTexBumpParameterfvATI`);
-			bindFunc(glGetTexBumpParameterivATI, `glGetTexBumpParameterivATI`);
-			bindFunc(glTexBumpParameterfvATI, `glTexBumpParameterfvATI`);
-			bindFunc(glTexBumpParameterivATI, `glTexBumpParameterivATI`);
+			bindFunc!(glGetTexBumpParameterfvATI);
+			bindFunc!(glGetTexBumpParameterivATI);
+			bindFunc!(glTexBumpParameterfvATI);
+			bindFunc!(glTexBumpParameterivATI);
 		}
 		// GL ATI_fragment_shader
 		static if (usingExt(`ATI_fragment_shader`)) {
-			bindFunc(glAlphaFragmentOp1ATI, `glAlphaFragmentOp1ATI`);
-			bindFunc(glAlphaFragmentOp2ATI, `glAlphaFragmentOp2ATI`);
-			bindFunc(glAlphaFragmentOp3ATI, `glAlphaFragmentOp3ATI`);
-			bindFunc(glBeginFragmentShaderATI, `glBeginFragmentShaderATI`);
-			bindFunc(glBindFragmentShaderATI, `glBindFragmentShaderATI`);
-			bindFunc(glColorFragmentOp1ATI, `glColorFragmentOp1ATI`);
-			bindFunc(glColorFragmentOp2ATI, `glColorFragmentOp2ATI`);
-			bindFunc(glColorFragmentOp3ATI, `glColorFragmentOp3ATI`);
-			bindFunc(glDeleteFragmentShaderATI, `glDeleteFragmentShaderATI`);
-			bindFunc(glEndFragmentShaderATI, `glEndFragmentShaderATI`);
-			bindFunc(glGenFragmentShadersATI, `glGenFragmentShadersATI`);
-			bindFunc(glPassTexCoordATI, `glPassTexCoordATI`);
-			bindFunc(glSampleMapATI, `glSampleMapATI`);
-			bindFunc(glSetFragmentShaderConstantATI, `glSetFragmentShaderConstantATI`);
+			bindFunc!(glAlphaFragmentOp1ATI);
+			bindFunc!(glAlphaFragmentOp2ATI);
+			bindFunc!(glAlphaFragmentOp3ATI);
+			bindFunc!(glBeginFragmentShaderATI);
+			bindFunc!(glBindFragmentShaderATI);
+			bindFunc!(glColorFragmentOp1ATI);
+			bindFunc!(glColorFragmentOp2ATI);
+			bindFunc!(glColorFragmentOp3ATI);
+			bindFunc!(glDeleteFragmentShaderATI);
+			bindFunc!(glEndFragmentShaderATI);
+			bindFunc!(glGenFragmentShadersATI);
+			bindFunc!(glPassTexCoordATI);
+			bindFunc!(glSampleMapATI);
+			bindFunc!(glSetFragmentShaderConstantATI);
 		}
 		// GL ATI_map_object_buffer
 		static if (usingExt(`ATI_map_object_buffer`)) {
-			bindFunc(glMapObjectBufferATI, `glMapObjectBufferATI`);
-			bindFunc(glUnmapObjectBufferATI, `glUnmapObjectBufferATI`);
+			bindFunc!(glMapObjectBufferATI);
+			bindFunc!(glUnmapObjectBufferATI);
 		}
 		// GL ATI_pn_triangles
 		static if (usingExt(`ATI_pn_triangles`)) {
-			bindFunc(glPNTrianglesfATI, `glPNTrianglesfATI`);
-			bindFunc(glPNTrianglesiATI, `glPNTrianglesiATI`);
+			bindFunc!(glPNTrianglesfATI);
+			bindFunc!(glPNTrianglesiATI);
 		}
 		// GL ATI_separate_stencil
 		static if (usingExt(`ATI_separate_stencil`)) {
-			bindFunc(glStencilFuncSeparateATI, `glStencilFuncSeparateATI`);
-			bindFunc(glStencilOpSeparateATI, `glStencilOpSeparateATI`);
+			bindFunc!(glStencilFuncSeparateATI);
+			bindFunc!(glStencilOpSeparateATI);
 		}
 		// GL ATI_vertex_array_object
 		static if (usingExt(`ATI_vertex_array_object`)) {
-			bindFunc(glArrayObjectATI, `glArrayObjectATI`);
-			bindFunc(glFreeObjectBufferATI, `glFreeObjectBufferATI`);
-			bindFunc(glGetArrayObjectfvATI, `glGetArrayObjectfvATI`);
-			bindFunc(glGetArrayObjectivATI, `glGetArrayObjectivATI`);
-			bindFunc(glGetObjectBufferfvATI, `glGetObjectBufferfvATI`);
-			bindFunc(glGetObjectBufferivATI, `glGetObjectBufferivATI`);
-			bindFunc(glGetVariantArrayObjectfvATI, `glGetVariantArrayObjectfvATI`);
-			bindFunc(glGetVariantArrayObjectivATI, `glGetVariantArrayObjectivATI`);
-			bindFunc(glIsObjectBufferATI, `glIsObjectBufferATI`);
-			bindFunc(glNewObjectBufferATI, `glNewObjectBufferATI`);
-			bindFunc(glUpdateObjectBufferATI, `glUpdateObjectBufferATI`);
-			bindFunc(glVariantArrayObjectATI, `glVariantArrayObjectATI`);
+			bindFunc!(glArrayObjectATI);
+			bindFunc!(glFreeObjectBufferATI);
+			bindFunc!(glGetArrayObjectfvATI);
+			bindFunc!(glGetArrayObjectivATI);
+			bindFunc!(glGetObjectBufferfvATI);
+			bindFunc!(glGetObjectBufferivATI);
+			bindFunc!(glGetVariantArrayObjectfvATI);
+			bindFunc!(glGetVariantArrayObjectivATI);
+			bindFunc!(glIsObjectBufferATI);
+			bindFunc!(glNewObjectBufferATI);
+			bindFunc!(glUpdateObjectBufferATI);
+			bindFunc!(glVariantArrayObjectATI);
 		}
 		// GL ATI_vertex_attrib_array_object
 		static if (usingExt(`ATI_vertex_attrib_array_object`)) {
-			bindFunc(glGetVertexAttribArrayObjectfvATI, `glGetVertexAttribArrayObjectfvATI`);
-			bindFunc(glGetVertexAttribArrayObjectivATI, `glGetVertexAttribArrayObjectivATI`);
-			bindFunc(glVertexAttribArrayObjectATI, `glVertexAttribArrayObjectATI`);
+			bindFunc!(glGetVertexAttribArrayObjectfvATI);
+			bindFunc!(glGetVertexAttribArrayObjectivATI);
+			bindFunc!(glVertexAttribArrayObjectATI);
 		}
 		// GL ATI_vertex_streams
 		static if (usingExt(`ATI_vertex_streams`)) {
-			bindFunc(glClientActiveVertexStreamATI, `glClientActiveVertexStreamATI`);
-			bindFunc(glNormalStream3bATI, `glNormalStream3bATI`);
-			bindFunc(glNormalStream3bvATI, `glNormalStream3bvATI`);
-			bindFunc(glNormalStream3dATI, `glNormalStream3dATI`);
-			bindFunc(glNormalStream3dvATI, `glNormalStream3dvATI`);
-			bindFunc(glNormalStream3fATI, `glNormalStream3fATI`);
-			bindFunc(glNormalStream3fvATI, `glNormalStream3fvATI`);
-			bindFunc(glNormalStream3iATI, `glNormalStream3iATI`);
-			bindFunc(glNormalStream3ivATI, `glNormalStream3ivATI`);
-			bindFunc(glNormalStream3sATI, `glNormalStream3sATI`);
-			bindFunc(glNormalStream3svATI, `glNormalStream3svATI`);
-			bindFunc(glVertexBlendEnvfATI, `glVertexBlendEnvfATI`);
-			bindFunc(glVertexBlendEnviATI, `glVertexBlendEnviATI`);
-			bindFunc(glVertexStream1dATI, `glVertexStream1dATI`);
-			bindFunc(glVertexStream1dvATI, `glVertexStream1dvATI`);
-			bindFunc(glVertexStream1fATI, `glVertexStream1fATI`);
-			bindFunc(glVertexStream1fvATI, `glVertexStream1fvATI`);
-			bindFunc(glVertexStream1iATI, `glVertexStream1iATI`);
-			bindFunc(glVertexStream1ivATI, `glVertexStream1ivATI`);
-			bindFunc(glVertexStream1sATI, `glVertexStream1sATI`);
-			bindFunc(glVertexStream1svATI, `glVertexStream1svATI`);
-			bindFunc(glVertexStream2dATI, `glVertexStream2dATI`);
-			bindFunc(glVertexStream2dvATI, `glVertexStream2dvATI`);
-			bindFunc(glVertexStream2fATI, `glVertexStream2fATI`);
-			bindFunc(glVertexStream2fvATI, `glVertexStream2fvATI`);
-			bindFunc(glVertexStream2iATI, `glVertexStream2iATI`);
-			bindFunc(glVertexStream2ivATI, `glVertexStream2ivATI`);
-			bindFunc(glVertexStream2sATI, `glVertexStream2sATI`);
-			bindFunc(glVertexStream2svATI, `glVertexStream2svATI`);
-			bindFunc(glVertexStream3dATI, `glVertexStream3dATI`);
-			bindFunc(glVertexStream3dvATI, `glVertexStream3dvATI`);
-			bindFunc(glVertexStream3fATI, `glVertexStream3fATI`);
-			bindFunc(glVertexStream3fvATI, `glVertexStream3fvATI`);
-			bindFunc(glVertexStream3iATI, `glVertexStream3iATI`);
-			bindFunc(glVertexStream3ivATI, `glVertexStream3ivATI`);
-			bindFunc(glVertexStream3sATI, `glVertexStream3sATI`);
-			bindFunc(glVertexStream3svATI, `glVertexStream3svATI`);
-			bindFunc(glVertexStream4dATI, `glVertexStream4dATI`);
-			bindFunc(glVertexStream4dvATI, `glVertexStream4dvATI`);
-			bindFunc(glVertexStream4fATI, `glVertexStream4fATI`);
-			bindFunc(glVertexStream4fvATI, `glVertexStream4fvATI`);
-			bindFunc(glVertexStream4iATI, `glVertexStream4iATI`);
-			bindFunc(glVertexStream4ivATI, `glVertexStream4ivATI`);
-			bindFunc(glVertexStream4sATI, `glVertexStream4sATI`);
-			bindFunc(glVertexStream4svATI, `glVertexStream4svATI`);
+			bindFunc!(glClientActiveVertexStreamATI);
+			bindFunc!(glNormalStream3bATI);
+			bindFunc!(glNormalStream3bvATI);
+			bindFunc!(glNormalStream3dATI);
+			bindFunc!(glNormalStream3dvATI);
+			bindFunc!(glNormalStream3fATI);
+			bindFunc!(glNormalStream3fvATI);
+			bindFunc!(glNormalStream3iATI);
+			bindFunc!(glNormalStream3ivATI);
+			bindFunc!(glNormalStream3sATI);
+			bindFunc!(glNormalStream3svATI);
+			bindFunc!(glVertexBlendEnvfATI);
+			bindFunc!(glVertexBlendEnviATI);
+			bindFunc!(glVertexStream1dATI);
+			bindFunc!(glVertexStream1dvATI);
+			bindFunc!(glVertexStream1fATI);
+			bindFunc!(glVertexStream1fvATI);
+			bindFunc!(glVertexStream1iATI);
+			bindFunc!(glVertexStream1ivATI);
+			bindFunc!(glVertexStream1sATI);
+			bindFunc!(glVertexStream1svATI);
+			bindFunc!(glVertexStream2dATI);
+			bindFunc!(glVertexStream2dvATI);
+			bindFunc!(glVertexStream2fATI);
+			bindFunc!(glVertexStream2fvATI);
+			bindFunc!(glVertexStream2iATI);
+			bindFunc!(glVertexStream2ivATI);
+			bindFunc!(glVertexStream2sATI);
+			bindFunc!(glVertexStream2svATI);
+			bindFunc!(glVertexStream3dATI);
+			bindFunc!(glVertexStream3dvATI);
+			bindFunc!(glVertexStream3fATI);
+			bindFunc!(glVertexStream3fvATI);
+			bindFunc!(glVertexStream3iATI);
+			bindFunc!(glVertexStream3ivATI);
+			bindFunc!(glVertexStream3sATI);
+			bindFunc!(glVertexStream3svATI);
+			bindFunc!(glVertexStream4dATI);
+			bindFunc!(glVertexStream4dvATI);
+			bindFunc!(glVertexStream4fATI);
+			bindFunc!(glVertexStream4fvATI);
+			bindFunc!(glVertexStream4iATI);
+			bindFunc!(glVertexStream4ivATI);
+			bindFunc!(glVertexStream4sATI);
+			bindFunc!(glVertexStream4svATI);
 		}
 		// GL EXT_bindable_uniform
 		static if (usingExt(`EXT_bindable_uniform`)) {
-			bindFunc(glGetUniformBufferSizeEXT, `glGetUniformBufferSizeEXT`);
-			bindFunc(glGetUniformOffsetEXT, `glGetUniformOffsetEXT`);
-			bindFunc(glUniformBufferEXT, `glUniformBufferEXT`);
+			bindFunc!(glGetUniformBufferSizeEXT);
+			bindFunc!(glGetUniformOffsetEXT);
+			bindFunc!(glUniformBufferEXT);
 		}
 		// GL EXT_blend_color
 		static if (usingExt(`EXT_blend_color`)) {
-			bindFunc(glBlendColorEXT, `glBlendColorEXT`);
+			bindFunc!(glBlendColorEXT);
 		}
 		// GL EXT_blend_equation_separate
 		static if (usingExt(`EXT_blend_equation_separate`)) {
-			bindFunc(glBlendEquationSeparateEXT, `glBlendEquationSeparateEXT`);
+			bindFunc!(glBlendEquationSeparateEXT);
 		}
 		// GL EXT_blend_func_separate
 		static if (usingExt(`EXT_blend_func_separate`)) {
-			bindFunc(glBlendFuncSeparateEXT, `glBlendFuncSeparateEXT`);
+			bindFunc!(glBlendFuncSeparateEXT);
 		}
 		// GL EXT_blend_minmax
 		static if (usingExt(`EXT_blend_minmax`)) {
-			bindFunc(glBlendEquationEXT, `glBlendEquationEXT`);
+			bindFunc!(glBlendEquationEXT);
 		}
 		// GL EXT_color_subtable
 		static if (usingExt(`EXT_color_subtable`)) {
-			bindFunc(glColorSubTableEXT, `glColorSubTableEXT`);
-			bindFunc(glCopyColorSubTableEXT, `glCopyColorSubTableEXT`);
+			bindFunc!(glColorSubTableEXT);
+			bindFunc!(glCopyColorSubTableEXT);
 		}
 		// GL EXT_compiled_vertex_array
 		static if (usingExt(`EXT_compiled_vertex_array`)) {
-			bindFunc(glLockArraysEXT, `glLockArraysEXT`);
-			bindFunc(glUnlockArraysEXT, `glUnlockArraysEXT`);
+			bindFunc!(glLockArraysEXT);
+			bindFunc!(glUnlockArraysEXT);
 		}
 		// GL EXT_convolution
 		static if (usingExt(`EXT_convolution`)) {
-			bindFunc(glConvolutionFilter1DEXT, `glConvolutionFilter1DEXT`);
-			bindFunc(glConvolutionFilter2DEXT, `glConvolutionFilter2DEXT`);
-			bindFunc(glConvolutionParameterfEXT, `glConvolutionParameterfEXT`);
-			bindFunc(glConvolutionParameterfvEXT, `glConvolutionParameterfvEXT`);
-			bindFunc(glConvolutionParameteriEXT, `glConvolutionParameteriEXT`);
-			bindFunc(glConvolutionParameterivEXT, `glConvolutionParameterivEXT`);
-			bindFunc(glCopyConvolutionFilter1DEXT, `glCopyConvolutionFilter1DEXT`);
-			bindFunc(glCopyConvolutionFilter2DEXT, `glCopyConvolutionFilter2DEXT`);
-			bindFunc(glGetConvolutionFilterEXT, `glGetConvolutionFilterEXT`);
-			bindFunc(glGetConvolutionParameterfvEXT, `glGetConvolutionParameterfvEXT`);
-			bindFunc(glGetConvolutionParameterivEXT, `glGetConvolutionParameterivEXT`);
-			bindFunc(glGetSeparableFilterEXT, `glGetSeparableFilterEXT`);
-			bindFunc(glSeparableFilter2DEXT, `glSeparableFilter2DEXT`);
+			bindFunc!(glConvolutionFilter1DEXT);
+			bindFunc!(glConvolutionFilter2DEXT);
+			bindFunc!(glConvolutionParameterfEXT);
+			bindFunc!(glConvolutionParameterfvEXT);
+			bindFunc!(glConvolutionParameteriEXT);
+			bindFunc!(glConvolutionParameterivEXT);
+			bindFunc!(glCopyConvolutionFilter1DEXT);
+			bindFunc!(glCopyConvolutionFilter2DEXT);
+			bindFunc!(glGetConvolutionFilterEXT);
+			bindFunc!(glGetConvolutionParameterfvEXT);
+			bindFunc!(glGetConvolutionParameterivEXT);
+			bindFunc!(glGetSeparableFilterEXT);
+			bindFunc!(glSeparableFilter2DEXT);
 		}
 		// GL EXT_coordinate_frame
 		static if (usingExt(`EXT_coordinate_frame`)) {
-			bindFunc(glBinormal3bEXT, `glBinormal3bEXT`);
-			bindFunc(glBinormal3bvEXT, `glBinormal3bvEXT`);
-			bindFunc(glBinormal3dEXT, `glBinormal3dEXT`);
-			bindFunc(glBinormal3dvEXT, `glBinormal3dvEXT`);
-			bindFunc(glBinormal3fEXT, `glBinormal3fEXT`);
-			bindFunc(glBinormal3fvEXT, `glBinormal3fvEXT`);
-			bindFunc(glBinormal3iEXT, `glBinormal3iEXT`);
-			bindFunc(glBinormal3ivEXT, `glBinormal3ivEXT`);
-			bindFunc(glBinormal3sEXT, `glBinormal3sEXT`);
-			bindFunc(glBinormal3svEXT, `glBinormal3svEXT`);
-			bindFunc(glBinormalPointerEXT, `glBinormalPointerEXT`);
-			bindFunc(glTangent3bEXT, `glTangent3bEXT`);
-			bindFunc(glTangent3bvEXT, `glTangent3bvEXT`);
-			bindFunc(glTangent3dEXT, `glTangent3dEXT`);
-			bindFunc(glTangent3dvEXT, `glTangent3dvEXT`);
-			bindFunc(glTangent3fEXT, `glTangent3fEXT`);
-			bindFunc(glTangent3fvEXT, `glTangent3fvEXT`);
-			bindFunc(glTangent3iEXT, `glTangent3iEXT`);
-			bindFunc(glTangent3ivEXT, `glTangent3ivEXT`);
-			bindFunc(glTangent3sEXT, `glTangent3sEXT`);
-			bindFunc(glTangent3svEXT, `glTangent3svEXT`);
-			bindFunc(glTangentPointerEXT, `glTangentPointerEXT`);
+			bindFunc!(glBinormal3bEXT);
+			bindFunc!(glBinormal3bvEXT);
+			bindFunc!(glBinormal3dEXT);
+			bindFunc!(glBinormal3dvEXT);
+			bindFunc!(glBinormal3fEXT);
+			bindFunc!(glBinormal3fvEXT);
+			bindFunc!(glBinormal3iEXT);
+			bindFunc!(glBinormal3ivEXT);
+			bindFunc!(glBinormal3sEXT);
+			bindFunc!(glBinormal3svEXT);
+			bindFunc!(glBinormalPointerEXT);
+			bindFunc!(glTangent3bEXT);
+			bindFunc!(glTangent3bvEXT);
+			bindFunc!(glTangent3dEXT);
+			bindFunc!(glTangent3dvEXT);
+			bindFunc!(glTangent3fEXT);
+			bindFunc!(glTangent3fvEXT);
+			bindFunc!(glTangent3iEXT);
+			bindFunc!(glTangent3ivEXT);
+			bindFunc!(glTangent3sEXT);
+			bindFunc!(glTangent3svEXT);
+			bindFunc!(glTangentPointerEXT);
 		}
 		// GL EXT_copy_texture
 		static if (usingExt(`EXT_copy_texture`)) {
-			bindFunc(glCopyTexImage1DEXT, `glCopyTexImage1DEXT`);
-			bindFunc(glCopyTexImage2DEXT, `glCopyTexImage2DEXT`);
-			bindFunc(glCopyTexSubImage1DEXT, `glCopyTexSubImage1DEXT`);
-			bindFunc(glCopyTexSubImage2DEXT, `glCopyTexSubImage2DEXT`);
-			bindFunc(glCopyTexSubImage3DEXT, `glCopyTexSubImage3DEXT`);
+			bindFunc!(glCopyTexImage1DEXT);
+			bindFunc!(glCopyTexImage2DEXT);
+			bindFunc!(glCopyTexSubImage1DEXT);
+			bindFunc!(glCopyTexSubImage2DEXT);
+			bindFunc!(glCopyTexSubImage3DEXT);
 		}
 		// GL EXT_cull_vertex
 		static if (usingExt(`EXT_cull_vertex`)) {
-			bindFunc(glCullParameterdvEXT, `glCullParameterdvEXT`);
-			bindFunc(glCullParameterfvEXT, `glCullParameterfvEXT`);
+			bindFunc!(glCullParameterdvEXT);
+			bindFunc!(glCullParameterfvEXT);
 		}
 		// GL EXT_depth_bounds_test
 		static if (usingExt(`EXT_depth_bounds_test`)) {
-			bindFunc(glDepthBoundsEXT, `glDepthBoundsEXT`);
+			bindFunc!(glDepthBoundsEXT);
 		}
 		// GL EXT_direct_state_access
 		static if (usingExt(`EXT_direct_state_access`)) {
-			bindFunc(glBindMultiTextureEXT, `glBindMultiTextureEXT`);
-			bindFunc(glCheckNamedFramebufferStatusEXT, `glCheckNamedFramebufferStatusEXT`);
-			bindFunc(glClientAttribDefaultEXT, `glClientAttribDefaultEXT`);
-			bindFunc(glCompressedMultiTexImage1DEXT, `glCompressedMultiTexImage1DEXT`);
-			bindFunc(glCompressedMultiTexImage2DEXT, `glCompressedMultiTexImage2DEXT`);
-			bindFunc(glCompressedMultiTexImage3DEXT, `glCompressedMultiTexImage3DEXT`);
-			bindFunc(glCompressedMultiTexSubImage1DEXT, `glCompressedMultiTexSubImage1DEXT`);
-			bindFunc(glCompressedMultiTexSubImage2DEXT, `glCompressedMultiTexSubImage2DEXT`);
-			bindFunc(glCompressedMultiTexSubImage3DEXT, `glCompressedMultiTexSubImage3DEXT`);
-			bindFunc(glCompressedTextureImage1DEXT, `glCompressedTextureImage1DEXT`);
-			bindFunc(glCompressedTextureImage2DEXT, `glCompressedTextureImage2DEXT`);
-			bindFunc(glCompressedTextureImage3DEXT, `glCompressedTextureImage3DEXT`);
-			bindFunc(glCompressedTextureSubImage1DEXT, `glCompressedTextureSubImage1DEXT`);
-			bindFunc(glCompressedTextureSubImage2DEXT, `glCompressedTextureSubImage2DEXT`);
-			bindFunc(glCompressedTextureSubImage3DEXT, `glCompressedTextureSubImage3DEXT`);
-			bindFunc(glCopyMultiTexImage1DEXT, `glCopyMultiTexImage1DEXT`);
-			bindFunc(glCopyMultiTexImage2DEXT, `glCopyMultiTexImage2DEXT`);
-			bindFunc(glCopyMultiTexSubImage1DEXT, `glCopyMultiTexSubImage1DEXT`);
-			bindFunc(glCopyMultiTexSubImage2DEXT, `glCopyMultiTexSubImage2DEXT`);
-			bindFunc(glCopyMultiTexSubImage3DEXT, `glCopyMultiTexSubImage3DEXT`);
-			bindFunc(glCopyTextureImage1DEXT, `glCopyTextureImage1DEXT`);
-			bindFunc(glCopyTextureImage2DEXT, `glCopyTextureImage2DEXT`);
-			bindFunc(glCopyTextureSubImage1DEXT, `glCopyTextureSubImage1DEXT`);
-			bindFunc(glCopyTextureSubImage2DEXT, `glCopyTextureSubImage2DEXT`);
-			bindFunc(glCopyTextureSubImage3DEXT, `glCopyTextureSubImage3DEXT`);
-			bindFunc(glDisableClientStateiEXT, `glDisableClientStateiEXT`);
-			bindFunc(glDisableClientStateIndexedEXT, `glDisableClientStateIndexedEXT`);
-			bindFunc(glDisableVertexArrayAttribEXT, `glDisableVertexArrayAttribEXT`);
-			bindFunc(glDisableVertexArrayEXT, `glDisableVertexArrayEXT`);
-			bindFunc(glEnableClientStateiEXT, `glEnableClientStateiEXT`);
-			bindFunc(glEnableClientStateIndexedEXT, `glEnableClientStateIndexedEXT`);
-			bindFunc(glEnableVertexArrayAttribEXT, `glEnableVertexArrayAttribEXT`);
-			bindFunc(glEnableVertexArrayEXT, `glEnableVertexArrayEXT`);
-			bindFunc(glFlushMappedNamedBufferRangeEXT, `glFlushMappedNamedBufferRangeEXT`);
-			bindFunc(glFramebufferDrawBufferEXT, `glFramebufferDrawBufferEXT`);
-			bindFunc(glFramebufferDrawBuffersEXT, `glFramebufferDrawBuffersEXT`);
-			bindFunc(glFramebufferReadBufferEXT, `glFramebufferReadBufferEXT`);
-			bindFunc(glGenerateMultiTexMipmapEXT, `glGenerateMultiTexMipmapEXT`);
-			bindFunc(glGenerateTextureMipmapEXT, `glGenerateTextureMipmapEXT`);
-			bindFunc(glGetCompressedMultiTexImageEXT, `glGetCompressedMultiTexImageEXT`);
-			bindFunc(glGetCompressedTextureImageEXT, `glGetCompressedTextureImageEXT`);
-			bindFunc(glGetDoublei_vEXT, `glGetDoublei_vEXT`);
-			bindFunc(glGetDoubleIndexedvEXT, `glGetDoubleIndexedvEXT`);
-			bindFunc(glGetFloati_vEXT, `glGetFloati_vEXT`);
-			bindFunc(glGetFloatIndexedvEXT, `glGetFloatIndexedvEXT`);
-			bindFunc(glGetFramebufferParameterivEXT, `glGetFramebufferParameterivEXT`);
-			bindFunc(glGetMultiTexEnvfvEXT, `glGetMultiTexEnvfvEXT`);
-			bindFunc(glGetMultiTexEnvivEXT, `glGetMultiTexEnvivEXT`);
-			bindFunc(glGetMultiTexGendvEXT, `glGetMultiTexGendvEXT`);
-			bindFunc(glGetMultiTexGenfvEXT, `glGetMultiTexGenfvEXT`);
-			bindFunc(glGetMultiTexGenivEXT, `glGetMultiTexGenivEXT`);
-			bindFunc(glGetMultiTexImageEXT, `glGetMultiTexImageEXT`);
-			bindFunc(glGetMultiTexLevelParameterfvEXT, `glGetMultiTexLevelParameterfvEXT`);
-			bindFunc(glGetMultiTexLevelParameterivEXT, `glGetMultiTexLevelParameterivEXT`);
-			bindFunc(glGetMultiTexParameterfvEXT, `glGetMultiTexParameterfvEXT`);
-			bindFunc(glGetMultiTexParameterIivEXT, `glGetMultiTexParameterIivEXT`);
-			bindFunc(glGetMultiTexParameterIuivEXT, `glGetMultiTexParameterIuivEXT`);
-			bindFunc(glGetMultiTexParameterivEXT, `glGetMultiTexParameterivEXT`);
-			bindFunc(glGetNamedBufferParameterivEXT, `glGetNamedBufferParameterivEXT`);
-			bindFunc(glGetNamedBufferPointervEXT, `glGetNamedBufferPointervEXT`);
-			bindFunc(glGetNamedBufferSubDataEXT, `glGetNamedBufferSubDataEXT`);
-			bindFunc(glGetNamedFramebufferAttachmentParameterivEXT, `glGetNamedFramebufferAttachmentParameterivEXT`);
-			bindFunc(glGetNamedProgramivEXT, `glGetNamedProgramivEXT`);
-			bindFunc(glGetNamedProgramLocalParameterdvEXT, `glGetNamedProgramLocalParameterdvEXT`);
-			bindFunc(glGetNamedProgramLocalParameterfvEXT, `glGetNamedProgramLocalParameterfvEXT`);
-			bindFunc(glGetNamedProgramLocalParameterIivEXT, `glGetNamedProgramLocalParameterIivEXT`);
-			bindFunc(glGetNamedProgramLocalParameterIuivEXT, `glGetNamedProgramLocalParameterIuivEXT`);
-			bindFunc(glGetNamedProgramStringEXT, `glGetNamedProgramStringEXT`);
-			bindFunc(glGetNamedRenderbufferParameterivEXT, `glGetNamedRenderbufferParameterivEXT`);
-			bindFunc(glGetPointeri_vEXT, `glGetPointeri_vEXT`);
-			bindFunc(glGetPointerIndexedvEXT, `glGetPointerIndexedvEXT`);
-			bindFunc(glGetTextureImageEXT, `glGetTextureImageEXT`);
-			bindFunc(glGetTextureLevelParameterfvEXT, `glGetTextureLevelParameterfvEXT`);
-			bindFunc(glGetTextureLevelParameterivEXT, `glGetTextureLevelParameterivEXT`);
-			bindFunc(glGetTextureParameterfvEXT, `glGetTextureParameterfvEXT`);
-			bindFunc(glGetTextureParameterIivEXT, `glGetTextureParameterIivEXT`);
-			bindFunc(glGetTextureParameterIuivEXT, `glGetTextureParameterIuivEXT`);
-			bindFunc(glGetTextureParameterivEXT, `glGetTextureParameterivEXT`);
-			bindFunc(glGetVertexArrayIntegeri_vEXT, `glGetVertexArrayIntegeri_vEXT`);
-			bindFunc(glGetVertexArrayIntegervEXT, `glGetVertexArrayIntegervEXT`);
-			bindFunc(glGetVertexArrayPointeri_vEXT, `glGetVertexArrayPointeri_vEXT`);
-			bindFunc(glGetVertexArrayPointervEXT, `glGetVertexArrayPointervEXT`);
-			bindFunc(glMapNamedBufferEXT, `glMapNamedBufferEXT`);
-			bindFunc(glMapNamedBufferRangeEXT, `glMapNamedBufferRangeEXT`);
-			bindFunc(glMatrixFrustumEXT, `glMatrixFrustumEXT`);
-			bindFunc(glMatrixLoaddEXT, `glMatrixLoaddEXT`);
-			bindFunc(glMatrixLoadfEXT, `glMatrixLoadfEXT`);
-			bindFunc(glMatrixLoadIdentityEXT, `glMatrixLoadIdentityEXT`);
-			bindFunc(glMatrixLoadTransposedEXT, `glMatrixLoadTransposedEXT`);
-			bindFunc(glMatrixLoadTransposefEXT, `glMatrixLoadTransposefEXT`);
-			bindFunc(glMatrixMultdEXT, `glMatrixMultdEXT`);
-			bindFunc(glMatrixMultfEXT, `glMatrixMultfEXT`);
-			bindFunc(glMatrixMultTransposedEXT, `glMatrixMultTransposedEXT`);
-			bindFunc(glMatrixMultTransposefEXT, `glMatrixMultTransposefEXT`);
-			bindFunc(glMatrixOrthoEXT, `glMatrixOrthoEXT`);
-			bindFunc(glMatrixPopEXT, `glMatrixPopEXT`);
-			bindFunc(glMatrixPushEXT, `glMatrixPushEXT`);
-			bindFunc(glMatrixRotatedEXT, `glMatrixRotatedEXT`);
-			bindFunc(glMatrixRotatefEXT, `glMatrixRotatefEXT`);
-			bindFunc(glMatrixScaledEXT, `glMatrixScaledEXT`);
-			bindFunc(glMatrixScalefEXT, `glMatrixScalefEXT`);
-			bindFunc(glMatrixTranslatedEXT, `glMatrixTranslatedEXT`);
-			bindFunc(glMatrixTranslatefEXT, `glMatrixTranslatefEXT`);
-			bindFunc(glMultiTexBufferEXT, `glMultiTexBufferEXT`);
-			bindFunc(glMultiTexCoordPointerEXT, `glMultiTexCoordPointerEXT`);
-			bindFunc(glMultiTexEnvfEXT, `glMultiTexEnvfEXT`);
-			bindFunc(glMultiTexEnvfvEXT, `glMultiTexEnvfvEXT`);
-			bindFunc(glMultiTexEnviEXT, `glMultiTexEnviEXT`);
-			bindFunc(glMultiTexEnvivEXT, `glMultiTexEnvivEXT`);
-			bindFunc(glMultiTexGendEXT, `glMultiTexGendEXT`);
-			bindFunc(glMultiTexGendvEXT, `glMultiTexGendvEXT`);
-			bindFunc(glMultiTexGenfEXT, `glMultiTexGenfEXT`);
-			bindFunc(glMultiTexGenfvEXT, `glMultiTexGenfvEXT`);
-			bindFunc(glMultiTexGeniEXT, `glMultiTexGeniEXT`);
-			bindFunc(glMultiTexGenivEXT, `glMultiTexGenivEXT`);
-			bindFunc(glMultiTexImage1DEXT, `glMultiTexImage1DEXT`);
-			bindFunc(glMultiTexImage2DEXT, `glMultiTexImage2DEXT`);
-			bindFunc(glMultiTexImage3DEXT, `glMultiTexImage3DEXT`);
-			bindFunc(glMultiTexParameterfEXT, `glMultiTexParameterfEXT`);
-			bindFunc(glMultiTexParameterfvEXT, `glMultiTexParameterfvEXT`);
-			bindFunc(glMultiTexParameteriEXT, `glMultiTexParameteriEXT`);
-			bindFunc(glMultiTexParameterIivEXT, `glMultiTexParameterIivEXT`);
-			bindFunc(glMultiTexParameterIuivEXT, `glMultiTexParameterIuivEXT`);
-			bindFunc(glMultiTexParameterivEXT, `glMultiTexParameterivEXT`);
-			bindFunc(glMultiTexRenderbufferEXT, `glMultiTexRenderbufferEXT`);
-			bindFunc(glMultiTexSubImage1DEXT, `glMultiTexSubImage1DEXT`);
-			bindFunc(glMultiTexSubImage2DEXT, `glMultiTexSubImage2DEXT`);
-			bindFunc(glMultiTexSubImage3DEXT, `glMultiTexSubImage3DEXT`);
-			bindFunc(glNamedBufferDataEXT, `glNamedBufferDataEXT`);
-			bindFunc(glNamedBufferSubDataEXT, `glNamedBufferSubDataEXT`);
-			bindFunc(glNamedCopyBufferSubDataEXT, `glNamedCopyBufferSubDataEXT`);
-			bindFunc(glNamedFramebufferRenderbufferEXT, `glNamedFramebufferRenderbufferEXT`);
-			bindFunc(glNamedFramebufferTexture1DEXT, `glNamedFramebufferTexture1DEXT`);
-			bindFunc(glNamedFramebufferTexture2DEXT, `glNamedFramebufferTexture2DEXT`);
-			bindFunc(glNamedFramebufferTexture3DEXT, `glNamedFramebufferTexture3DEXT`);
-			bindFunc(glNamedFramebufferTextureEXT, `glNamedFramebufferTextureEXT`);
-			bindFunc(glNamedFramebufferTextureFaceEXT, `glNamedFramebufferTextureFaceEXT`);
-			bindFunc(glNamedFramebufferTextureLayerEXT, `glNamedFramebufferTextureLayerEXT`);
-			bindFunc(glNamedProgramLocalParameter4dEXT, `glNamedProgramLocalParameter4dEXT`);
-			bindFunc(glNamedProgramLocalParameter4dvEXT, `glNamedProgramLocalParameter4dvEXT`);
-			bindFunc(glNamedProgramLocalParameter4fEXT, `glNamedProgramLocalParameter4fEXT`);
-			bindFunc(glNamedProgramLocalParameter4fvEXT, `glNamedProgramLocalParameter4fvEXT`);
-			bindFunc(glNamedProgramLocalParameterI4iEXT, `glNamedProgramLocalParameterI4iEXT`);
-			bindFunc(glNamedProgramLocalParameterI4ivEXT, `glNamedProgramLocalParameterI4ivEXT`);
-			bindFunc(glNamedProgramLocalParameterI4uiEXT, `glNamedProgramLocalParameterI4uiEXT`);
-			bindFunc(glNamedProgramLocalParameterI4uivEXT, `glNamedProgramLocalParameterI4uivEXT`);
-			bindFunc(glNamedProgramLocalParameters4fvEXT, `glNamedProgramLocalParameters4fvEXT`);
-			bindFunc(glNamedProgramLocalParametersI4ivEXT, `glNamedProgramLocalParametersI4ivEXT`);
-			bindFunc(glNamedProgramLocalParametersI4uivEXT, `glNamedProgramLocalParametersI4uivEXT`);
-			bindFunc(glNamedProgramStringEXT, `glNamedProgramStringEXT`);
-			bindFunc(glNamedRenderbufferStorageEXT, `glNamedRenderbufferStorageEXT`);
-			bindFunc(glNamedRenderbufferStorageMultisampleCoverageEXT, `glNamedRenderbufferStorageMultisampleCoverageEXT`);
-			bindFunc(glNamedRenderbufferStorageMultisampleEXT, `glNamedRenderbufferStorageMultisampleEXT`);
-			bindFunc(glProgramUniform1dEXT, `glProgramUniform1dEXT`);
-			bindFunc(glProgramUniform1dvEXT, `glProgramUniform1dvEXT`);
-			bindFunc(glProgramUniform1fEXT, `glProgramUniform1fEXT`);
-			bindFunc(glProgramUniform1fvEXT, `glProgramUniform1fvEXT`);
-			bindFunc(glProgramUniform1iEXT, `glProgramUniform1iEXT`);
-			bindFunc(glProgramUniform1ivEXT, `glProgramUniform1ivEXT`);
-			bindFunc(glProgramUniform1uiEXT, `glProgramUniform1uiEXT`);
-			bindFunc(glProgramUniform1uivEXT, `glProgramUniform1uivEXT`);
-			bindFunc(glProgramUniform2dEXT, `glProgramUniform2dEXT`);
-			bindFunc(glProgramUniform2dvEXT, `glProgramUniform2dvEXT`);
-			bindFunc(glProgramUniform2fEXT, `glProgramUniform2fEXT`);
-			bindFunc(glProgramUniform2fvEXT, `glProgramUniform2fvEXT`);
-			bindFunc(glProgramUniform2iEXT, `glProgramUniform2iEXT`);
-			bindFunc(glProgramUniform2ivEXT, `glProgramUniform2ivEXT`);
-			bindFunc(glProgramUniform2uiEXT, `glProgramUniform2uiEXT`);
-			bindFunc(glProgramUniform2uivEXT, `glProgramUniform2uivEXT`);
-			bindFunc(glProgramUniform3dEXT, `glProgramUniform3dEXT`);
-			bindFunc(glProgramUniform3dvEXT, `glProgramUniform3dvEXT`);
-			bindFunc(glProgramUniform3fEXT, `glProgramUniform3fEXT`);
-			bindFunc(glProgramUniform3fvEXT, `glProgramUniform3fvEXT`);
-			bindFunc(glProgramUniform3iEXT, `glProgramUniform3iEXT`);
-			bindFunc(glProgramUniform3ivEXT, `glProgramUniform3ivEXT`);
-			bindFunc(glProgramUniform3uiEXT, `glProgramUniform3uiEXT`);
-			bindFunc(glProgramUniform3uivEXT, `glProgramUniform3uivEXT`);
-			bindFunc(glProgramUniform4dEXT, `glProgramUniform4dEXT`);
-			bindFunc(glProgramUniform4dvEXT, `glProgramUniform4dvEXT`);
-			bindFunc(glProgramUniform4fEXT, `glProgramUniform4fEXT`);
-			bindFunc(glProgramUniform4fvEXT, `glProgramUniform4fvEXT`);
-			bindFunc(glProgramUniform4iEXT, `glProgramUniform4iEXT`);
-			bindFunc(glProgramUniform4ivEXT, `glProgramUniform4ivEXT`);
-			bindFunc(glProgramUniform4uiEXT, `glProgramUniform4uiEXT`);
-			bindFunc(glProgramUniform4uivEXT, `glProgramUniform4uivEXT`);
-			bindFunc(glProgramUniformMatrix2dvEXT, `glProgramUniformMatrix2dvEXT`);
-			bindFunc(glProgramUniformMatrix2fvEXT, `glProgramUniformMatrix2fvEXT`);
-			bindFunc(glProgramUniformMatrix2x3dvEXT, `glProgramUniformMatrix2x3dvEXT`);
-			bindFunc(glProgramUniformMatrix2x3fvEXT, `glProgramUniformMatrix2x3fvEXT`);
-			bindFunc(glProgramUniformMatrix2x4dvEXT, `glProgramUniformMatrix2x4dvEXT`);
-			bindFunc(glProgramUniformMatrix2x4fvEXT, `glProgramUniformMatrix2x4fvEXT`);
-			bindFunc(glProgramUniformMatrix3dvEXT, `glProgramUniformMatrix3dvEXT`);
-			bindFunc(glProgramUniformMatrix3fvEXT, `glProgramUniformMatrix3fvEXT`);
-			bindFunc(glProgramUniformMatrix3x2dvEXT, `glProgramUniformMatrix3x2dvEXT`);
-			bindFunc(glProgramUniformMatrix3x2fvEXT, `glProgramUniformMatrix3x2fvEXT`);
-			bindFunc(glProgramUniformMatrix3x4dvEXT, `glProgramUniformMatrix3x4dvEXT`);
-			bindFunc(glProgramUniformMatrix3x4fvEXT, `glProgramUniformMatrix3x4fvEXT`);
-			bindFunc(glProgramUniformMatrix4dvEXT, `glProgramUniformMatrix4dvEXT`);
-			bindFunc(glProgramUniformMatrix4fvEXT, `glProgramUniformMatrix4fvEXT`);
-			bindFunc(glProgramUniformMatrix4x2dvEXT, `glProgramUniformMatrix4x2dvEXT`);
-			bindFunc(glProgramUniformMatrix4x2fvEXT, `glProgramUniformMatrix4x2fvEXT`);
-			bindFunc(glProgramUniformMatrix4x3dvEXT, `glProgramUniformMatrix4x3dvEXT`);
-			bindFunc(glProgramUniformMatrix4x3fvEXT, `glProgramUniformMatrix4x3fvEXT`);
-			bindFunc(glPushClientAttribDefaultEXT, `glPushClientAttribDefaultEXT`);
-			bindFunc(glTextureBufferEXT, `glTextureBufferEXT`);
-			bindFunc(glTextureImage1DEXT, `glTextureImage1DEXT`);
-			bindFunc(glTextureImage2DEXT, `glTextureImage2DEXT`);
-			bindFunc(glTextureImage3DEXT, `glTextureImage3DEXT`);
-			bindFunc(glTextureParameterfEXT, `glTextureParameterfEXT`);
-			bindFunc(glTextureParameterfvEXT, `glTextureParameterfvEXT`);
-			bindFunc(glTextureParameteriEXT, `glTextureParameteriEXT`);
-			bindFunc(glTextureParameterIivEXT, `glTextureParameterIivEXT`);
-			bindFunc(glTextureParameterIuivEXT, `glTextureParameterIuivEXT`);
-			bindFunc(glTextureParameterivEXT, `glTextureParameterivEXT`);
-			bindFunc(glTextureRenderbufferEXT, `glTextureRenderbufferEXT`);
-			bindFunc(glTextureSubImage1DEXT, `glTextureSubImage1DEXT`);
-			bindFunc(glTextureSubImage2DEXT, `glTextureSubImage2DEXT`);
-			bindFunc(glTextureSubImage3DEXT, `glTextureSubImage3DEXT`);
-			bindFunc(glUnmapNamedBufferEXT, `glUnmapNamedBufferEXT`);
-			bindFunc(glVertexArrayColorOffsetEXT, `glVertexArrayColorOffsetEXT`);
-			bindFunc(glVertexArrayEdgeFlagOffsetEXT, `glVertexArrayEdgeFlagOffsetEXT`);
-			bindFunc(glVertexArrayFogCoordOffsetEXT, `glVertexArrayFogCoordOffsetEXT`);
-			bindFunc(glVertexArrayIndexOffsetEXT, `glVertexArrayIndexOffsetEXT`);
-			bindFunc(glVertexArrayMultiTexCoordOffsetEXT, `glVertexArrayMultiTexCoordOffsetEXT`);
-			bindFunc(glVertexArrayNormalOffsetEXT, `glVertexArrayNormalOffsetEXT`);
-			bindFunc(glVertexArraySecondaryColorOffsetEXT, `glVertexArraySecondaryColorOffsetEXT`);
-			bindFunc(glVertexArrayTexCoordOffsetEXT, `glVertexArrayTexCoordOffsetEXT`);
-			bindFunc(glVertexArrayVertexAttribIOffsetEXT, `glVertexArrayVertexAttribIOffsetEXT`);
-			bindFunc(glVertexArrayVertexAttribOffsetEXT, `glVertexArrayVertexAttribOffsetEXT`);
-			bindFunc(glVertexArrayVertexOffsetEXT, `glVertexArrayVertexOffsetEXT`);
+			bindFunc!(glBindMultiTextureEXT);
+			bindFunc!(glCheckNamedFramebufferStatusEXT);
+			bindFunc!(glClientAttribDefaultEXT);
+			bindFunc!(glCompressedMultiTexImage1DEXT);
+			bindFunc!(glCompressedMultiTexImage2DEXT);
+			bindFunc!(glCompressedMultiTexImage3DEXT);
+			bindFunc!(glCompressedMultiTexSubImage1DEXT);
+			bindFunc!(glCompressedMultiTexSubImage2DEXT);
+			bindFunc!(glCompressedMultiTexSubImage3DEXT);
+			bindFunc!(glCompressedTextureImage1DEXT);
+			bindFunc!(glCompressedTextureImage2DEXT);
+			bindFunc!(glCompressedTextureImage3DEXT);
+			bindFunc!(glCompressedTextureSubImage1DEXT);
+			bindFunc!(glCompressedTextureSubImage2DEXT);
+			bindFunc!(glCompressedTextureSubImage3DEXT);
+			bindFunc!(glCopyMultiTexImage1DEXT);
+			bindFunc!(glCopyMultiTexImage2DEXT);
+			bindFunc!(glCopyMultiTexSubImage1DEXT);
+			bindFunc!(glCopyMultiTexSubImage2DEXT);
+			bindFunc!(glCopyMultiTexSubImage3DEXT);
+			bindFunc!(glCopyTextureImage1DEXT);
+			bindFunc!(glCopyTextureImage2DEXT);
+			bindFunc!(glCopyTextureSubImage1DEXT);
+			bindFunc!(glCopyTextureSubImage2DEXT);
+			bindFunc!(glCopyTextureSubImage3DEXT);
+			bindFunc!(glDisableClientStateiEXT);
+			bindFunc!(glDisableClientStateIndexedEXT);
+			bindFunc!(glDisableVertexArrayAttribEXT);
+			bindFunc!(glDisableVertexArrayEXT);
+			bindFunc!(glEnableClientStateiEXT);
+			bindFunc!(glEnableClientStateIndexedEXT);
+			bindFunc!(glEnableVertexArrayAttribEXT);
+			bindFunc!(glEnableVertexArrayEXT);
+			bindFunc!(glFlushMappedNamedBufferRangeEXT);
+			bindFunc!(glFramebufferDrawBufferEXT);
+			bindFunc!(glFramebufferDrawBuffersEXT);
+			bindFunc!(glFramebufferReadBufferEXT);
+			bindFunc!(glGenerateMultiTexMipmapEXT);
+			bindFunc!(glGenerateTextureMipmapEXT);
+			bindFunc!(glGetCompressedMultiTexImageEXT);
+			bindFunc!(glGetCompressedTextureImageEXT);
+			bindFunc!(glGetDoublei_vEXT);
+			bindFunc!(glGetDoubleIndexedvEXT);
+			bindFunc!(glGetFloati_vEXT);
+			bindFunc!(glGetFloatIndexedvEXT);
+			bindFunc!(glGetFramebufferParameterivEXT);
+			bindFunc!(glGetMultiTexEnvfvEXT);
+			bindFunc!(glGetMultiTexEnvivEXT);
+			bindFunc!(glGetMultiTexGendvEXT);
+			bindFunc!(glGetMultiTexGenfvEXT);
+			bindFunc!(glGetMultiTexGenivEXT);
+			bindFunc!(glGetMultiTexImageEXT);
+			bindFunc!(glGetMultiTexLevelParameterfvEXT);
+			bindFunc!(glGetMultiTexLevelParameterivEXT);
+			bindFunc!(glGetMultiTexParameterfvEXT);
+			bindFunc!(glGetMultiTexParameterIivEXT);
+			bindFunc!(glGetMultiTexParameterIuivEXT);
+			bindFunc!(glGetMultiTexParameterivEXT);
+			bindFunc!(glGetNamedBufferParameterivEXT);
+			bindFunc!(glGetNamedBufferPointervEXT);
+			bindFunc!(glGetNamedBufferSubDataEXT);
+			bindFunc!(glGetNamedFramebufferAttachmentParameterivEXT);
+			bindFunc!(glGetNamedProgramivEXT);
+			bindFunc!(glGetNamedProgramLocalParameterdvEXT);
+			bindFunc!(glGetNamedProgramLocalParameterfvEXT);
+			bindFunc!(glGetNamedProgramLocalParameterIivEXT);
+			bindFunc!(glGetNamedProgramLocalParameterIuivEXT);
+			bindFunc!(glGetNamedProgramStringEXT);
+			bindFunc!(glGetNamedRenderbufferParameterivEXT);
+			bindFunc!(glGetPointeri_vEXT);
+			bindFunc!(glGetPointerIndexedvEXT);
+			bindFunc!(glGetTextureImageEXT);
+			bindFunc!(glGetTextureLevelParameterfvEXT);
+			bindFunc!(glGetTextureLevelParameterivEXT);
+			bindFunc!(glGetTextureParameterfvEXT);
+			bindFunc!(glGetTextureParameterIivEXT);
+			bindFunc!(glGetTextureParameterIuivEXT);
+			bindFunc!(glGetTextureParameterivEXT);
+			bindFunc!(glGetVertexArrayIntegeri_vEXT);
+			bindFunc!(glGetVertexArrayIntegervEXT);
+			bindFunc!(glGetVertexArrayPointeri_vEXT);
+			bindFunc!(glGetVertexArrayPointervEXT);
+			bindFunc!(glMapNamedBufferEXT);
+			bindFunc!(glMapNamedBufferRangeEXT);
+			bindFunc!(glMatrixFrustumEXT);
+			bindFunc!(glMatrixLoaddEXT);
+			bindFunc!(glMatrixLoadfEXT);
+			bindFunc!(glMatrixLoadIdentityEXT);
+			bindFunc!(glMatrixLoadTransposedEXT);
+			bindFunc!(glMatrixLoadTransposefEXT);
+			bindFunc!(glMatrixMultdEXT);
+			bindFunc!(glMatrixMultfEXT);
+			bindFunc!(glMatrixMultTransposedEXT);
+			bindFunc!(glMatrixMultTransposefEXT);
+			bindFunc!(glMatrixOrthoEXT);
+			bindFunc!(glMatrixPopEXT);
+			bindFunc!(glMatrixPushEXT);
+			bindFunc!(glMatrixRotatedEXT);
+			bindFunc!(glMatrixRotatefEXT);
+			bindFunc!(glMatrixScaledEXT);
+			bindFunc!(glMatrixScalefEXT);
+			bindFunc!(glMatrixTranslatedEXT);
+			bindFunc!(glMatrixTranslatefEXT);
+			bindFunc!(glMultiTexBufferEXT);
+			bindFunc!(glMultiTexCoordPointerEXT);
+			bindFunc!(glMultiTexEnvfEXT);
+			bindFunc!(glMultiTexEnvfvEXT);
+			bindFunc!(glMultiTexEnviEXT);
+			bindFunc!(glMultiTexEnvivEXT);
+			bindFunc!(glMultiTexGendEXT);
+			bindFunc!(glMultiTexGendvEXT);
+			bindFunc!(glMultiTexGenfEXT);
+			bindFunc!(glMultiTexGenfvEXT);
+			bindFunc!(glMultiTexGeniEXT);
+			bindFunc!(glMultiTexGenivEXT);
+			bindFunc!(glMultiTexImage1DEXT);
+			bindFunc!(glMultiTexImage2DEXT);
+			bindFunc!(glMultiTexImage3DEXT);
+			bindFunc!(glMultiTexParameterfEXT);
+			bindFunc!(glMultiTexParameterfvEXT);
+			bindFunc!(glMultiTexParameteriEXT);
+			bindFunc!(glMultiTexParameterIivEXT);
+			bindFunc!(glMultiTexParameterIuivEXT);
+			bindFunc!(glMultiTexParameterivEXT);
+			bindFunc!(glMultiTexRenderbufferEXT);
+			bindFunc!(glMultiTexSubImage1DEXT);
+			bindFunc!(glMultiTexSubImage2DEXT);
+			bindFunc!(glMultiTexSubImage3DEXT);
+			bindFunc!(glNamedBufferDataEXT);
+			bindFunc!(glNamedBufferSubDataEXT);
+			bindFunc!(glNamedCopyBufferSubDataEXT);
+			bindFunc!(glNamedFramebufferRenderbufferEXT);
+			bindFunc!(glNamedFramebufferTexture1DEXT);
+			bindFunc!(glNamedFramebufferTexture2DEXT);
+			bindFunc!(glNamedFramebufferTexture3DEXT);
+			bindFunc!(glNamedFramebufferTextureEXT);
+			bindFunc!(glNamedFramebufferTextureFaceEXT);
+			bindFunc!(glNamedFramebufferTextureLayerEXT);
+			bindFunc!(glNamedProgramLocalParameter4dEXT);
+			bindFunc!(glNamedProgramLocalParameter4dvEXT);
+			bindFunc!(glNamedProgramLocalParameter4fEXT);
+			bindFunc!(glNamedProgramLocalParameter4fvEXT);
+			bindFunc!(glNamedProgramLocalParameterI4iEXT);
+			bindFunc!(glNamedProgramLocalParameterI4ivEXT);
+			bindFunc!(glNamedProgramLocalParameterI4uiEXT);
+			bindFunc!(glNamedProgramLocalParameterI4uivEXT);
+			bindFunc!(glNamedProgramLocalParameters4fvEXT);
+			bindFunc!(glNamedProgramLocalParametersI4ivEXT);
+			bindFunc!(glNamedProgramLocalParametersI4uivEXT);
+			bindFunc!(glNamedProgramStringEXT);
+			bindFunc!(glNamedRenderbufferStorageEXT);
+			bindFunc!(glNamedRenderbufferStorageMultisampleCoverageEXT);
+			bindFunc!(glNamedRenderbufferStorageMultisampleEXT);
+			bindFunc!(glProgramUniform1dEXT);
+			bindFunc!(glProgramUniform1dvEXT);
+			bindFunc!(glProgramUniform1fEXT);
+			bindFunc!(glProgramUniform1fvEXT);
+			bindFunc!(glProgramUniform1iEXT);
+			bindFunc!(glProgramUniform1ivEXT);
+			bindFunc!(glProgramUniform1uiEXT);
+			bindFunc!(glProgramUniform1uivEXT);
+			bindFunc!(glProgramUniform2dEXT);
+			bindFunc!(glProgramUniform2dvEXT);
+			bindFunc!(glProgramUniform2fEXT);
+			bindFunc!(glProgramUniform2fvEXT);
+			bindFunc!(glProgramUniform2iEXT);
+			bindFunc!(glProgramUniform2ivEXT);
+			bindFunc!(glProgramUniform2uiEXT);
+			bindFunc!(glProgramUniform2uivEXT);
+			bindFunc!(glProgramUniform3dEXT);
+			bindFunc!(glProgramUniform3dvEXT);
+			bindFunc!(glProgramUniform3fEXT);
+			bindFunc!(glProgramUniform3fvEXT);
+			bindFunc!(glProgramUniform3iEXT);
+			bindFunc!(glProgramUniform3ivEXT);
+			bindFunc!(glProgramUniform3uiEXT);
+			bindFunc!(glProgramUniform3uivEXT);
+			bindFunc!(glProgramUniform4dEXT);
+			bindFunc!(glProgramUniform4dvEXT);
+			bindFunc!(glProgramUniform4fEXT);
+			bindFunc!(glProgramUniform4fvEXT);
+			bindFunc!(glProgramUniform4iEXT);
+			bindFunc!(glProgramUniform4ivEXT);
+			bindFunc!(glProgramUniform4uiEXT);
+			bindFunc!(glProgramUniform4uivEXT);
+			bindFunc!(glProgramUniformMatrix2dvEXT);
+			bindFunc!(glProgramUniformMatrix2fvEXT);
+			bindFunc!(glProgramUniformMatrix2x3dvEXT);
+			bindFunc!(glProgramUniformMatrix2x3fvEXT);
+			bindFunc!(glProgramUniformMatrix2x4dvEXT);
+			bindFunc!(glProgramUniformMatrix2x4fvEXT);
+			bindFunc!(glProgramUniformMatrix3dvEXT);
+			bindFunc!(glProgramUniformMatrix3fvEXT);
+			bindFunc!(glProgramUniformMatrix3x2dvEXT);
+			bindFunc!(glProgramUniformMatrix3x2fvEXT);
+			bindFunc!(glProgramUniformMatrix3x4dvEXT);
+			bindFunc!(glProgramUniformMatrix3x4fvEXT);
+			bindFunc!(glProgramUniformMatrix4dvEXT);
+			bindFunc!(glProgramUniformMatrix4fvEXT);
+			bindFunc!(glProgramUniformMatrix4x2dvEXT);
+			bindFunc!(glProgramUniformMatrix4x2fvEXT);
+			bindFunc!(glProgramUniformMatrix4x3dvEXT);
+			bindFunc!(glProgramUniformMatrix4x3fvEXT);
+			bindFunc!(glPushClientAttribDefaultEXT);
+			bindFunc!(glTextureBufferEXT);
+			bindFunc!(glTextureImage1DEXT);
+			bindFunc!(glTextureImage2DEXT);
+			bindFunc!(glTextureImage3DEXT);
+			bindFunc!(glTextureParameterfEXT);
+			bindFunc!(glTextureParameterfvEXT);
+			bindFunc!(glTextureParameteriEXT);
+			bindFunc!(glTextureParameterIivEXT);
+			bindFunc!(glTextureParameterIuivEXT);
+			bindFunc!(glTextureParameterivEXT);
+			bindFunc!(glTextureRenderbufferEXT);
+			bindFunc!(glTextureSubImage1DEXT);
+			bindFunc!(glTextureSubImage2DEXT);
+			bindFunc!(glTextureSubImage3DEXT);
+			bindFunc!(glUnmapNamedBufferEXT);
+			bindFunc!(glVertexArrayColorOffsetEXT);
+			bindFunc!(glVertexArrayEdgeFlagOffsetEXT);
+			bindFunc!(glVertexArrayFogCoordOffsetEXT);
+			bindFunc!(glVertexArrayIndexOffsetEXT);
+			bindFunc!(glVertexArrayMultiTexCoordOffsetEXT);
+			bindFunc!(glVertexArrayNormalOffsetEXT);
+			bindFunc!(glVertexArraySecondaryColorOffsetEXT);
+			bindFunc!(glVertexArrayTexCoordOffsetEXT);
+			bindFunc!(glVertexArrayVertexAttribIOffsetEXT);
+			bindFunc!(glVertexArrayVertexAttribOffsetEXT);
+			bindFunc!(glVertexArrayVertexOffsetEXT);
 		}
 		// GL EXT_draw_buffers2
 		static if (usingExt(`EXT_draw_buffers2`)) {
-			bindFunc(glColorMaskIndexedEXT, `glColorMaskIndexedEXT`);
-			bindFunc(glDisableIndexedEXT, `glDisableIndexedEXT`);
-			bindFunc(glEnableIndexedEXT, `glEnableIndexedEXT`);
-			bindFunc(glGetBooleanIndexedvEXT, `glGetBooleanIndexedvEXT`);
-			bindFunc(glGetIntegerIndexedvEXT, `glGetIntegerIndexedvEXT`);
-			bindFunc(glIsEnabledIndexedEXT, `glIsEnabledIndexedEXT`);
+			bindFunc!(glColorMaskIndexedEXT);
+			bindFunc!(glDisableIndexedEXT);
+			bindFunc!(glEnableIndexedEXT);
+			bindFunc!(glGetBooleanIndexedvEXT);
+			bindFunc!(glGetIntegerIndexedvEXT);
+			bindFunc!(glIsEnabledIndexedEXT);
 		}
 		// GL EXT_draw_instanced
 		static if (usingExt(`EXT_draw_instanced`)) {
-			bindFunc(glDrawArraysInstancedEXT, `glDrawArraysInstancedEXT`);
-			bindFunc(glDrawElementsInstancedEXT, `glDrawElementsInstancedEXT`);
+			bindFunc!(glDrawArraysInstancedEXT);
+			bindFunc!(glDrawElementsInstancedEXT);
 		}
 		// GL EXT_draw_range_elements
 		static if (usingExt(`EXT_draw_range_elements`)) {
-			bindFunc(glDrawRangeElementsEXT, `glDrawRangeElementsEXT`);
+			bindFunc!(glDrawRangeElementsEXT);
 		}
 		// GL EXT_fog_coord
 		static if (usingExt(`EXT_fog_coord`)) {
-			bindFunc(glFogCoorddEXT, `glFogCoorddEXT`);
-			bindFunc(glFogCoorddvEXT, `glFogCoorddvEXT`);
-			bindFunc(glFogCoordfEXT, `glFogCoordfEXT`);
-			bindFunc(glFogCoordfvEXT, `glFogCoordfvEXT`);
-			bindFunc(glFogCoordPointerEXT, `glFogCoordPointerEXT`);
+			bindFunc!(glFogCoorddEXT);
+			bindFunc!(glFogCoorddvEXT);
+			bindFunc!(glFogCoordfEXT);
+			bindFunc!(glFogCoordfvEXT);
+			bindFunc!(glFogCoordPointerEXT);
 		}
 		// GL EXT_framebuffer_blit
 		static if (usingExt(`EXT_framebuffer_blit`)) {
-			bindFunc(glBlitFramebufferEXT, `glBlitFramebufferEXT`);
+			bindFunc!(glBlitFramebufferEXT);
 		}
 		// GL EXT_framebuffer_multisample
 		static if (usingExt(`EXT_framebuffer_multisample`)) {
-			bindFunc(glRenderbufferStorageMultisampleEXT, `glRenderbufferStorageMultisampleEXT`);
+			bindFunc!(glRenderbufferStorageMultisampleEXT);
 		}
 		// GL EXT_framebuffer_object
 		static if (usingExt(`EXT_framebuffer_object`)) {
-			bindFunc(glBindFramebufferEXT, `glBindFramebufferEXT`);
-			bindFunc(glBindRenderbufferEXT, `glBindRenderbufferEXT`);
-			bindFunc(glCheckFramebufferStatusEXT, `glCheckFramebufferStatusEXT`);
-			bindFunc(glDeleteFramebuffersEXT, `glDeleteFramebuffersEXT`);
-			bindFunc(glDeleteRenderbuffersEXT, `glDeleteRenderbuffersEXT`);
-			bindFunc(glFramebufferRenderbufferEXT, `glFramebufferRenderbufferEXT`);
-			bindFunc(glFramebufferTexture1DEXT, `glFramebufferTexture1DEXT`);
-			bindFunc(glFramebufferTexture2DEXT, `glFramebufferTexture2DEXT`);
-			bindFunc(glFramebufferTexture3DEXT, `glFramebufferTexture3DEXT`);
-			bindFunc(glGenerateMipmapEXT, `glGenerateMipmapEXT`);
-			bindFunc(glGenFramebuffersEXT, `glGenFramebuffersEXT`);
-			bindFunc(glGenRenderbuffersEXT, `glGenRenderbuffersEXT`);
-			bindFunc(glGetFramebufferAttachmentParameterivEXT, `glGetFramebufferAttachmentParameterivEXT`);
-			bindFunc(glGetRenderbufferParameterivEXT, `glGetRenderbufferParameterivEXT`);
-			bindFunc(glIsFramebufferEXT, `glIsFramebufferEXT`);
-			bindFunc(glIsRenderbufferEXT, `glIsRenderbufferEXT`);
-			bindFunc(glRenderbufferStorageEXT, `glRenderbufferStorageEXT`);
+			bindFunc!(glBindFramebufferEXT);
+			bindFunc!(glBindRenderbufferEXT);
+			bindFunc!(glCheckFramebufferStatusEXT);
+			bindFunc!(glDeleteFramebuffersEXT);
+			bindFunc!(glDeleteRenderbuffersEXT);
+			bindFunc!(glFramebufferRenderbufferEXT);
+			bindFunc!(glFramebufferTexture1DEXT);
+			bindFunc!(glFramebufferTexture2DEXT);
+			bindFunc!(glFramebufferTexture3DEXT);
+			bindFunc!(glGenerateMipmapEXT);
+			bindFunc!(glGenFramebuffersEXT);
+			bindFunc!(glGenRenderbuffersEXT);
+			bindFunc!(glGetFramebufferAttachmentParameterivEXT);
+			bindFunc!(glGetRenderbufferParameterivEXT);
+			bindFunc!(glIsFramebufferEXT);
+			bindFunc!(glIsRenderbufferEXT);
+			bindFunc!(glRenderbufferStorageEXT);
 		}
 		// GL EXT_geometry_shader4
 		static if (usingExt(`EXT_geometry_shader4`)) {
-			bindFunc(glProgramParameteriEXT, `glProgramParameteriEXT`);
+			bindFunc!(glProgramParameteriEXT);
 		}
 		// GL EXT_gpu_program_parameters
 		static if (usingExt(`EXT_gpu_program_parameters`)) {
-			bindFunc(glProgramEnvParameters4fvEXT, `glProgramEnvParameters4fvEXT`);
-			bindFunc(glProgramLocalParameters4fvEXT, `glProgramLocalParameters4fvEXT`);
+			bindFunc!(glProgramEnvParameters4fvEXT);
+			bindFunc!(glProgramLocalParameters4fvEXT);
 		}
 		// GL EXT_gpu_shader4
 		static if (usingExt(`EXT_gpu_shader4`)) {
-			bindFunc(glBindFragDataLocationEXT, `glBindFragDataLocationEXT`);
-			bindFunc(glGetFragDataLocationEXT, `glGetFragDataLocationEXT`);
-			bindFunc(glGetUniformuivEXT, `glGetUniformuivEXT`);
-			bindFunc(glUniform1uiEXT, `glUniform1uiEXT`);
-			bindFunc(glUniform1uivEXT, `glUniform1uivEXT`);
-			bindFunc(glUniform2uiEXT, `glUniform2uiEXT`);
-			bindFunc(glUniform2uivEXT, `glUniform2uivEXT`);
-			bindFunc(glUniform3uiEXT, `glUniform3uiEXT`);
-			bindFunc(glUniform3uivEXT, `glUniform3uivEXT`);
-			bindFunc(glUniform4uiEXT, `glUniform4uiEXT`);
-			bindFunc(glUniform4uivEXT, `glUniform4uivEXT`);
+			bindFunc!(glBindFragDataLocationEXT);
+			bindFunc!(glGetFragDataLocationEXT);
+			bindFunc!(glGetUniformuivEXT);
+			bindFunc!(glUniform1uiEXT);
+			bindFunc!(glUniform1uivEXT);
+			bindFunc!(glUniform2uiEXT);
+			bindFunc!(glUniform2uivEXT);
+			bindFunc!(glUniform3uiEXT);
+			bindFunc!(glUniform3uivEXT);
+			bindFunc!(glUniform4uiEXT);
+			bindFunc!(glUniform4uivEXT);
 		}
 		// GL EXT_histogram
 		static if (usingExt(`EXT_histogram`)) {
-			bindFunc(glGetHistogramEXT, `glGetHistogramEXT`);
-			bindFunc(glGetHistogramParameterfvEXT, `glGetHistogramParameterfvEXT`);
-			bindFunc(glGetHistogramParameterivEXT, `glGetHistogramParameterivEXT`);
-			bindFunc(glGetMinmaxEXT, `glGetMinmaxEXT`);
-			bindFunc(glGetMinmaxParameterfvEXT, `glGetMinmaxParameterfvEXT`);
-			bindFunc(glGetMinmaxParameterivEXT, `glGetMinmaxParameterivEXT`);
-			bindFunc(glHistogramEXT, `glHistogramEXT`);
-			bindFunc(glMinmaxEXT, `glMinmaxEXT`);
-			bindFunc(glResetHistogramEXT, `glResetHistogramEXT`);
-			bindFunc(glResetMinmaxEXT, `glResetMinmaxEXT`);
+			bindFunc!(glGetHistogramEXT);
+			bindFunc!(glGetHistogramParameterfvEXT);
+			bindFunc!(glGetHistogramParameterivEXT);
+			bindFunc!(glGetMinmaxEXT);
+			bindFunc!(glGetMinmaxParameterfvEXT);
+			bindFunc!(glGetMinmaxParameterivEXT);
+			bindFunc!(glHistogramEXT);
+			bindFunc!(glMinmaxEXT);
+			bindFunc!(glResetHistogramEXT);
+			bindFunc!(glResetMinmaxEXT);
 		}
 		// GL EXT_index_func
 		static if (usingExt(`EXT_index_func`)) {
-			bindFunc(glIndexFuncEXT, `glIndexFuncEXT`);
+			bindFunc!(glIndexFuncEXT);
 		}
 		// GL EXT_index_material
 		static if (usingExt(`EXT_index_material`)) {
-			bindFunc(glIndexMaterialEXT, `glIndexMaterialEXT`);
+			bindFunc!(glIndexMaterialEXT);
 		}
 		// GL EXT_light_texture
 		static if (usingExt(`EXT_light_texture`)) {
-			bindFunc(glApplyTextureEXT, `glApplyTextureEXT`);
-			bindFunc(glTextureLightEXT, `glTextureLightEXT`);
-			bindFunc(glTextureMaterialEXT, `glTextureMaterialEXT`);
+			bindFunc!(glApplyTextureEXT);
+			bindFunc!(glTextureLightEXT);
+			bindFunc!(glTextureMaterialEXT);
 		}
 		// GL EXT_multi_draw_arrays
 		static if (usingExt(`EXT_multi_draw_arrays`)) {
-			bindFunc(glMultiDrawArraysEXT, `glMultiDrawArraysEXT`);
-			bindFunc(glMultiDrawElementsEXT, `glMultiDrawElementsEXT`);
+			bindFunc!(glMultiDrawArraysEXT);
+			bindFunc!(glMultiDrawElementsEXT);
 		}
 		// GL EXT_multisample
 		static if (usingExt(`EXT_multisample`)) {
-			bindFunc(glSampleMaskEXT, `glSampleMaskEXT`);
-			bindFunc(glSamplePatternEXT, `glSamplePatternEXT`);
+			bindFunc!(glSampleMaskEXT);
+			bindFunc!(glSamplePatternEXT);
 		}
 		// GL EXT_paletted_texture
 		static if (usingExt(`EXT_paletted_texture`)) {
-			bindFunc(glColorTableEXT, `glColorTableEXT`);
-			bindFunc(glGetColorTableEXT, `glGetColorTableEXT`);
-			bindFunc(glGetColorTableParameterfvEXT, `glGetColorTableParameterfvEXT`);
-			bindFunc(glGetColorTableParameterivEXT, `glGetColorTableParameterivEXT`);
+			bindFunc!(glColorTableEXT);
+			bindFunc!(glGetColorTableEXT);
+			bindFunc!(glGetColorTableParameterfvEXT);
+			bindFunc!(glGetColorTableParameterivEXT);
 		}
 		// GL EXT_pixel_transform
 		static if (usingExt(`EXT_pixel_transform`)) {
-			bindFunc(glGetPixelTransformParameterfvEXT, `glGetPixelTransformParameterfvEXT`);
-			bindFunc(glGetPixelTransformParameterivEXT, `glGetPixelTransformParameterivEXT`);
-			bindFunc(glPixelTransformParameterfEXT, `glPixelTransformParameterfEXT`);
-			bindFunc(glPixelTransformParameterfvEXT, `glPixelTransformParameterfvEXT`);
-			bindFunc(glPixelTransformParameteriEXT, `glPixelTransformParameteriEXT`);
-			bindFunc(glPixelTransformParameterivEXT, `glPixelTransformParameterivEXT`);
+			bindFunc!(glGetPixelTransformParameterfvEXT);
+			bindFunc!(glGetPixelTransformParameterivEXT);
+			bindFunc!(glPixelTransformParameterfEXT);
+			bindFunc!(glPixelTransformParameterfvEXT);
+			bindFunc!(glPixelTransformParameteriEXT);
+			bindFunc!(glPixelTransformParameterivEXT);
 		}
 		// GL EXT_point_parameters
 		static if (usingExt(`EXT_point_parameters`)) {
-			bindFunc(glPointParameterfEXT, `glPointParameterfEXT`);
-			bindFunc(glPointParameterfvEXT, `glPointParameterfvEXT`);
+			bindFunc!(glPointParameterfEXT);
+			bindFunc!(glPointParameterfvEXT);
 		}
 		// GL EXT_polygon_offset
 		static if (usingExt(`EXT_polygon_offset`)) {
-			bindFunc(glPolygonOffsetEXT, `glPolygonOffsetEXT`);
+			bindFunc!(glPolygonOffsetEXT);
 		}
 		// GL EXT_provoking_vertex
 		static if (usingExt(`EXT_provoking_vertex`)) {
-			bindFunc(glProvokingVertexEXT, `glProvokingVertexEXT`);
+			bindFunc!(glProvokingVertexEXT);
 		}
 		// GL EXT_secondary_color
 		static if (usingExt(`EXT_secondary_color`)) {
-			bindFunc(glSecondaryColor3bEXT, `glSecondaryColor3bEXT`);
-			bindFunc(glSecondaryColor3bvEXT, `glSecondaryColor3bvEXT`);
-			bindFunc(glSecondaryColor3dEXT, `glSecondaryColor3dEXT`);
-			bindFunc(glSecondaryColor3dvEXT, `glSecondaryColor3dvEXT`);
-			bindFunc(glSecondaryColor3fEXT, `glSecondaryColor3fEXT`);
-			bindFunc(glSecondaryColor3fvEXT, `glSecondaryColor3fvEXT`);
-			bindFunc(glSecondaryColor3iEXT, `glSecondaryColor3iEXT`);
-			bindFunc(glSecondaryColor3ivEXT, `glSecondaryColor3ivEXT`);
-			bindFunc(glSecondaryColor3sEXT, `glSecondaryColor3sEXT`);
-			bindFunc(glSecondaryColor3svEXT, `glSecondaryColor3svEXT`);
-			bindFunc(glSecondaryColor3ubEXT, `glSecondaryColor3ubEXT`);
-			bindFunc(glSecondaryColor3ubvEXT, `glSecondaryColor3ubvEXT`);
-			bindFunc(glSecondaryColor3uiEXT, `glSecondaryColor3uiEXT`);
-			bindFunc(glSecondaryColor3uivEXT, `glSecondaryColor3uivEXT`);
-			bindFunc(glSecondaryColor3usEXT, `glSecondaryColor3usEXT`);
-			bindFunc(glSecondaryColor3usvEXT, `glSecondaryColor3usvEXT`);
-			bindFunc(glSecondaryColorPointerEXT, `glSecondaryColorPointerEXT`);
+			bindFunc!(glSecondaryColor3bEXT);
+			bindFunc!(glSecondaryColor3bvEXT);
+			bindFunc!(glSecondaryColor3dEXT);
+			bindFunc!(glSecondaryColor3dvEXT);
+			bindFunc!(glSecondaryColor3fEXT);
+			bindFunc!(glSecondaryColor3fvEXT);
+			bindFunc!(glSecondaryColor3iEXT);
+			bindFunc!(glSecondaryColor3ivEXT);
+			bindFunc!(glSecondaryColor3sEXT);
+			bindFunc!(glSecondaryColor3svEXT);
+			bindFunc!(glSecondaryColor3ubEXT);
+			bindFunc!(glSecondaryColor3ubvEXT);
+			bindFunc!(glSecondaryColor3uiEXT);
+			bindFunc!(glSecondaryColor3uivEXT);
+			bindFunc!(glSecondaryColor3usEXT);
+			bindFunc!(glSecondaryColor3usvEXT);
+			bindFunc!(glSecondaryColorPointerEXT);
 		}
 		// GL EXT_separate_shader_objects
 		static if (usingExt(`EXT_separate_shader_objects`)) {
-			bindFunc(glActiveProgramEXT, `glActiveProgramEXT`);
-			bindFunc(glCreateShaderProgramEXT, `glCreateShaderProgramEXT`);
-			bindFunc(glUseShaderProgramEXT, `glUseShaderProgramEXT`);
+			bindFunc!(glActiveProgramEXT);
+			bindFunc!(glCreateShaderProgramEXT);
+			bindFunc!(glUseShaderProgramEXT);
 		}
 		// GL EXT_shader_image_load_store
 		static if (usingExt(`EXT_shader_image_load_store`)) {
-			bindFunc(glBindImageTextureEXT, `glBindImageTextureEXT`);
-			bindFunc(glMemoryBarrierEXT, `glMemoryBarrierEXT`);
+			bindFunc!(glBindImageTextureEXT);
+			bindFunc!(glMemoryBarrierEXT);
 		}
 		// GL EXT_stencil_clear_tag
 		static if (usingExt(`EXT_stencil_clear_tag`)) {
-			bindFunc(glStencilClearTagEXT, `glStencilClearTagEXT`);
+			bindFunc!(glStencilClearTagEXT);
 		}
 		// GL EXT_stencil_two_side
 		static if (usingExt(`EXT_stencil_two_side`)) {
-			bindFunc(glActiveStencilFaceEXT, `glActiveStencilFaceEXT`);
+			bindFunc!(glActiveStencilFaceEXT);
 		}
 		// GL EXT_subtexture
 		static if (usingExt(`EXT_subtexture`)) {
-			bindFunc(glTexSubImage1DEXT, `glTexSubImage1DEXT`);
-			bindFunc(glTexSubImage2DEXT, `glTexSubImage2DEXT`);
+			bindFunc!(glTexSubImage1DEXT);
+			bindFunc!(glTexSubImage2DEXT);
 		}
 		// GL EXT_texture_buffer_object
 		static if (usingExt(`EXT_texture_buffer_object`)) {
-			bindFunc(glTexBufferEXT, `glTexBufferEXT`);
+			bindFunc!(glTexBufferEXT);
 		}
 		// GL EXT_texture_integer
 		static if (usingExt(`EXT_texture_integer`)) {
-			bindFunc(glClearColorIiEXT, `glClearColorIiEXT`);
-			bindFunc(glClearColorIuiEXT, `glClearColorIuiEXT`);
-			bindFunc(glGetTexParameterIivEXT, `glGetTexParameterIivEXT`);
-			bindFunc(glGetTexParameterIuivEXT, `glGetTexParameterIuivEXT`);
-			bindFunc(glTexParameterIivEXT, `glTexParameterIivEXT`);
-			bindFunc(glTexParameterIuivEXT, `glTexParameterIuivEXT`);
+			bindFunc!(glClearColorIiEXT);
+			bindFunc!(glClearColorIuiEXT);
+			bindFunc!(glGetTexParameterIivEXT);
+			bindFunc!(glGetTexParameterIuivEXT);
+			bindFunc!(glTexParameterIivEXT);
+			bindFunc!(glTexParameterIuivEXT);
 		}
 		// GL EXT_texture_object
 		static if (usingExt(`EXT_texture_object`)) {
-			bindFunc(glAreTexturesResidentEXT, `glAreTexturesResidentEXT`);
-			bindFunc(glBindTextureEXT, `glBindTextureEXT`);
-			bindFunc(glDeleteTexturesEXT, `glDeleteTexturesEXT`);
-			bindFunc(glGenTexturesEXT, `glGenTexturesEXT`);
-			bindFunc(glIsTextureEXT, `glIsTextureEXT`);
-			bindFunc(glPrioritizeTexturesEXT, `glPrioritizeTexturesEXT`);
+			bindFunc!(glAreTexturesResidentEXT);
+			bindFunc!(glBindTextureEXT);
+			bindFunc!(glDeleteTexturesEXT);
+			bindFunc!(glGenTexturesEXT);
+			bindFunc!(glIsTextureEXT);
+			bindFunc!(glPrioritizeTexturesEXT);
 		}
 		// GL EXT_texture_perturb_normal
 		static if (usingExt(`EXT_texture_perturb_normal`)) {
-			bindFunc(glTextureNormalEXT, `glTextureNormalEXT`);
+			bindFunc!(glTextureNormalEXT);
 		}
 		// GL EXT_texture3D
 		static if (usingExt(`EXT_texture3D`)) {
-			bindFunc(glTexImage3DEXT, `glTexImage3DEXT`);
-			bindFunc(glTexSubImage3DEXT, `glTexSubImage3DEXT`);
+			bindFunc!(glTexImage3DEXT);
+			bindFunc!(glTexSubImage3DEXT);
 		}
 		// GL EXT_timer_query
 		static if (usingExt(`EXT_timer_query`)) {
-			bindFunc(glGetQueryObjecti64vEXT, `glGetQueryObjecti64vEXT`);
-			bindFunc(glGetQueryObjectui64vEXT, `glGetQueryObjectui64vEXT`);
+			bindFunc!(glGetQueryObjecti64vEXT);
+			bindFunc!(glGetQueryObjectui64vEXT);
 		}
 		// GL EXT_transform_feedback
 		static if (usingExt(`EXT_transform_feedback`)) {
-			bindFunc(glBeginTransformFeedbackEXT, `glBeginTransformFeedbackEXT`);
-			bindFunc(glBindBufferBaseEXT, `glBindBufferBaseEXT`);
-			bindFunc(glBindBufferOffsetEXT, `glBindBufferOffsetEXT`);
-			bindFunc(glBindBufferRangeEXT, `glBindBufferRangeEXT`);
-			bindFunc(glEndTransformFeedbackEXT, `glEndTransformFeedbackEXT`);
-			bindFunc(glGetTransformFeedbackVaryingEXT, `glGetTransformFeedbackVaryingEXT`);
-			bindFunc(glTransformFeedbackVaryingsEXT, `glTransformFeedbackVaryingsEXT`);
+			bindFunc!(glBeginTransformFeedbackEXT);
+			bindFunc!(glBindBufferBaseEXT);
+			bindFunc!(glBindBufferOffsetEXT);
+			bindFunc!(glBindBufferRangeEXT);
+			bindFunc!(glEndTransformFeedbackEXT);
+			bindFunc!(glGetTransformFeedbackVaryingEXT);
+			bindFunc!(glTransformFeedbackVaryingsEXT);
 		}
 		// GL EXT_vertex_array
 		static if (usingExt(`EXT_vertex_array`)) {
-			bindFunc(glArrayElementEXT, `glArrayElementEXT`);
-			bindFunc(glColorPointerEXT, `glColorPointerEXT`);
-			bindFunc(glDrawArraysEXT, `glDrawArraysEXT`);
-			bindFunc(glEdgeFlagPointerEXT, `glEdgeFlagPointerEXT`);
-			bindFunc(glGetPointervEXT, `glGetPointervEXT`);
-			bindFunc(glIndexPointerEXT, `glIndexPointerEXT`);
-			bindFunc(glNormalPointerEXT, `glNormalPointerEXT`);
-			bindFunc(glTexCoordPointerEXT, `glTexCoordPointerEXT`);
-			bindFunc(glVertexPointerEXT, `glVertexPointerEXT`);
+			bindFunc!(glArrayElementEXT);
+			bindFunc!(glColorPointerEXT);
+			bindFunc!(glDrawArraysEXT);
+			bindFunc!(glEdgeFlagPointerEXT);
+			bindFunc!(glGetPointervEXT);
+			bindFunc!(glIndexPointerEXT);
+			bindFunc!(glNormalPointerEXT);
+			bindFunc!(glTexCoordPointerEXT);
+			bindFunc!(glVertexPointerEXT);
 		}
 		// GL EXT_vertex_attrib_64bit
 		static if (usingExt(`EXT_vertex_attrib_64bit`)) {
-			bindFunc(glGetVertexAttribLdvEXT, `glGetVertexAttribLdvEXT`);
-			bindFunc(glVertexArrayVertexAttribLOffsetEXT, `glVertexArrayVertexAttribLOffsetEXT`);
-			bindFunc(glVertexAttribL1dEXT, `glVertexAttribL1dEXT`);
-			bindFunc(glVertexAttribL1dvEXT, `glVertexAttribL1dvEXT`);
-			bindFunc(glVertexAttribL2dEXT, `glVertexAttribL2dEXT`);
-			bindFunc(glVertexAttribL2dvEXT, `glVertexAttribL2dvEXT`);
-			bindFunc(glVertexAttribL3dEXT, `glVertexAttribL3dEXT`);
-			bindFunc(glVertexAttribL3dvEXT, `glVertexAttribL3dvEXT`);
-			bindFunc(glVertexAttribL4dEXT, `glVertexAttribL4dEXT`);
-			bindFunc(glVertexAttribL4dvEXT, `glVertexAttribL4dvEXT`);
-			bindFunc(glVertexAttribLPointerEXT, `glVertexAttribLPointerEXT`);
+			bindFunc!(glGetVertexAttribLdvEXT);
+			bindFunc!(glVertexArrayVertexAttribLOffsetEXT);
+			bindFunc!(glVertexAttribL1dEXT);
+			bindFunc!(glVertexAttribL1dvEXT);
+			bindFunc!(glVertexAttribL2dEXT);
+			bindFunc!(glVertexAttribL2dvEXT);
+			bindFunc!(glVertexAttribL3dEXT);
+			bindFunc!(glVertexAttribL3dvEXT);
+			bindFunc!(glVertexAttribL4dEXT);
+			bindFunc!(glVertexAttribL4dvEXT);
+			bindFunc!(glVertexAttribLPointerEXT);
 		}
 		// GL EXT_vertex_shader
 		static if (usingExt(`EXT_vertex_shader`)) {
-			bindFunc(glBeginVertexShaderEXT, `glBeginVertexShaderEXT`);
-			bindFunc(glBindLightParameterEXT, `glBindLightParameterEXT`);
-			bindFunc(glBindMaterialParameterEXT, `glBindMaterialParameterEXT`);
-			bindFunc(glBindParameterEXT, `glBindParameterEXT`);
-			bindFunc(glBindTexGenParameterEXT, `glBindTexGenParameterEXT`);
-			bindFunc(glBindTextureUnitParameterEXT, `glBindTextureUnitParameterEXT`);
-			bindFunc(glBindVertexShaderEXT, `glBindVertexShaderEXT`);
-			bindFunc(glDeleteVertexShaderEXT, `glDeleteVertexShaderEXT`);
-			bindFunc(glDisableVariantClientStateEXT, `glDisableVariantClientStateEXT`);
-			bindFunc(glEnableVariantClientStateEXT, `glEnableVariantClientStateEXT`);
-			bindFunc(glEndVertexShaderEXT, `glEndVertexShaderEXT`);
-			bindFunc(glExtractComponentEXT, `glExtractComponentEXT`);
-			bindFunc(glGenSymbolsEXT, `glGenSymbolsEXT`);
-			bindFunc(glGenVertexShadersEXT, `glGenVertexShadersEXT`);
-			bindFunc(glGetInvariantBooleanvEXT, `glGetInvariantBooleanvEXT`);
-			bindFunc(glGetInvariantFloatvEXT, `glGetInvariantFloatvEXT`);
-			bindFunc(glGetInvariantIntegervEXT, `glGetInvariantIntegervEXT`);
-			bindFunc(glGetLocalConstantBooleanvEXT, `glGetLocalConstantBooleanvEXT`);
-			bindFunc(glGetLocalConstantFloatvEXT, `glGetLocalConstantFloatvEXT`);
-			bindFunc(glGetLocalConstantIntegervEXT, `glGetLocalConstantIntegervEXT`);
-			bindFunc(glGetVariantBooleanvEXT, `glGetVariantBooleanvEXT`);
-			bindFunc(glGetVariantFloatvEXT, `glGetVariantFloatvEXT`);
-			bindFunc(glGetVariantIntegervEXT, `glGetVariantIntegervEXT`);
-			bindFunc(glGetVariantPointervEXT, `glGetVariantPointervEXT`);
-			bindFunc(glInsertComponentEXT, `glInsertComponentEXT`);
-			bindFunc(glIsVariantEnabledEXT, `glIsVariantEnabledEXT`);
-			bindFunc(glSetInvariantEXT, `glSetInvariantEXT`);
-			bindFunc(glSetLocalConstantEXT, `glSetLocalConstantEXT`);
-			bindFunc(glShaderOp1EXT, `glShaderOp1EXT`);
-			bindFunc(glShaderOp2EXT, `glShaderOp2EXT`);
-			bindFunc(glShaderOp3EXT, `glShaderOp3EXT`);
-			bindFunc(glSwizzleEXT, `glSwizzleEXT`);
-			bindFunc(glVariantbvEXT, `glVariantbvEXT`);
-			bindFunc(glVariantdvEXT, `glVariantdvEXT`);
-			bindFunc(glVariantfvEXT, `glVariantfvEXT`);
-			bindFunc(glVariantivEXT, `glVariantivEXT`);
-			bindFunc(glVariantPointerEXT, `glVariantPointerEXT`);
-			bindFunc(glVariantsvEXT, `glVariantsvEXT`);
-			bindFunc(glVariantubvEXT, `glVariantubvEXT`);
-			bindFunc(glVariantuivEXT, `glVariantuivEXT`);
-			bindFunc(glVariantusvEXT, `glVariantusvEXT`);
-			bindFunc(glWriteMaskEXT, `glWriteMaskEXT`);
+			bindFunc!(glBeginVertexShaderEXT);
+			bindFunc!(glBindLightParameterEXT);
+			bindFunc!(glBindMaterialParameterEXT);
+			bindFunc!(glBindParameterEXT);
+			bindFunc!(glBindTexGenParameterEXT);
+			bindFunc!(glBindTextureUnitParameterEXT);
+			bindFunc!(glBindVertexShaderEXT);
+			bindFunc!(glDeleteVertexShaderEXT);
+			bindFunc!(glDisableVariantClientStateEXT);
+			bindFunc!(glEnableVariantClientStateEXT);
+			bindFunc!(glEndVertexShaderEXT);
+			bindFunc!(glExtractComponentEXT);
+			bindFunc!(glGenSymbolsEXT);
+			bindFunc!(glGenVertexShadersEXT);
+			bindFunc!(glGetInvariantBooleanvEXT);
+			bindFunc!(glGetInvariantFloatvEXT);
+			bindFunc!(glGetInvariantIntegervEXT);
+			bindFunc!(glGetLocalConstantBooleanvEXT);
+			bindFunc!(glGetLocalConstantFloatvEXT);
+			bindFunc!(glGetLocalConstantIntegervEXT);
+			bindFunc!(glGetVariantBooleanvEXT);
+			bindFunc!(glGetVariantFloatvEXT);
+			bindFunc!(glGetVariantIntegervEXT);
+			bindFunc!(glGetVariantPointervEXT);
+			bindFunc!(glInsertComponentEXT);
+			bindFunc!(glIsVariantEnabledEXT);
+			bindFunc!(glSetInvariantEXT);
+			bindFunc!(glSetLocalConstantEXT);
+			bindFunc!(glShaderOp1EXT);
+			bindFunc!(glShaderOp2EXT);
+			bindFunc!(glShaderOp3EXT);
+			bindFunc!(glSwizzleEXT);
+			bindFunc!(glVariantbvEXT);
+			bindFunc!(glVariantdvEXT);
+			bindFunc!(glVariantfvEXT);
+			bindFunc!(glVariantivEXT);
+			bindFunc!(glVariantPointerEXT);
+			bindFunc!(glVariantsvEXT);
+			bindFunc!(glVariantubvEXT);
+			bindFunc!(glVariantuivEXT);
+			bindFunc!(glVariantusvEXT);
+			bindFunc!(glWriteMaskEXT);
 		}
 		// GL EXT_vertex_weighting
 		static if (usingExt(`EXT_vertex_weighting`)) {
-			bindFunc(glVertexWeightfEXT, `glVertexWeightfEXT`);
-			bindFunc(glVertexWeightfvEXT, `glVertexWeightfvEXT`);
-			bindFunc(glVertexWeightPointerEXT, `glVertexWeightPointerEXT`);
+			bindFunc!(glVertexWeightfEXT);
+			bindFunc!(glVertexWeightfvEXT);
+			bindFunc!(glVertexWeightPointerEXT);
 		}
 		// GL EXT_x11_sync_object
 		static if (usingExt(`EXT_x11_sync_object`)) {
-			bindFunc(glImportSyncEXT, `glImportSyncEXT`);
+			bindFunc!(glImportSyncEXT);
 		}
 		// GL GREMEDY_frame_terminator
 		static if (usingExt(`GREMEDY_frame_terminator`)) {
-			bindFunc(glFrameTerminatorGREMEDY, `glFrameTerminatorGREMEDY`);
+			bindFunc!(glFrameTerminatorGREMEDY);
 		}
 		// GL GREMEDY_string_marker
 		static if (usingExt(`GREMEDY_string_marker`)) {
-			bindFunc(glStringMarkerGREMEDY, `glStringMarkerGREMEDY`);
+			bindFunc!(glStringMarkerGREMEDY);
 		}
 		// GL HP_image_transform
 		static if (usingExt(`HP_image_transform`)) {
-			bindFunc(glGetImageTransformParameterfvHP, `glGetImageTransformParameterfvHP`);
-			bindFunc(glGetImageTransformParameterivHP, `glGetImageTransformParameterivHP`);
-			bindFunc(glImageTransformParameterfHP, `glImageTransformParameterfHP`);
-			bindFunc(glImageTransformParameterfvHP, `glImageTransformParameterfvHP`);
-			bindFunc(glImageTransformParameteriHP, `glImageTransformParameteriHP`);
-			bindFunc(glImageTransformParameterivHP, `glImageTransformParameterivHP`);
+			bindFunc!(glGetImageTransformParameterfvHP);
+			bindFunc!(glGetImageTransformParameterivHP);
+			bindFunc!(glImageTransformParameterfHP);
+			bindFunc!(glImageTransformParameterfvHP);
+			bindFunc!(glImageTransformParameteriHP);
+			bindFunc!(glImageTransformParameterivHP);
 		}
 		// GL IBM_multimode_draw_arrays
 		static if (usingExt(`IBM_multimode_draw_arrays`)) {
-			bindFunc(glMultiModeDrawArraysIBM, `glMultiModeDrawArraysIBM`);
-			bindFunc(glMultiModeDrawElementsIBM, `glMultiModeDrawElementsIBM`);
+			bindFunc!(glMultiModeDrawArraysIBM);
+			bindFunc!(glMultiModeDrawElementsIBM);
 		}
 		// GL IBM_vertex_array_lists
 		static if (usingExt(`IBM_vertex_array_lists`)) {
-			bindFunc(glColorPointerListIBM, `glColorPointerListIBM`);
-			bindFunc(glEdgeFlagPointerListIBM, `glEdgeFlagPointerListIBM`);
-			bindFunc(glFogCoordPointerListIBM, `glFogCoordPointerListIBM`);
-			bindFunc(glIndexPointerListIBM, `glIndexPointerListIBM`);
-			bindFunc(glNormalPointerListIBM, `glNormalPointerListIBM`);
-			bindFunc(glSecondaryColorPointerListIBM, `glSecondaryColorPointerListIBM`);
-			bindFunc(glTexCoordPointerListIBM, `glTexCoordPointerListIBM`);
-			bindFunc(glVertexPointerListIBM, `glVertexPointerListIBM`);
+			bindFunc!(glColorPointerListIBM);
+			bindFunc!(glEdgeFlagPointerListIBM);
+			bindFunc!(glFogCoordPointerListIBM);
+			bindFunc!(glIndexPointerListIBM);
+			bindFunc!(glNormalPointerListIBM);
+			bindFunc!(glSecondaryColorPointerListIBM);
+			bindFunc!(glTexCoordPointerListIBM);
+			bindFunc!(glVertexPointerListIBM);
 		}
 		// GL INGR_blend_func_separate
 		static if (usingExt(`INGR_blend_func_separate`)) {
-			bindFunc(glBlendFuncSeparateINGR, `glBlendFuncSeparateINGR`);
+			bindFunc!(glBlendFuncSeparateINGR);
 		}
 		// GL INTEL_parallel_arrays
 		static if (usingExt(`INTEL_parallel_arrays`)) {
-			bindFunc(glColorPointervINTEL, `glColorPointervINTEL`);
-			bindFunc(glNormalPointervINTEL, `glNormalPointervINTEL`);
-			bindFunc(glTexCoordPointervINTEL, `glTexCoordPointervINTEL`);
-			bindFunc(glVertexPointervINTEL, `glVertexPointervINTEL`);
+			bindFunc!(glColorPointervINTEL);
+			bindFunc!(glNormalPointervINTEL);
+			bindFunc!(glTexCoordPointervINTEL);
+			bindFunc!(glVertexPointervINTEL);
 		}
 		// GL KHR_debug
 		static if (usingExt(`KHR_debug`)) {
-			bindFunc(glDebugMessageCallback, `glDebugMessageCallback`);
-			bindFunc(glDebugMessageControl, `glDebugMessageControl`);
-			bindFunc(glDebugMessageInsert, `glDebugMessageInsert`);
-			bindFunc(glGetDebugMessageLog, `glGetDebugMessageLog`);
-			bindFunc(glGetObjectLabel, `glGetObjectLabel`);
-			bindFunc(glGetObjectPtrLabel, `glGetObjectPtrLabel`);
-			bindFunc(glObjectLabel, `glObjectLabel`);
-			bindFunc(glObjectPtrLabel, `glObjectPtrLabel`);
-			bindFunc(glPopDebugGroup, `glPopDebugGroup`);
-			bindFunc(glPushDebugGroup, `glPushDebugGroup`);
+			bindFunc!(glDebugMessageCallback);
+			bindFunc!(glDebugMessageControl);
+			bindFunc!(glDebugMessageInsert);
+			bindFunc!(glGetDebugMessageLog);
+			bindFunc!(glGetObjectLabel);
+			bindFunc!(glGetObjectPtrLabel);
+			bindFunc!(glObjectLabel);
+			bindFunc!(glObjectPtrLabel);
+			bindFunc!(glPopDebugGroup);
+			bindFunc!(glPushDebugGroup);
 		}
 		// GL MESA_resize_buffers
 		static if (usingExt(`MESA_resize_buffers`)) {
-			bindFunc(glResizeBuffersMESA, `glResizeBuffersMESA`);
+			bindFunc!(glResizeBuffersMESA);
 		}
 		// GL MESA_window_pos
 		static if (usingExt(`MESA_window_pos`)) {
-			bindFunc(glWindowPos2dMESA, `glWindowPos2dMESA`);
-			bindFunc(glWindowPos2dvMESA, `glWindowPos2dvMESA`);
-			bindFunc(glWindowPos2fMESA, `glWindowPos2fMESA`);
-			bindFunc(glWindowPos2fvMESA, `glWindowPos2fvMESA`);
-			bindFunc(glWindowPos2iMESA, `glWindowPos2iMESA`);
-			bindFunc(glWindowPos2ivMESA, `glWindowPos2ivMESA`);
-			bindFunc(glWindowPos2sMESA, `glWindowPos2sMESA`);
-			bindFunc(glWindowPos2svMESA, `glWindowPos2svMESA`);
-			bindFunc(glWindowPos3dMESA, `glWindowPos3dMESA`);
-			bindFunc(glWindowPos3dvMESA, `glWindowPos3dvMESA`);
-			bindFunc(glWindowPos3fMESA, `glWindowPos3fMESA`);
-			bindFunc(glWindowPos3fvMESA, `glWindowPos3fvMESA`);
-			bindFunc(glWindowPos3iMESA, `glWindowPos3iMESA`);
-			bindFunc(glWindowPos3ivMESA, `glWindowPos3ivMESA`);
-			bindFunc(glWindowPos3sMESA, `glWindowPos3sMESA`);
-			bindFunc(glWindowPos3svMESA, `glWindowPos3svMESA`);
-			bindFunc(glWindowPos4dMESA, `glWindowPos4dMESA`);
-			bindFunc(glWindowPos4dvMESA, `glWindowPos4dvMESA`);
-			bindFunc(glWindowPos4fMESA, `glWindowPos4fMESA`);
-			bindFunc(glWindowPos4fvMESA, `glWindowPos4fvMESA`);
-			bindFunc(glWindowPos4iMESA, `glWindowPos4iMESA`);
-			bindFunc(glWindowPos4ivMESA, `glWindowPos4ivMESA`);
-			bindFunc(glWindowPos4sMESA, `glWindowPos4sMESA`);
-			bindFunc(glWindowPos4svMESA, `glWindowPos4svMESA`);
+			bindFunc!(glWindowPos2dMESA);
+			bindFunc!(glWindowPos2dvMESA);
+			bindFunc!(glWindowPos2fMESA);
+			bindFunc!(glWindowPos2fvMESA);
+			bindFunc!(glWindowPos2iMESA);
+			bindFunc!(glWindowPos2ivMESA);
+			bindFunc!(glWindowPos2sMESA);
+			bindFunc!(glWindowPos2svMESA);
+			bindFunc!(glWindowPos3dMESA);
+			bindFunc!(glWindowPos3dvMESA);
+			bindFunc!(glWindowPos3fMESA);
+			bindFunc!(glWindowPos3fvMESA);
+			bindFunc!(glWindowPos3iMESA);
+			bindFunc!(glWindowPos3ivMESA);
+			bindFunc!(glWindowPos3sMESA);
+			bindFunc!(glWindowPos3svMESA);
+			bindFunc!(glWindowPos4dMESA);
+			bindFunc!(glWindowPos4dvMESA);
+			bindFunc!(glWindowPos4fMESA);
+			bindFunc!(glWindowPos4fvMESA);
+			bindFunc!(glWindowPos4iMESA);
+			bindFunc!(glWindowPos4ivMESA);
+			bindFunc!(glWindowPos4sMESA);
+			bindFunc!(glWindowPos4svMESA);
 		}
 		// GL NV_bindless_texture
 		static if (usingExt(`NV_bindless_texture`)) {
-			bindFunc(glGetImageHandleNV, `glGetImageHandleNV`);
-			bindFunc(glGetTextureHandleNV, `glGetTextureHandleNV`);
-			bindFunc(glGetTextureSamplerHandleNV, `glGetTextureSamplerHandleNV`);
-			bindFunc(glIsImageHandleResidentNV, `glIsImageHandleResidentNV`);
-			bindFunc(glIsTextureHandleResidentNV, `glIsTextureHandleResidentNV`);
-			bindFunc(glMakeImageHandleNonResidentNV, `glMakeImageHandleNonResidentNV`);
-			bindFunc(glMakeImageHandleResidentNV, `glMakeImageHandleResidentNV`);
-			bindFunc(glMakeTextureHandleNonResidentNV, `glMakeTextureHandleNonResidentNV`);
-			bindFunc(glMakeTextureHandleResidentNV, `glMakeTextureHandleResidentNV`);
-			bindFunc(glProgramUniformHandleui64NV, `glProgramUniformHandleui64NV`);
-			bindFunc(glProgramUniformHandleui64vNV, `glProgramUniformHandleui64vNV`);
-			bindFunc(glUniformHandleui64NV, `glUniformHandleui64NV`);
-			bindFunc(glUniformHandleui64vNV, `glUniformHandleui64vNV`);
+			bindFunc!(glGetImageHandleNV);
+			bindFunc!(glGetTextureHandleNV);
+			bindFunc!(glGetTextureSamplerHandleNV);
+			bindFunc!(glIsImageHandleResidentNV);
+			bindFunc!(glIsTextureHandleResidentNV);
+			bindFunc!(glMakeImageHandleNonResidentNV);
+			bindFunc!(glMakeImageHandleResidentNV);
+			bindFunc!(glMakeTextureHandleNonResidentNV);
+			bindFunc!(glMakeTextureHandleResidentNV);
+			bindFunc!(glProgramUniformHandleui64NV);
+			bindFunc!(glProgramUniformHandleui64vNV);
+			bindFunc!(glUniformHandleui64NV);
+			bindFunc!(glUniformHandleui64vNV);
 		}
 		// GL NV_conditional_render
 		static if (usingExt(`NV_conditional_render`)) {
-			bindFunc(glBeginConditionalRenderNV, `glBeginConditionalRenderNV`);
-			bindFunc(glEndConditionalRenderNV, `glEndConditionalRenderNV`);
+			bindFunc!(glBeginConditionalRenderNV);
+			bindFunc!(glEndConditionalRenderNV);
 		}
 		// GL NV_copy_image
 		static if (usingExt(`NV_copy_image`)) {
-			bindFunc(glCopyImageSubDataNV, `glCopyImageSubDataNV`);
+			bindFunc!(glCopyImageSubDataNV);
 		}
 		// GL NV_depth_buffer_float
 		static if (usingExt(`NV_depth_buffer_float`)) {
-			bindFunc(glClearDepthdNV, `glClearDepthdNV`);
-			bindFunc(glDepthBoundsdNV, `glDepthBoundsdNV`);
-			bindFunc(glDepthRangedNV, `glDepthRangedNV`);
+			bindFunc!(glClearDepthdNV);
+			bindFunc!(glDepthBoundsdNV);
+			bindFunc!(glDepthRangedNV);
 		}
 		// GL NV_evaluators
 		static if (usingExt(`NV_evaluators`)) {
-			bindFunc(glEvalMapsNV, `glEvalMapsNV`);
-			bindFunc(glGetMapAttribParameterfvNV, `glGetMapAttribParameterfvNV`);
-			bindFunc(glGetMapAttribParameterivNV, `glGetMapAttribParameterivNV`);
-			bindFunc(glGetMapControlPointsNV, `glGetMapControlPointsNV`);
-			bindFunc(glGetMapParameterfvNV, `glGetMapParameterfvNV`);
-			bindFunc(glGetMapParameterivNV, `glGetMapParameterivNV`);
-			bindFunc(glMapControlPointsNV, `glMapControlPointsNV`);
-			bindFunc(glMapParameterfvNV, `glMapParameterfvNV`);
-			bindFunc(glMapParameterivNV, `glMapParameterivNV`);
+			bindFunc!(glEvalMapsNV);
+			bindFunc!(glGetMapAttribParameterfvNV);
+			bindFunc!(glGetMapAttribParameterivNV);
+			bindFunc!(glGetMapControlPointsNV);
+			bindFunc!(glGetMapParameterfvNV);
+			bindFunc!(glGetMapParameterivNV);
+			bindFunc!(glMapControlPointsNV);
+			bindFunc!(glMapParameterfvNV);
+			bindFunc!(glMapParameterivNV);
 		}
 		// GL NV_explicit_multisample
 		static if (usingExt(`NV_explicit_multisample`)) {
-			bindFunc(glGetMultisamplefvNV, `glGetMultisamplefvNV`);
-			bindFunc(glSampleMaskIndexedNV, `glSampleMaskIndexedNV`);
-			bindFunc(glTexRenderbufferNV, `glTexRenderbufferNV`);
+			bindFunc!(glGetMultisamplefvNV);
+			bindFunc!(glSampleMaskIndexedNV);
+			bindFunc!(glTexRenderbufferNV);
 		}
 		// GL NV_fence
 		static if (usingExt(`NV_fence`)) {
-			bindFunc(glDeleteFencesNV, `glDeleteFencesNV`);
-			bindFunc(glFinishFenceNV, `glFinishFenceNV`);
-			bindFunc(glGenFencesNV, `glGenFencesNV`);
-			bindFunc(glGetFenceivNV, `glGetFenceivNV`);
-			bindFunc(glIsFenceNV, `glIsFenceNV`);
-			bindFunc(glSetFenceNV, `glSetFenceNV`);
-			bindFunc(glTestFenceNV, `glTestFenceNV`);
+			bindFunc!(glDeleteFencesNV);
+			bindFunc!(glFinishFenceNV);
+			bindFunc!(glGenFencesNV);
+			bindFunc!(glGetFenceivNV);
+			bindFunc!(glIsFenceNV);
+			bindFunc!(glSetFenceNV);
+			bindFunc!(glTestFenceNV);
 		}
 		// GL NV_fragment_program
 		static if (usingExt(`NV_fragment_program`)) {
-			bindFunc(glGetProgramNamedParameterdvNV, `glGetProgramNamedParameterdvNV`);
-			bindFunc(glGetProgramNamedParameterfvNV, `glGetProgramNamedParameterfvNV`);
-			bindFunc(glProgramNamedParameter4dNV, `glProgramNamedParameter4dNV`);
-			bindFunc(glProgramNamedParameter4dvNV, `glProgramNamedParameter4dvNV`);
-			bindFunc(glProgramNamedParameter4fNV, `glProgramNamedParameter4fNV`);
-			bindFunc(glProgramNamedParameter4fvNV, `glProgramNamedParameter4fvNV`);
+			bindFunc!(glGetProgramNamedParameterdvNV);
+			bindFunc!(glGetProgramNamedParameterfvNV);
+			bindFunc!(glProgramNamedParameter4dNV);
+			bindFunc!(glProgramNamedParameter4dvNV);
+			bindFunc!(glProgramNamedParameter4fNV);
+			bindFunc!(glProgramNamedParameter4fvNV);
 		}
 		// GL NV_framebuffer_multisample_coverage
 		static if (usingExt(`NV_framebuffer_multisample_coverage`)) {
-			bindFunc(glRenderbufferStorageMultisampleCoverageNV, `glRenderbufferStorageMultisampleCoverageNV`);
+			bindFunc!(glRenderbufferStorageMultisampleCoverageNV);
 		}
 		// GL NV_geometry_program4
 		static if (usingExt(`NV_geometry_program4`)) {
-			bindFunc(glFramebufferTextureEXT, `glFramebufferTextureEXT`);
-			bindFunc(glFramebufferTextureFaceEXT, `glFramebufferTextureFaceEXT`);
-			bindFunc(glFramebufferTextureLayerEXT, `glFramebufferTextureLayerEXT`);
-			bindFunc(glProgramVertexLimitNV, `glProgramVertexLimitNV`);
+			bindFunc!(glFramebufferTextureEXT);
+			bindFunc!(glFramebufferTextureFaceEXT);
+			bindFunc!(glFramebufferTextureLayerEXT);
+			bindFunc!(glProgramVertexLimitNV);
 		}
 		// GL NV_gpu_program4
 		static if (usingExt(`NV_gpu_program4`)) {
-			bindFunc(glGetProgramEnvParameterIivNV, `glGetProgramEnvParameterIivNV`);
-			bindFunc(glGetProgramEnvParameterIuivNV, `glGetProgramEnvParameterIuivNV`);
-			bindFunc(glGetProgramLocalParameterIivNV, `glGetProgramLocalParameterIivNV`);
-			bindFunc(glGetProgramLocalParameterIuivNV, `glGetProgramLocalParameterIuivNV`);
-			bindFunc(glProgramEnvParameterI4iNV, `glProgramEnvParameterI4iNV`);
-			bindFunc(glProgramEnvParameterI4ivNV, `glProgramEnvParameterI4ivNV`);
-			bindFunc(glProgramEnvParameterI4uiNV, `glProgramEnvParameterI4uiNV`);
-			bindFunc(glProgramEnvParameterI4uivNV, `glProgramEnvParameterI4uivNV`);
-			bindFunc(glProgramEnvParametersI4ivNV, `glProgramEnvParametersI4ivNV`);
-			bindFunc(glProgramEnvParametersI4uivNV, `glProgramEnvParametersI4uivNV`);
-			bindFunc(glProgramLocalParameterI4iNV, `glProgramLocalParameterI4iNV`);
-			bindFunc(glProgramLocalParameterI4ivNV, `glProgramLocalParameterI4ivNV`);
-			bindFunc(glProgramLocalParameterI4uiNV, `glProgramLocalParameterI4uiNV`);
-			bindFunc(glProgramLocalParameterI4uivNV, `glProgramLocalParameterI4uivNV`);
-			bindFunc(glProgramLocalParametersI4ivNV, `glProgramLocalParametersI4ivNV`);
-			bindFunc(glProgramLocalParametersI4uivNV, `glProgramLocalParametersI4uivNV`);
+			bindFunc!(glGetProgramEnvParameterIivNV);
+			bindFunc!(glGetProgramEnvParameterIuivNV);
+			bindFunc!(glGetProgramLocalParameterIivNV);
+			bindFunc!(glGetProgramLocalParameterIuivNV);
+			bindFunc!(glProgramEnvParameterI4iNV);
+			bindFunc!(glProgramEnvParameterI4ivNV);
+			bindFunc!(glProgramEnvParameterI4uiNV);
+			bindFunc!(glProgramEnvParameterI4uivNV);
+			bindFunc!(glProgramEnvParametersI4ivNV);
+			bindFunc!(glProgramEnvParametersI4uivNV);
+			bindFunc!(glProgramLocalParameterI4iNV);
+			bindFunc!(glProgramLocalParameterI4ivNV);
+			bindFunc!(glProgramLocalParameterI4uiNV);
+			bindFunc!(glProgramLocalParameterI4uivNV);
+			bindFunc!(glProgramLocalParametersI4ivNV);
+			bindFunc!(glProgramLocalParametersI4uivNV);
 		}
 		// GL NV_gpu_program5
 		static if (usingExt(`NV_gpu_program5`)) {
-			bindFunc(glGetProgramSubroutineParameteruivNV, `glGetProgramSubroutineParameteruivNV`);
-			bindFunc(glProgramSubroutineParametersuivNV, `glProgramSubroutineParametersuivNV`);
+			bindFunc!(glGetProgramSubroutineParameteruivNV);
+			bindFunc!(glProgramSubroutineParametersuivNV);
 		}
 		// GL NV_gpu_shader5
 		static if (usingExt(`NV_gpu_shader5`)) {
-			bindFunc(glGetUniformi64vNV, `glGetUniformi64vNV`);
-			bindFunc(glProgramUniform1i64NV, `glProgramUniform1i64NV`);
-			bindFunc(glProgramUniform1i64vNV, `glProgramUniform1i64vNV`);
-			bindFunc(glProgramUniform1ui64NV, `glProgramUniform1ui64NV`);
-			bindFunc(glProgramUniform1ui64vNV, `glProgramUniform1ui64vNV`);
-			bindFunc(glProgramUniform2i64NV, `glProgramUniform2i64NV`);
-			bindFunc(glProgramUniform2i64vNV, `glProgramUniform2i64vNV`);
-			bindFunc(glProgramUniform2ui64NV, `glProgramUniform2ui64NV`);
-			bindFunc(glProgramUniform2ui64vNV, `glProgramUniform2ui64vNV`);
-			bindFunc(glProgramUniform3i64NV, `glProgramUniform3i64NV`);
-			bindFunc(glProgramUniform3i64vNV, `glProgramUniform3i64vNV`);
-			bindFunc(glProgramUniform3ui64NV, `glProgramUniform3ui64NV`);
-			bindFunc(glProgramUniform3ui64vNV, `glProgramUniform3ui64vNV`);
-			bindFunc(glProgramUniform4i64NV, `glProgramUniform4i64NV`);
-			bindFunc(glProgramUniform4i64vNV, `glProgramUniform4i64vNV`);
-			bindFunc(glProgramUniform4ui64NV, `glProgramUniform4ui64NV`);
-			bindFunc(glProgramUniform4ui64vNV, `glProgramUniform4ui64vNV`);
-			bindFunc(glUniform1i64NV, `glUniform1i64NV`);
-			bindFunc(glUniform1i64vNV, `glUniform1i64vNV`);
-			bindFunc(glUniform1ui64NV, `glUniform1ui64NV`);
-			bindFunc(glUniform1ui64vNV, `glUniform1ui64vNV`);
-			bindFunc(glUniform2i64NV, `glUniform2i64NV`);
-			bindFunc(glUniform2i64vNV, `glUniform2i64vNV`);
-			bindFunc(glUniform2ui64NV, `glUniform2ui64NV`);
-			bindFunc(glUniform2ui64vNV, `glUniform2ui64vNV`);
-			bindFunc(glUniform3i64NV, `glUniform3i64NV`);
-			bindFunc(glUniform3i64vNV, `glUniform3i64vNV`);
-			bindFunc(glUniform3ui64NV, `glUniform3ui64NV`);
-			bindFunc(glUniform3ui64vNV, `glUniform3ui64vNV`);
-			bindFunc(glUniform4i64NV, `glUniform4i64NV`);
-			bindFunc(glUniform4i64vNV, `glUniform4i64vNV`);
-			bindFunc(glUniform4ui64NV, `glUniform4ui64NV`);
-			bindFunc(glUniform4ui64vNV, `glUniform4ui64vNV`);
+			bindFunc!(glGetUniformi64vNV);
+			bindFunc!(glProgramUniform1i64NV);
+			bindFunc!(glProgramUniform1i64vNV);
+			bindFunc!(glProgramUniform1ui64NV);
+			bindFunc!(glProgramUniform1ui64vNV);
+			bindFunc!(glProgramUniform2i64NV);
+			bindFunc!(glProgramUniform2i64vNV);
+			bindFunc!(glProgramUniform2ui64NV);
+			bindFunc!(glProgramUniform2ui64vNV);
+			bindFunc!(glProgramUniform3i64NV);
+			bindFunc!(glProgramUniform3i64vNV);
+			bindFunc!(glProgramUniform3ui64NV);
+			bindFunc!(glProgramUniform3ui64vNV);
+			bindFunc!(glProgramUniform4i64NV);
+			bindFunc!(glProgramUniform4i64vNV);
+			bindFunc!(glProgramUniform4ui64NV);
+			bindFunc!(glProgramUniform4ui64vNV);
+			bindFunc!(glUniform1i64NV);
+			bindFunc!(glUniform1i64vNV);
+			bindFunc!(glUniform1ui64NV);
+			bindFunc!(glUniform1ui64vNV);
+			bindFunc!(glUniform2i64NV);
+			bindFunc!(glUniform2i64vNV);
+			bindFunc!(glUniform2ui64NV);
+			bindFunc!(glUniform2ui64vNV);
+			bindFunc!(glUniform3i64NV);
+			bindFunc!(glUniform3i64vNV);
+			bindFunc!(glUniform3ui64NV);
+			bindFunc!(glUniform3ui64vNV);
+			bindFunc!(glUniform4i64NV);
+			bindFunc!(glUniform4i64vNV);
+			bindFunc!(glUniform4ui64NV);
+			bindFunc!(glUniform4ui64vNV);
 		}
 		// GL NV_half_float
 		static if (usingExt(`NV_half_float`)) {
-			bindFunc(glColor3hNV, `glColor3hNV`);
-			bindFunc(glColor3hvNV, `glColor3hvNV`);
-			bindFunc(glColor4hNV, `glColor4hNV`);
-			bindFunc(glColor4hvNV, `glColor4hvNV`);
-			bindFunc(glFogCoordhNV, `glFogCoordhNV`);
-			bindFunc(glFogCoordhvNV, `glFogCoordhvNV`);
-			bindFunc(glMultiTexCoord1hNV, `glMultiTexCoord1hNV`);
-			bindFunc(glMultiTexCoord1hvNV, `glMultiTexCoord1hvNV`);
-			bindFunc(glMultiTexCoord2hNV, `glMultiTexCoord2hNV`);
-			bindFunc(glMultiTexCoord2hvNV, `glMultiTexCoord2hvNV`);
-			bindFunc(glMultiTexCoord3hNV, `glMultiTexCoord3hNV`);
-			bindFunc(glMultiTexCoord3hvNV, `glMultiTexCoord3hvNV`);
-			bindFunc(glMultiTexCoord4hNV, `glMultiTexCoord4hNV`);
-			bindFunc(glMultiTexCoord4hvNV, `glMultiTexCoord4hvNV`);
-			bindFunc(glNormal3hNV, `glNormal3hNV`);
-			bindFunc(glNormal3hvNV, `glNormal3hvNV`);
-			bindFunc(glSecondaryColor3hNV, `glSecondaryColor3hNV`);
-			bindFunc(glSecondaryColor3hvNV, `glSecondaryColor3hvNV`);
-			bindFunc(glTexCoord1hNV, `glTexCoord1hNV`);
-			bindFunc(glTexCoord1hvNV, `glTexCoord1hvNV`);
-			bindFunc(glTexCoord2hNV, `glTexCoord2hNV`);
-			bindFunc(glTexCoord2hvNV, `glTexCoord2hvNV`);
-			bindFunc(glTexCoord3hNV, `glTexCoord3hNV`);
-			bindFunc(glTexCoord3hvNV, `glTexCoord3hvNV`);
-			bindFunc(glTexCoord4hNV, `glTexCoord4hNV`);
-			bindFunc(glTexCoord4hvNV, `glTexCoord4hvNV`);
-			bindFunc(glVertex2hNV, `glVertex2hNV`);
-			bindFunc(glVertex2hvNV, `glVertex2hvNV`);
-			bindFunc(glVertex3hNV, `glVertex3hNV`);
-			bindFunc(glVertex3hvNV, `glVertex3hvNV`);
-			bindFunc(glVertex4hNV, `glVertex4hNV`);
-			bindFunc(glVertex4hvNV, `glVertex4hvNV`);
-			bindFunc(glVertexAttrib1hNV, `glVertexAttrib1hNV`);
-			bindFunc(glVertexAttrib1hvNV, `glVertexAttrib1hvNV`);
-			bindFunc(glVertexAttrib2hNV, `glVertexAttrib2hNV`);
-			bindFunc(glVertexAttrib2hvNV, `glVertexAttrib2hvNV`);
-			bindFunc(glVertexAttrib3hNV, `glVertexAttrib3hNV`);
-			bindFunc(glVertexAttrib3hvNV, `glVertexAttrib3hvNV`);
-			bindFunc(glVertexAttrib4hNV, `glVertexAttrib4hNV`);
-			bindFunc(glVertexAttrib4hvNV, `glVertexAttrib4hvNV`);
-			bindFunc(glVertexAttribs1hvNV, `glVertexAttribs1hvNV`);
-			bindFunc(glVertexAttribs2hvNV, `glVertexAttribs2hvNV`);
-			bindFunc(glVertexAttribs3hvNV, `glVertexAttribs3hvNV`);
-			bindFunc(glVertexAttribs4hvNV, `glVertexAttribs4hvNV`);
-			bindFunc(glVertexWeighthNV, `glVertexWeighthNV`);
-			bindFunc(glVertexWeighthvNV, `glVertexWeighthvNV`);
+			bindFunc!(glColor3hNV);
+			bindFunc!(glColor3hvNV);
+			bindFunc!(glColor4hNV);
+			bindFunc!(glColor4hvNV);
+			bindFunc!(glFogCoordhNV);
+			bindFunc!(glFogCoordhvNV);
+			bindFunc!(glMultiTexCoord1hNV);
+			bindFunc!(glMultiTexCoord1hvNV);
+			bindFunc!(glMultiTexCoord2hNV);
+			bindFunc!(glMultiTexCoord2hvNV);
+			bindFunc!(glMultiTexCoord3hNV);
+			bindFunc!(glMultiTexCoord3hvNV);
+			bindFunc!(glMultiTexCoord4hNV);
+			bindFunc!(glMultiTexCoord4hvNV);
+			bindFunc!(glNormal3hNV);
+			bindFunc!(glNormal3hvNV);
+			bindFunc!(glSecondaryColor3hNV);
+			bindFunc!(glSecondaryColor3hvNV);
+			bindFunc!(glTexCoord1hNV);
+			bindFunc!(glTexCoord1hvNV);
+			bindFunc!(glTexCoord2hNV);
+			bindFunc!(glTexCoord2hvNV);
+			bindFunc!(glTexCoord3hNV);
+			bindFunc!(glTexCoord3hvNV);
+			bindFunc!(glTexCoord4hNV);
+			bindFunc!(glTexCoord4hvNV);
+			bindFunc!(glVertex2hNV);
+			bindFunc!(glVertex2hvNV);
+			bindFunc!(glVertex3hNV);
+			bindFunc!(glVertex3hvNV);
+			bindFunc!(glVertex4hNV);
+			bindFunc!(glVertex4hvNV);
+			bindFunc!(glVertexAttrib1hNV);
+			bindFunc!(glVertexAttrib1hvNV);
+			bindFunc!(glVertexAttrib2hNV);
+			bindFunc!(glVertexAttrib2hvNV);
+			bindFunc!(glVertexAttrib3hNV);
+			bindFunc!(glVertexAttrib3hvNV);
+			bindFunc!(glVertexAttrib4hNV);
+			bindFunc!(glVertexAttrib4hvNV);
+			bindFunc!(glVertexAttribs1hvNV);
+			bindFunc!(glVertexAttribs2hvNV);
+			bindFunc!(glVertexAttribs3hvNV);
+			bindFunc!(glVertexAttribs4hvNV);
+			bindFunc!(glVertexWeighthNV);
+			bindFunc!(glVertexWeighthvNV);
 		}
 		// GL NV_occlusion_query
 		static if (usingExt(`NV_occlusion_query`)) {
-			bindFunc(glBeginOcclusionQueryNV, `glBeginOcclusionQueryNV`);
-			bindFunc(glDeleteOcclusionQueriesNV, `glDeleteOcclusionQueriesNV`);
-			bindFunc(glEndOcclusionQueryNV, `glEndOcclusionQueryNV`);
-			bindFunc(glGenOcclusionQueriesNV, `glGenOcclusionQueriesNV`);
-			bindFunc(glGetOcclusionQueryivNV, `glGetOcclusionQueryivNV`);
-			bindFunc(glGetOcclusionQueryuivNV, `glGetOcclusionQueryuivNV`);
-			bindFunc(glIsOcclusionQueryNV, `glIsOcclusionQueryNV`);
+			bindFunc!(glBeginOcclusionQueryNV);
+			bindFunc!(glDeleteOcclusionQueriesNV);
+			bindFunc!(glEndOcclusionQueryNV);
+			bindFunc!(glGenOcclusionQueriesNV);
+			bindFunc!(glGetOcclusionQueryivNV);
+			bindFunc!(glGetOcclusionQueryuivNV);
+			bindFunc!(glIsOcclusionQueryNV);
 		}
 		// GL NV_parameter_buffer_object
 		static if (usingExt(`NV_parameter_buffer_object`)) {
-			bindFunc(glProgramBufferParametersfvNV, `glProgramBufferParametersfvNV`);
-			bindFunc(glProgramBufferParametersIivNV, `glProgramBufferParametersIivNV`);
-			bindFunc(glProgramBufferParametersIuivNV, `glProgramBufferParametersIuivNV`);
+			bindFunc!(glProgramBufferParametersfvNV);
+			bindFunc!(glProgramBufferParametersIivNV);
+			bindFunc!(glProgramBufferParametersIuivNV);
 		}
 		// GL NV_path_rendering
 		static if (usingExt(`NV_path_rendering`)) {
-			bindFunc(glCopyPathNV, `glCopyPathNV`);
-			bindFunc(glCoverFillPathInstancedNV, `glCoverFillPathInstancedNV`);
-			bindFunc(glCoverFillPathNV, `glCoverFillPathNV`);
-			bindFunc(glCoverStrokePathInstancedNV, `glCoverStrokePathInstancedNV`);
-			bindFunc(glCoverStrokePathNV, `glCoverStrokePathNV`);
-			bindFunc(glDeletePathsNV, `glDeletePathsNV`);
-			bindFunc(glGenPathsNV, `glGenPathsNV`);
-			bindFunc(glGetPathColorGenfvNV, `glGetPathColorGenfvNV`);
-			bindFunc(glGetPathColorGenivNV, `glGetPathColorGenivNV`);
-			bindFunc(glGetPathCommandsNV, `glGetPathCommandsNV`);
-			bindFunc(glGetPathCoordsNV, `glGetPathCoordsNV`);
-			bindFunc(glGetPathDashArrayNV, `glGetPathDashArrayNV`);
-			bindFunc(glGetPathLengthNV, `glGetPathLengthNV`);
-			bindFunc(glGetPathMetricRangeNV, `glGetPathMetricRangeNV`);
-			bindFunc(glGetPathMetricsNV, `glGetPathMetricsNV`);
-			bindFunc(glGetPathParameterfvNV, `glGetPathParameterfvNV`);
-			bindFunc(glGetPathParameterivNV, `glGetPathParameterivNV`);
-			bindFunc(glGetPathSpacingNV, `glGetPathSpacingNV`);
-			bindFunc(glGetPathTexGenfvNV, `glGetPathTexGenfvNV`);
-			bindFunc(glGetPathTexGenivNV, `glGetPathTexGenivNV`);
-			bindFunc(glInterpolatePathsNV, `glInterpolatePathsNV`);
-			bindFunc(glIsPathNV, `glIsPathNV`);
-			bindFunc(glIsPointInFillPathNV, `glIsPointInFillPathNV`);
-			bindFunc(glIsPointInStrokePathNV, `glIsPointInStrokePathNV`);
-			bindFunc(glPathColorGenNV, `glPathColorGenNV`);
-			bindFunc(glPathCommandsNV, `glPathCommandsNV`);
-			bindFunc(glPathCoordsNV, `glPathCoordsNV`);
-			bindFunc(glPathCoverDepthFuncNV, `glPathCoverDepthFuncNV`);
-			bindFunc(glPathDashArrayNV, `glPathDashArrayNV`);
-			bindFunc(glPathFogGenNV, `glPathFogGenNV`);
-			bindFunc(glPathGlyphRangeNV, `glPathGlyphRangeNV`);
-			bindFunc(glPathGlyphsNV, `glPathGlyphsNV`);
-			bindFunc(glPathParameterfNV, `glPathParameterfNV`);
-			bindFunc(glPathParameterfvNV, `glPathParameterfvNV`);
-			bindFunc(glPathParameteriNV, `glPathParameteriNV`);
-			bindFunc(glPathParameterivNV, `glPathParameterivNV`);
-			bindFunc(glPathStencilDepthOffsetNV, `glPathStencilDepthOffsetNV`);
-			bindFunc(glPathStencilFuncNV, `glPathStencilFuncNV`);
-			bindFunc(glPathStringNV, `glPathStringNV`);
-			bindFunc(glPathSubCommandsNV, `glPathSubCommandsNV`);
-			bindFunc(glPathSubCoordsNV, `glPathSubCoordsNV`);
-			bindFunc(glPathTexGenNV, `glPathTexGenNV`);
-			bindFunc(glPointAlongPathNV, `glPointAlongPathNV`);
-			bindFunc(glStencilFillPathInstancedNV, `glStencilFillPathInstancedNV`);
-			bindFunc(glStencilFillPathNV, `glStencilFillPathNV`);
-			bindFunc(glStencilStrokePathInstancedNV, `glStencilStrokePathInstancedNV`);
-			bindFunc(glStencilStrokePathNV, `glStencilStrokePathNV`);
-			bindFunc(glTransformPathNV, `glTransformPathNV`);
-			bindFunc(glWeightPathsNV, `glWeightPathsNV`);
+			bindFunc!(glCopyPathNV);
+			bindFunc!(glCoverFillPathInstancedNV);
+			bindFunc!(glCoverFillPathNV);
+			bindFunc!(glCoverStrokePathInstancedNV);
+			bindFunc!(glCoverStrokePathNV);
+			bindFunc!(glDeletePathsNV);
+			bindFunc!(glGenPathsNV);
+			bindFunc!(glGetPathColorGenfvNV);
+			bindFunc!(glGetPathColorGenivNV);
+			bindFunc!(glGetPathCommandsNV);
+			bindFunc!(glGetPathCoordsNV);
+			bindFunc!(glGetPathDashArrayNV);
+			bindFunc!(glGetPathLengthNV);
+			bindFunc!(glGetPathMetricRangeNV);
+			bindFunc!(glGetPathMetricsNV);
+			bindFunc!(glGetPathParameterfvNV);
+			bindFunc!(glGetPathParameterivNV);
+			bindFunc!(glGetPathSpacingNV);
+			bindFunc!(glGetPathTexGenfvNV);
+			bindFunc!(glGetPathTexGenivNV);
+			bindFunc!(glInterpolatePathsNV);
+			bindFunc!(glIsPathNV);
+			bindFunc!(glIsPointInFillPathNV);
+			bindFunc!(glIsPointInStrokePathNV);
+			bindFunc!(glPathColorGenNV);
+			bindFunc!(glPathCommandsNV);
+			bindFunc!(glPathCoordsNV);
+			bindFunc!(glPathCoverDepthFuncNV);
+			bindFunc!(glPathDashArrayNV);
+			bindFunc!(glPathFogGenNV);
+			bindFunc!(glPathGlyphRangeNV);
+			bindFunc!(glPathGlyphsNV);
+			bindFunc!(glPathParameterfNV);
+			bindFunc!(glPathParameterfvNV);
+			bindFunc!(glPathParameteriNV);
+			bindFunc!(glPathParameterivNV);
+			bindFunc!(glPathStencilDepthOffsetNV);
+			bindFunc!(glPathStencilFuncNV);
+			bindFunc!(glPathStringNV);
+			bindFunc!(glPathSubCommandsNV);
+			bindFunc!(glPathSubCoordsNV);
+			bindFunc!(glPathTexGenNV);
+			bindFunc!(glPointAlongPathNV);
+			bindFunc!(glStencilFillPathInstancedNV);
+			bindFunc!(glStencilFillPathNV);
+			bindFunc!(glStencilStrokePathInstancedNV);
+			bindFunc!(glStencilStrokePathNV);
+			bindFunc!(glTransformPathNV);
+			bindFunc!(glWeightPathsNV);
 		}
 		// GL NV_pixel_data_range
 		static if (usingExt(`NV_pixel_data_range`)) {
-			bindFunc(glFlushPixelDataRangeNV, `glFlushPixelDataRangeNV`);
-			bindFunc(glPixelDataRangeNV, `glPixelDataRangeNV`);
+			bindFunc!(glFlushPixelDataRangeNV);
+			bindFunc!(glPixelDataRangeNV);
 		}
 		// GL NV_point_sprite
 		static if (usingExt(`NV_point_sprite`)) {
-			bindFunc(glPointParameteriNV, `glPointParameteriNV`);
-			bindFunc(glPointParameterivNV, `glPointParameterivNV`);
+			bindFunc!(glPointParameteriNV);
+			bindFunc!(glPointParameterivNV);
 		}
 		// GL NV_present_video
 		static if (usingExt(`NV_present_video`)) {
-			bindFunc(glGetVideoi64vNV, `glGetVideoi64vNV`);
-			bindFunc(glGetVideoivNV, `glGetVideoivNV`);
-			bindFunc(glGetVideoui64vNV, `glGetVideoui64vNV`);
-			bindFunc(glGetVideouivNV, `glGetVideouivNV`);
-			bindFunc(glPresentFrameDualFillNV, `glPresentFrameDualFillNV`);
-			bindFunc(glPresentFrameKeyedNV, `glPresentFrameKeyedNV`);
+			bindFunc!(glGetVideoi64vNV);
+			bindFunc!(glGetVideoivNV);
+			bindFunc!(glGetVideoui64vNV);
+			bindFunc!(glGetVideouivNV);
+			bindFunc!(glPresentFrameDualFillNV);
+			bindFunc!(glPresentFrameKeyedNV);
 		}
 		// GL NV_primitive_restart
 		static if (usingExt(`NV_primitive_restart`)) {
-			bindFunc(glPrimitiveRestartIndexNV, `glPrimitiveRestartIndexNV`);
-			bindFunc(glPrimitiveRestartNV, `glPrimitiveRestartNV`);
+			bindFunc!(glPrimitiveRestartIndexNV);
+			bindFunc!(glPrimitiveRestartNV);
 		}
 		// GL NV_register_combiners
 		static if (usingExt(`NV_register_combiners`)) {
-			bindFunc(glCombinerInputNV, `glCombinerInputNV`);
-			bindFunc(glCombinerOutputNV, `glCombinerOutputNV`);
-			bindFunc(glCombinerParameterfNV, `glCombinerParameterfNV`);
-			bindFunc(glCombinerParameterfvNV, `glCombinerParameterfvNV`);
-			bindFunc(glCombinerParameteriNV, `glCombinerParameteriNV`);
-			bindFunc(glCombinerParameterivNV, `glCombinerParameterivNV`);
-			bindFunc(glFinalCombinerInputNV, `glFinalCombinerInputNV`);
-			bindFunc(glGetCombinerInputParameterfvNV, `glGetCombinerInputParameterfvNV`);
-			bindFunc(glGetCombinerInputParameterivNV, `glGetCombinerInputParameterivNV`);
-			bindFunc(glGetCombinerOutputParameterfvNV, `glGetCombinerOutputParameterfvNV`);
-			bindFunc(glGetCombinerOutputParameterivNV, `glGetCombinerOutputParameterivNV`);
-			bindFunc(glGetFinalCombinerInputParameterfvNV, `glGetFinalCombinerInputParameterfvNV`);
-			bindFunc(glGetFinalCombinerInputParameterivNV, `glGetFinalCombinerInputParameterivNV`);
+			bindFunc!(glCombinerInputNV);
+			bindFunc!(glCombinerOutputNV);
+			bindFunc!(glCombinerParameterfNV);
+			bindFunc!(glCombinerParameterfvNV);
+			bindFunc!(glCombinerParameteriNV);
+			bindFunc!(glCombinerParameterivNV);
+			bindFunc!(glFinalCombinerInputNV);
+			bindFunc!(glGetCombinerInputParameterfvNV);
+			bindFunc!(glGetCombinerInputParameterivNV);
+			bindFunc!(glGetCombinerOutputParameterfvNV);
+			bindFunc!(glGetCombinerOutputParameterivNV);
+			bindFunc!(glGetFinalCombinerInputParameterfvNV);
+			bindFunc!(glGetFinalCombinerInputParameterivNV);
 		}
 		// GL NV_register_combiners2
 		static if (usingExt(`NV_register_combiners2`)) {
-			bindFunc(glCombinerStageParameterfvNV, `glCombinerStageParameterfvNV`);
-			bindFunc(glGetCombinerStageParameterfvNV, `glGetCombinerStageParameterfvNV`);
+			bindFunc!(glCombinerStageParameterfvNV);
+			bindFunc!(glGetCombinerStageParameterfvNV);
 		}
 		// GL NV_shader_buffer_load
 		static if (usingExt(`NV_shader_buffer_load`)) {
-			bindFunc(glGetBufferParameterui64vNV, `glGetBufferParameterui64vNV`);
-			bindFunc(glGetIntegerui64vNV, `glGetIntegerui64vNV`);
-			bindFunc(glGetNamedBufferParameterui64vNV, `glGetNamedBufferParameterui64vNV`);
-			bindFunc(glGetUniformui64vNV, `glGetUniformui64vNV`);
-			bindFunc(glIsBufferResidentNV, `glIsBufferResidentNV`);
-			bindFunc(glIsNamedBufferResidentNV, `glIsNamedBufferResidentNV`);
-			bindFunc(glMakeBufferNonResidentNV, `glMakeBufferNonResidentNV`);
-			bindFunc(glMakeBufferResidentNV, `glMakeBufferResidentNV`);
-			bindFunc(glMakeNamedBufferNonResidentNV, `glMakeNamedBufferNonResidentNV`);
-			bindFunc(glMakeNamedBufferResidentNV, `glMakeNamedBufferResidentNV`);
-			bindFunc(glProgramUniformui64NV, `glProgramUniformui64NV`);
-			bindFunc(glProgramUniformui64vNV, `glProgramUniformui64vNV`);
-			bindFunc(glUniformui64NV, `glUniformui64NV`);
-			bindFunc(glUniformui64vNV, `glUniformui64vNV`);
+			bindFunc!(glGetBufferParameterui64vNV);
+			bindFunc!(glGetIntegerui64vNV);
+			bindFunc!(glGetNamedBufferParameterui64vNV);
+			bindFunc!(glGetUniformui64vNV);
+			bindFunc!(glIsBufferResidentNV);
+			bindFunc!(glIsNamedBufferResidentNV);
+			bindFunc!(glMakeBufferNonResidentNV);
+			bindFunc!(glMakeBufferResidentNV);
+			bindFunc!(glMakeNamedBufferNonResidentNV);
+			bindFunc!(glMakeNamedBufferResidentNV);
+			bindFunc!(glProgramUniformui64NV);
+			bindFunc!(glProgramUniformui64vNV);
+			bindFunc!(glUniformui64NV);
+			bindFunc!(glUniformui64vNV);
 		}
 		// GL NV_texture_barrier
 		static if (usingExt(`NV_texture_barrier`)) {
-			bindFunc(glTextureBarrierNV, `glTextureBarrierNV`);
+			bindFunc!(glTextureBarrierNV);
 		}
 		// GL NV_texture_multisample
 		static if (usingExt(`NV_texture_multisample`)) {
-			bindFunc(glTexImage2DMultisampleCoverageNV, `glTexImage2DMultisampleCoverageNV`);
-			bindFunc(glTexImage3DMultisampleCoverageNV, `glTexImage3DMultisampleCoverageNV`);
-			bindFunc(glTextureImage2DMultisampleCoverageNV, `glTextureImage2DMultisampleCoverageNV`);
-			bindFunc(glTextureImage2DMultisampleNV, `glTextureImage2DMultisampleNV`);
-			bindFunc(glTextureImage3DMultisampleCoverageNV, `glTextureImage3DMultisampleCoverageNV`);
-			bindFunc(glTextureImage3DMultisampleNV, `glTextureImage3DMultisampleNV`);
+			bindFunc!(glTexImage2DMultisampleCoverageNV);
+			bindFunc!(glTexImage3DMultisampleCoverageNV);
+			bindFunc!(glTextureImage2DMultisampleCoverageNV);
+			bindFunc!(glTextureImage2DMultisampleNV);
+			bindFunc!(glTextureImage3DMultisampleCoverageNV);
+			bindFunc!(glTextureImage3DMultisampleNV);
 		}
 		// GL NV_transform_feedback
 		static if (usingExt(`NV_transform_feedback`)) {
-			bindFunc(glActiveVaryingNV, `glActiveVaryingNV`);
-			bindFunc(glBeginTransformFeedbackNV, `glBeginTransformFeedbackNV`);
-			bindFunc(glBindBufferBaseNV, `glBindBufferBaseNV`);
-			bindFunc(glBindBufferOffsetNV, `glBindBufferOffsetNV`);
-			bindFunc(glBindBufferRangeNV, `glBindBufferRangeNV`);
-			bindFunc(glEndTransformFeedbackNV, `glEndTransformFeedbackNV`);
-			bindFunc(glGetActiveVaryingNV, `glGetActiveVaryingNV`);
-			bindFunc(glGetTransformFeedbackVaryingNV, `glGetTransformFeedbackVaryingNV`);
-			bindFunc(glGetVaryingLocationNV, `glGetVaryingLocationNV`);
-			bindFunc(glTransformFeedbackAttribsNV, `glTransformFeedbackAttribsNV`);
-			bindFunc(glTransformFeedbackStreamAttribsNV, `glTransformFeedbackStreamAttribsNV`);
-			bindFunc(glTransformFeedbackVaryingsNV, `glTransformFeedbackVaryingsNV`);
+			bindFunc!(glActiveVaryingNV);
+			bindFunc!(glBeginTransformFeedbackNV);
+			bindFunc!(glBindBufferBaseNV);
+			bindFunc!(glBindBufferOffsetNV);
+			bindFunc!(glBindBufferRangeNV);
+			bindFunc!(glEndTransformFeedbackNV);
+			bindFunc!(glGetActiveVaryingNV);
+			bindFunc!(glGetTransformFeedbackVaryingNV);
+			bindFunc!(glGetVaryingLocationNV);
+			bindFunc!(glTransformFeedbackAttribsNV);
+			bindFunc!(glTransformFeedbackStreamAttribsNV);
+			bindFunc!(glTransformFeedbackVaryingsNV);
 		}
 		// GL NV_transform_feedback2
 		static if (usingExt(`NV_transform_feedback2`)) {
-			bindFunc(glBindTransformFeedbackNV, `glBindTransformFeedbackNV`);
-			bindFunc(glDeleteTransformFeedbacksNV, `glDeleteTransformFeedbacksNV`);
-			bindFunc(glDrawTransformFeedbackNV, `glDrawTransformFeedbackNV`);
-			bindFunc(glGenTransformFeedbacksNV, `glGenTransformFeedbacksNV`);
-			bindFunc(glIsTransformFeedbackNV, `glIsTransformFeedbackNV`);
-			bindFunc(glPauseTransformFeedbackNV, `glPauseTransformFeedbackNV`);
-			bindFunc(glResumeTransformFeedbackNV, `glResumeTransformFeedbackNV`);
+			bindFunc!(glBindTransformFeedbackNV);
+			bindFunc!(glDeleteTransformFeedbacksNV);
+			bindFunc!(glDrawTransformFeedbackNV);
+			bindFunc!(glGenTransformFeedbacksNV);
+			bindFunc!(glIsTransformFeedbackNV);
+			bindFunc!(glPauseTransformFeedbackNV);
+			bindFunc!(glResumeTransformFeedbackNV);
 		}
 		// GL NV_vdpau_interop
 		static if (usingExt(`NV_vdpau_interop`)) {
-			bindFunc(glVDPAUFiniNV, `glVDPAUFiniNV`);
-			bindFunc(glVDPAUGetSurfaceivNV, `glVDPAUGetSurfaceivNV`);
-			bindFunc(glVDPAUInitNV, `glVDPAUInitNV`);
-			bindFunc(glVDPAUIsSurfaceNV, `glVDPAUIsSurfaceNV`);
-			bindFunc(glVDPAUMapSurfacesNV, `glVDPAUMapSurfacesNV`);
-			bindFunc(glVDPAURegisterOutputSurfaceNV, `glVDPAURegisterOutputSurfaceNV`);
-			bindFunc(glVDPAURegisterVideoSurfaceNV, `glVDPAURegisterVideoSurfaceNV`);
-			bindFunc(glVDPAUSurfaceAccessNV, `glVDPAUSurfaceAccessNV`);
-			bindFunc(glVDPAUUnmapSurfacesNV, `glVDPAUUnmapSurfacesNV`);
-			bindFunc(glVDPAUUnregisterSurfaceNV, `glVDPAUUnregisterSurfaceNV`);
+			bindFunc!(glVDPAUFiniNV);
+			bindFunc!(glVDPAUGetSurfaceivNV);
+			bindFunc!(glVDPAUInitNV);
+			bindFunc!(glVDPAUIsSurfaceNV);
+			bindFunc!(glVDPAUMapSurfacesNV);
+			bindFunc!(glVDPAURegisterOutputSurfaceNV);
+			bindFunc!(glVDPAURegisterVideoSurfaceNV);
+			bindFunc!(glVDPAUSurfaceAccessNV);
+			bindFunc!(glVDPAUUnmapSurfacesNV);
+			bindFunc!(glVDPAUUnregisterSurfaceNV);
 		}
 		// GL NV_vertex_array_range
 		static if (usingExt(`NV_vertex_array_range`)) {
-			bindFunc(glFlushVertexArrayRangeNV, `glFlushVertexArrayRangeNV`);
-			bindFunc(glVertexArrayRangeNV, `glVertexArrayRangeNV`);
+			bindFunc!(glFlushVertexArrayRangeNV);
+			bindFunc!(glVertexArrayRangeNV);
 		}
 		// GL NV_vertex_attrib_integer_64bit
 		static if (usingExt(`NV_vertex_attrib_integer_64bit`)) {
-			bindFunc(glGetVertexAttribLi64vNV, `glGetVertexAttribLi64vNV`);
-			bindFunc(glGetVertexAttribLui64vNV, `glGetVertexAttribLui64vNV`);
-			bindFunc(glVertexAttribL1i64NV, `glVertexAttribL1i64NV`);
-			bindFunc(glVertexAttribL1i64vNV, `glVertexAttribL1i64vNV`);
-			bindFunc(glVertexAttribL1ui64NV, `glVertexAttribL1ui64NV`);
-			bindFunc(glVertexAttribL1ui64vNV, `glVertexAttribL1ui64vNV`);
-			bindFunc(glVertexAttribL2i64NV, `glVertexAttribL2i64NV`);
-			bindFunc(glVertexAttribL2i64vNV, `glVertexAttribL2i64vNV`);
-			bindFunc(glVertexAttribL2ui64NV, `glVertexAttribL2ui64NV`);
-			bindFunc(glVertexAttribL2ui64vNV, `glVertexAttribL2ui64vNV`);
-			bindFunc(glVertexAttribL3i64NV, `glVertexAttribL3i64NV`);
-			bindFunc(glVertexAttribL3i64vNV, `glVertexAttribL3i64vNV`);
-			bindFunc(glVertexAttribL3ui64NV, `glVertexAttribL3ui64NV`);
-			bindFunc(glVertexAttribL3ui64vNV, `glVertexAttribL3ui64vNV`);
-			bindFunc(glVertexAttribL4i64NV, `glVertexAttribL4i64NV`);
-			bindFunc(glVertexAttribL4i64vNV, `glVertexAttribL4i64vNV`);
-			bindFunc(glVertexAttribL4ui64NV, `glVertexAttribL4ui64NV`);
-			bindFunc(glVertexAttribL4ui64vNV, `glVertexAttribL4ui64vNV`);
-			bindFunc(glVertexAttribLFormatNV, `glVertexAttribLFormatNV`);
+			bindFunc!(glGetVertexAttribLi64vNV);
+			bindFunc!(glGetVertexAttribLui64vNV);
+			bindFunc!(glVertexAttribL1i64NV);
+			bindFunc!(glVertexAttribL1i64vNV);
+			bindFunc!(glVertexAttribL1ui64NV);
+			bindFunc!(glVertexAttribL1ui64vNV);
+			bindFunc!(glVertexAttribL2i64NV);
+			bindFunc!(glVertexAttribL2i64vNV);
+			bindFunc!(glVertexAttribL2ui64NV);
+			bindFunc!(glVertexAttribL2ui64vNV);
+			bindFunc!(glVertexAttribL3i64NV);
+			bindFunc!(glVertexAttribL3i64vNV);
+			bindFunc!(glVertexAttribL3ui64NV);
+			bindFunc!(glVertexAttribL3ui64vNV);
+			bindFunc!(glVertexAttribL4i64NV);
+			bindFunc!(glVertexAttribL4i64vNV);
+			bindFunc!(glVertexAttribL4ui64NV);
+			bindFunc!(glVertexAttribL4ui64vNV);
+			bindFunc!(glVertexAttribLFormatNV);
 		}
 		// GL NV_vertex_buffer_unified_memory
 		static if (usingExt(`NV_vertex_buffer_unified_memory`)) {
-			bindFunc(glBufferAddressRangeNV, `glBufferAddressRangeNV`);
-			bindFunc(glColorFormatNV, `glColorFormatNV`);
-			bindFunc(glEdgeFlagFormatNV, `glEdgeFlagFormatNV`);
-			bindFunc(glFogCoordFormatNV, `glFogCoordFormatNV`);
-			bindFunc(glGetIntegerui64i_vNV, `glGetIntegerui64i_vNV`);
-			bindFunc(glIndexFormatNV, `glIndexFormatNV`);
-			bindFunc(glNormalFormatNV, `glNormalFormatNV`);
-			bindFunc(glSecondaryColorFormatNV, `glSecondaryColorFormatNV`);
-			bindFunc(glTexCoordFormatNV, `glTexCoordFormatNV`);
-			bindFunc(glVertexAttribFormatNV, `glVertexAttribFormatNV`);
-			bindFunc(glVertexAttribIFormatNV, `glVertexAttribIFormatNV`);
-			bindFunc(glVertexFormatNV, `glVertexFormatNV`);
+			bindFunc!(glBufferAddressRangeNV);
+			bindFunc!(glColorFormatNV);
+			bindFunc!(glEdgeFlagFormatNV);
+			bindFunc!(glFogCoordFormatNV);
+			bindFunc!(glGetIntegerui64i_vNV);
+			bindFunc!(glIndexFormatNV);
+			bindFunc!(glNormalFormatNV);
+			bindFunc!(glSecondaryColorFormatNV);
+			bindFunc!(glTexCoordFormatNV);
+			bindFunc!(glVertexAttribFormatNV);
+			bindFunc!(glVertexAttribIFormatNV);
+			bindFunc!(glVertexFormatNV);
 		}
 		// GL NV_vertex_program
 		static if (usingExt(`NV_vertex_program`)) {
-			bindFunc(glAreProgramsResidentNV, `glAreProgramsResidentNV`);
-			bindFunc(glBindProgramNV, `glBindProgramNV`);
-			bindFunc(glDeleteProgramsNV, `glDeleteProgramsNV`);
-			bindFunc(glExecuteProgramNV, `glExecuteProgramNV`);
-			bindFunc(glGenProgramsNV, `glGenProgramsNV`);
-			bindFunc(glGetProgramivNV, `glGetProgramivNV`);
-			bindFunc(glGetProgramParameterdvNV, `glGetProgramParameterdvNV`);
-			bindFunc(glGetProgramParameterfvNV, `glGetProgramParameterfvNV`);
-			bindFunc(glGetProgramStringNV, `glGetProgramStringNV`);
-			bindFunc(glGetTrackMatrixivNV, `glGetTrackMatrixivNV`);
-			bindFunc(glGetVertexAttribdvNV, `glGetVertexAttribdvNV`);
-			bindFunc(glGetVertexAttribfvNV, `glGetVertexAttribfvNV`);
-			bindFunc(glGetVertexAttribivNV, `glGetVertexAttribivNV`);
-			bindFunc(glGetVertexAttribPointervNV, `glGetVertexAttribPointervNV`);
-			bindFunc(glIsProgramNV, `glIsProgramNV`);
-			bindFunc(glLoadProgramNV, `glLoadProgramNV`);
-			bindFunc(glProgramParameter4dNV, `glProgramParameter4dNV`);
-			bindFunc(glProgramParameter4dvNV, `glProgramParameter4dvNV`);
-			bindFunc(glProgramParameter4fNV, `glProgramParameter4fNV`);
-			bindFunc(glProgramParameter4fvNV, `glProgramParameter4fvNV`);
-			bindFunc(glProgramParameters4dvNV, `glProgramParameters4dvNV`);
-			bindFunc(glProgramParameters4fvNV, `glProgramParameters4fvNV`);
-			bindFunc(glRequestResidentProgramsNV, `glRequestResidentProgramsNV`);
-			bindFunc(glTrackMatrixNV, `glTrackMatrixNV`);
-			bindFunc(glVertexAttrib1dNV, `glVertexAttrib1dNV`);
-			bindFunc(glVertexAttrib1dvNV, `glVertexAttrib1dvNV`);
-			bindFunc(glVertexAttrib1fNV, `glVertexAttrib1fNV`);
-			bindFunc(glVertexAttrib1fvNV, `glVertexAttrib1fvNV`);
-			bindFunc(glVertexAttrib1sNV, `glVertexAttrib1sNV`);
-			bindFunc(glVertexAttrib1svNV, `glVertexAttrib1svNV`);
-			bindFunc(glVertexAttrib2dNV, `glVertexAttrib2dNV`);
-			bindFunc(glVertexAttrib2dvNV, `glVertexAttrib2dvNV`);
-			bindFunc(glVertexAttrib2fNV, `glVertexAttrib2fNV`);
-			bindFunc(glVertexAttrib2fvNV, `glVertexAttrib2fvNV`);
-			bindFunc(glVertexAttrib2sNV, `glVertexAttrib2sNV`);
-			bindFunc(glVertexAttrib2svNV, `glVertexAttrib2svNV`);
-			bindFunc(glVertexAttrib3dNV, `glVertexAttrib3dNV`);
-			bindFunc(glVertexAttrib3dvNV, `glVertexAttrib3dvNV`);
-			bindFunc(glVertexAttrib3fNV, `glVertexAttrib3fNV`);
-			bindFunc(glVertexAttrib3fvNV, `glVertexAttrib3fvNV`);
-			bindFunc(glVertexAttrib3sNV, `glVertexAttrib3sNV`);
-			bindFunc(glVertexAttrib3svNV, `glVertexAttrib3svNV`);
-			bindFunc(glVertexAttrib4dNV, `glVertexAttrib4dNV`);
-			bindFunc(glVertexAttrib4dvNV, `glVertexAttrib4dvNV`);
-			bindFunc(glVertexAttrib4fNV, `glVertexAttrib4fNV`);
-			bindFunc(glVertexAttrib4fvNV, `glVertexAttrib4fvNV`);
-			bindFunc(glVertexAttrib4sNV, `glVertexAttrib4sNV`);
-			bindFunc(glVertexAttrib4svNV, `glVertexAttrib4svNV`);
-			bindFunc(glVertexAttrib4ubNV, `glVertexAttrib4ubNV`);
-			bindFunc(glVertexAttrib4ubvNV, `glVertexAttrib4ubvNV`);
-			bindFunc(glVertexAttribPointerNV, `glVertexAttribPointerNV`);
-			bindFunc(glVertexAttribs1dvNV, `glVertexAttribs1dvNV`);
-			bindFunc(glVertexAttribs1fvNV, `glVertexAttribs1fvNV`);
-			bindFunc(glVertexAttribs1svNV, `glVertexAttribs1svNV`);
-			bindFunc(glVertexAttribs2dvNV, `glVertexAttribs2dvNV`);
-			bindFunc(glVertexAttribs2fvNV, `glVertexAttribs2fvNV`);
-			bindFunc(glVertexAttribs2svNV, `glVertexAttribs2svNV`);
-			bindFunc(glVertexAttribs3dvNV, `glVertexAttribs3dvNV`);
-			bindFunc(glVertexAttribs3fvNV, `glVertexAttribs3fvNV`);
-			bindFunc(glVertexAttribs3svNV, `glVertexAttribs3svNV`);
-			bindFunc(glVertexAttribs4dvNV, `glVertexAttribs4dvNV`);
-			bindFunc(glVertexAttribs4fvNV, `glVertexAttribs4fvNV`);
-			bindFunc(glVertexAttribs4svNV, `glVertexAttribs4svNV`);
-			bindFunc(glVertexAttribs4ubvNV, `glVertexAttribs4ubvNV`);
+			bindFunc!(glAreProgramsResidentNV);
+			bindFunc!(glBindProgramNV);
+			bindFunc!(glDeleteProgramsNV);
+			bindFunc!(glExecuteProgramNV);
+			bindFunc!(glGenProgramsNV);
+			bindFunc!(glGetProgramivNV);
+			bindFunc!(glGetProgramParameterdvNV);
+			bindFunc!(glGetProgramParameterfvNV);
+			bindFunc!(glGetProgramStringNV);
+			bindFunc!(glGetTrackMatrixivNV);
+			bindFunc!(glGetVertexAttribdvNV);
+			bindFunc!(glGetVertexAttribfvNV);
+			bindFunc!(glGetVertexAttribivNV);
+			bindFunc!(glGetVertexAttribPointervNV);
+			bindFunc!(glIsProgramNV);
+			bindFunc!(glLoadProgramNV);
+			bindFunc!(glProgramParameter4dNV);
+			bindFunc!(glProgramParameter4dvNV);
+			bindFunc!(glProgramParameter4fNV);
+			bindFunc!(glProgramParameter4fvNV);
+			bindFunc!(glProgramParameters4dvNV);
+			bindFunc!(glProgramParameters4fvNV);
+			bindFunc!(glRequestResidentProgramsNV);
+			bindFunc!(glTrackMatrixNV);
+			bindFunc!(glVertexAttrib1dNV);
+			bindFunc!(glVertexAttrib1dvNV);
+			bindFunc!(glVertexAttrib1fNV);
+			bindFunc!(glVertexAttrib1fvNV);
+			bindFunc!(glVertexAttrib1sNV);
+			bindFunc!(glVertexAttrib1svNV);
+			bindFunc!(glVertexAttrib2dNV);
+			bindFunc!(glVertexAttrib2dvNV);
+			bindFunc!(glVertexAttrib2fNV);
+			bindFunc!(glVertexAttrib2fvNV);
+			bindFunc!(glVertexAttrib2sNV);
+			bindFunc!(glVertexAttrib2svNV);
+			bindFunc!(glVertexAttrib3dNV);
+			bindFunc!(glVertexAttrib3dvNV);
+			bindFunc!(glVertexAttrib3fNV);
+			bindFunc!(glVertexAttrib3fvNV);
+			bindFunc!(glVertexAttrib3sNV);
+			bindFunc!(glVertexAttrib3svNV);
+			bindFunc!(glVertexAttrib4dNV);
+			bindFunc!(glVertexAttrib4dvNV);
+			bindFunc!(glVertexAttrib4fNV);
+			bindFunc!(glVertexAttrib4fvNV);
+			bindFunc!(glVertexAttrib4sNV);
+			bindFunc!(glVertexAttrib4svNV);
+			bindFunc!(glVertexAttrib4ubNV);
+			bindFunc!(glVertexAttrib4ubvNV);
+			bindFunc!(glVertexAttribPointerNV);
+			bindFunc!(glVertexAttribs1dvNV);
+			bindFunc!(glVertexAttribs1fvNV);
+			bindFunc!(glVertexAttribs1svNV);
+			bindFunc!(glVertexAttribs2dvNV);
+			bindFunc!(glVertexAttribs2fvNV);
+			bindFunc!(glVertexAttribs2svNV);
+			bindFunc!(glVertexAttribs3dvNV);
+			bindFunc!(glVertexAttribs3fvNV);
+			bindFunc!(glVertexAttribs3svNV);
+			bindFunc!(glVertexAttribs4dvNV);
+			bindFunc!(glVertexAttribs4fvNV);
+			bindFunc!(glVertexAttribs4svNV);
+			bindFunc!(glVertexAttribs4ubvNV);
 		}
 		// GL NV_vertex_program4
 		static if (usingExt(`NV_vertex_program4`)) {
-			bindFunc(glGetVertexAttribIivEXT, `glGetVertexAttribIivEXT`);
-			bindFunc(glGetVertexAttribIuivEXT, `glGetVertexAttribIuivEXT`);
-			bindFunc(glVertexAttribI1iEXT, `glVertexAttribI1iEXT`);
-			bindFunc(glVertexAttribI1ivEXT, `glVertexAttribI1ivEXT`);
-			bindFunc(glVertexAttribI1uiEXT, `glVertexAttribI1uiEXT`);
-			bindFunc(glVertexAttribI1uivEXT, `glVertexAttribI1uivEXT`);
-			bindFunc(glVertexAttribI2iEXT, `glVertexAttribI2iEXT`);
-			bindFunc(glVertexAttribI2ivEXT, `glVertexAttribI2ivEXT`);
-			bindFunc(glVertexAttribI2uiEXT, `glVertexAttribI2uiEXT`);
-			bindFunc(glVertexAttribI2uivEXT, `glVertexAttribI2uivEXT`);
-			bindFunc(glVertexAttribI3iEXT, `glVertexAttribI3iEXT`);
-			bindFunc(glVertexAttribI3ivEXT, `glVertexAttribI3ivEXT`);
-			bindFunc(glVertexAttribI3uiEXT, `glVertexAttribI3uiEXT`);
-			bindFunc(glVertexAttribI3uivEXT, `glVertexAttribI3uivEXT`);
-			bindFunc(glVertexAttribI4bvEXT, `glVertexAttribI4bvEXT`);
-			bindFunc(glVertexAttribI4iEXT, `glVertexAttribI4iEXT`);
-			bindFunc(glVertexAttribI4ivEXT, `glVertexAttribI4ivEXT`);
-			bindFunc(glVertexAttribI4svEXT, `glVertexAttribI4svEXT`);
-			bindFunc(glVertexAttribI4ubvEXT, `glVertexAttribI4ubvEXT`);
-			bindFunc(glVertexAttribI4uiEXT, `glVertexAttribI4uiEXT`);
-			bindFunc(glVertexAttribI4uivEXT, `glVertexAttribI4uivEXT`);
-			bindFunc(glVertexAttribI4usvEXT, `glVertexAttribI4usvEXT`);
-			bindFunc(glVertexAttribIPointerEXT, `glVertexAttribIPointerEXT`);
+			bindFunc!(glGetVertexAttribIivEXT);
+			bindFunc!(glGetVertexAttribIuivEXT);
+			bindFunc!(glVertexAttribI1iEXT);
+			bindFunc!(glVertexAttribI1ivEXT);
+			bindFunc!(glVertexAttribI1uiEXT);
+			bindFunc!(glVertexAttribI1uivEXT);
+			bindFunc!(glVertexAttribI2iEXT);
+			bindFunc!(glVertexAttribI2ivEXT);
+			bindFunc!(glVertexAttribI2uiEXT);
+			bindFunc!(glVertexAttribI2uivEXT);
+			bindFunc!(glVertexAttribI3iEXT);
+			bindFunc!(glVertexAttribI3ivEXT);
+			bindFunc!(glVertexAttribI3uiEXT);
+			bindFunc!(glVertexAttribI3uivEXT);
+			bindFunc!(glVertexAttribI4bvEXT);
+			bindFunc!(glVertexAttribI4iEXT);
+			bindFunc!(glVertexAttribI4ivEXT);
+			bindFunc!(glVertexAttribI4svEXT);
+			bindFunc!(glVertexAttribI4ubvEXT);
+			bindFunc!(glVertexAttribI4uiEXT);
+			bindFunc!(glVertexAttribI4uivEXT);
+			bindFunc!(glVertexAttribI4usvEXT);
+			bindFunc!(glVertexAttribIPointerEXT);
 		}
 		// GL NV_video_capture
 		static if (usingExt(`NV_video_capture`)) {
-			bindFunc(glBeginVideoCaptureNV, `glBeginVideoCaptureNV`);
-			bindFunc(glBindVideoCaptureStreamBufferNV, `glBindVideoCaptureStreamBufferNV`);
-			bindFunc(glBindVideoCaptureStreamTextureNV, `glBindVideoCaptureStreamTextureNV`);
-			bindFunc(glEndVideoCaptureNV, `glEndVideoCaptureNV`);
-			bindFunc(glGetVideoCaptureivNV, `glGetVideoCaptureivNV`);
-			bindFunc(glGetVideoCaptureStreamdvNV, `glGetVideoCaptureStreamdvNV`);
-			bindFunc(glGetVideoCaptureStreamfvNV, `glGetVideoCaptureStreamfvNV`);
-			bindFunc(glGetVideoCaptureStreamivNV, `glGetVideoCaptureStreamivNV`);
-			bindFunc(glVideoCaptureNV, `glVideoCaptureNV`);
-			bindFunc(glVideoCaptureStreamParameterdvNV, `glVideoCaptureStreamParameterdvNV`);
-			bindFunc(glVideoCaptureStreamParameterfvNV, `glVideoCaptureStreamParameterfvNV`);
-			bindFunc(glVideoCaptureStreamParameterivNV, `glVideoCaptureStreamParameterivNV`);
+			bindFunc!(glBeginVideoCaptureNV);
+			bindFunc!(glBindVideoCaptureStreamBufferNV);
+			bindFunc!(glBindVideoCaptureStreamTextureNV);
+			bindFunc!(glEndVideoCaptureNV);
+			bindFunc!(glGetVideoCaptureivNV);
+			bindFunc!(glGetVideoCaptureStreamdvNV);
+			bindFunc!(glGetVideoCaptureStreamfvNV);
+			bindFunc!(glGetVideoCaptureStreamivNV);
+			bindFunc!(glVideoCaptureNV);
+			bindFunc!(glVideoCaptureStreamParameterdvNV);
+			bindFunc!(glVideoCaptureStreamParameterfvNV);
+			bindFunc!(glVideoCaptureStreamParameterivNV);
 		}
 		// GL PGI_misc_hints
 		static if (usingExt(`PGI_misc_hints`)) {
-			bindFunc(glHintPGI, `glHintPGI`);
+			bindFunc!(glHintPGI);
 		}
 		// GL SGI_color_table
 		static if (usingExt(`SGI_color_table`)) {
-			bindFunc(glColorTableParameterfvSGI, `glColorTableParameterfvSGI`);
-			bindFunc(glColorTableParameterivSGI, `glColorTableParameterivSGI`);
-			bindFunc(glColorTableSGI, `glColorTableSGI`);
-			bindFunc(glCopyColorTableSGI, `glCopyColorTableSGI`);
-			bindFunc(glGetColorTableParameterfvSGI, `glGetColorTableParameterfvSGI`);
-			bindFunc(glGetColorTableParameterivSGI, `glGetColorTableParameterivSGI`);
-			bindFunc(glGetColorTableSGI, `glGetColorTableSGI`);
+			bindFunc!(glColorTableParameterfvSGI);
+			bindFunc!(glColorTableParameterivSGI);
+			bindFunc!(glColorTableSGI);
+			bindFunc!(glCopyColorTableSGI);
+			bindFunc!(glGetColorTableParameterfvSGI);
+			bindFunc!(glGetColorTableParameterivSGI);
+			bindFunc!(glGetColorTableSGI);
 		}
 		// GL SGIS_detail_texture
 		static if (usingExt(`SGIS_detail_texture`)) {
-			bindFunc(glDetailTexFuncSGIS, `glDetailTexFuncSGIS`);
-			bindFunc(glGetDetailTexFuncSGIS, `glGetDetailTexFuncSGIS`);
+			bindFunc!(glDetailTexFuncSGIS);
+			bindFunc!(glGetDetailTexFuncSGIS);
 		}
 		// GL SGIS_fog_function
 		static if (usingExt(`SGIS_fog_function`)) {
-			bindFunc(glFogFuncSGIS, `glFogFuncSGIS`);
-			bindFunc(glGetFogFuncSGIS, `glGetFogFuncSGIS`);
+			bindFunc!(glFogFuncSGIS);
+			bindFunc!(glGetFogFuncSGIS);
 		}
 		// GL SGIS_multisample
 		static if (usingExt(`SGIS_multisample`)) {
-			bindFunc(glSampleMaskSGIS, `glSampleMaskSGIS`);
-			bindFunc(glSamplePatternSGIS, `glSamplePatternSGIS`);
+			bindFunc!(glSampleMaskSGIS);
+			bindFunc!(glSamplePatternSGIS);
 		}
 		// GL SGIS_pixel_texture
 		static if (usingExt(`SGIS_pixel_texture`)) {
-			bindFunc(glGetPixelTexGenParameterfvSGIS, `glGetPixelTexGenParameterfvSGIS`);
-			bindFunc(glGetPixelTexGenParameterivSGIS, `glGetPixelTexGenParameterivSGIS`);
-			bindFunc(glPixelTexGenParameterfSGIS, `glPixelTexGenParameterfSGIS`);
-			bindFunc(glPixelTexGenParameterfvSGIS, `glPixelTexGenParameterfvSGIS`);
-			bindFunc(glPixelTexGenParameteriSGIS, `glPixelTexGenParameteriSGIS`);
-			bindFunc(glPixelTexGenParameterivSGIS, `glPixelTexGenParameterivSGIS`);
+			bindFunc!(glGetPixelTexGenParameterfvSGIS);
+			bindFunc!(glGetPixelTexGenParameterivSGIS);
+			bindFunc!(glPixelTexGenParameterfSGIS);
+			bindFunc!(glPixelTexGenParameterfvSGIS);
+			bindFunc!(glPixelTexGenParameteriSGIS);
+			bindFunc!(glPixelTexGenParameterivSGIS);
 		}
 		// GL SGIS_point_parameters
 		static if (usingExt(`SGIS_point_parameters`)) {
-			bindFunc(glPointParameterfSGIS, `glPointParameterfSGIS`);
-			bindFunc(glPointParameterfvSGIS, `glPointParameterfvSGIS`);
+			bindFunc!(glPointParameterfSGIS);
+			bindFunc!(glPointParameterfvSGIS);
 		}
 		// GL SGIS_sharpen_texture
 		static if (usingExt(`SGIS_sharpen_texture`)) {
-			bindFunc(glGetSharpenTexFuncSGIS, `glGetSharpenTexFuncSGIS`);
-			bindFunc(glSharpenTexFuncSGIS, `glSharpenTexFuncSGIS`);
+			bindFunc!(glGetSharpenTexFuncSGIS);
+			bindFunc!(glSharpenTexFuncSGIS);
 		}
 		// GL SGIS_texture_color_mask
 		static if (usingExt(`SGIS_texture_color_mask`)) {
-			bindFunc(glTextureColorMaskSGIS, `glTextureColorMaskSGIS`);
+			bindFunc!(glTextureColorMaskSGIS);
 		}
 		// GL SGIS_texture_filter4
 		static if (usingExt(`SGIS_texture_filter4`)) {
-			bindFunc(glGetTexFilterFuncSGIS, `glGetTexFilterFuncSGIS`);
-			bindFunc(glTexFilterFuncSGIS, `glTexFilterFuncSGIS`);
+			bindFunc!(glGetTexFilterFuncSGIS);
+			bindFunc!(glTexFilterFuncSGIS);
 		}
 		// GL SGIS_texture4D
 		static if (usingExt(`SGIS_texture4D`)) {
-			bindFunc(glTexImage4DSGIS, `glTexImage4DSGIS`);
-			bindFunc(glTexSubImage4DSGIS, `glTexSubImage4DSGIS`);
+			bindFunc!(glTexImage4DSGIS);
+			bindFunc!(glTexSubImage4DSGIS);
 		}
 		// GL SGIX_async
 		static if (usingExt(`SGIX_async`)) {
-			bindFunc(glAsyncMarkerSGIX, `glAsyncMarkerSGIX`);
-			bindFunc(glDeleteAsyncMarkersSGIX, `glDeleteAsyncMarkersSGIX`);
-			bindFunc(glFinishAsyncSGIX, `glFinishAsyncSGIX`);
-			bindFunc(glGenAsyncMarkersSGIX, `glGenAsyncMarkersSGIX`);
-			bindFunc(glIsAsyncMarkerSGIX, `glIsAsyncMarkerSGIX`);
-			bindFunc(glPollAsyncSGIX, `glPollAsyncSGIX`);
+			bindFunc!(glAsyncMarkerSGIX);
+			bindFunc!(glDeleteAsyncMarkersSGIX);
+			bindFunc!(glFinishAsyncSGIX);
+			bindFunc!(glGenAsyncMarkersSGIX);
+			bindFunc!(glIsAsyncMarkerSGIX);
+			bindFunc!(glPollAsyncSGIX);
 		}
 		// GL SGIX_flush_raster
 		static if (usingExt(`SGIX_flush_raster`)) {
-			bindFunc(glFlushRasterSGIX, `glFlushRasterSGIX`);
+			bindFunc!(glFlushRasterSGIX);
 		}
 		// GL SGIX_fragment_lighting
 		static if (usingExt(`SGIX_fragment_lighting`)) {
-			bindFunc(glFragmentColorMaterialSGIX, `glFragmentColorMaterialSGIX`);
-			bindFunc(glFragmentLightfSGIX, `glFragmentLightfSGIX`);
-			bindFunc(glFragmentLightfvSGIX, `glFragmentLightfvSGIX`);
-			bindFunc(glFragmentLightiSGIX, `glFragmentLightiSGIX`);
-			bindFunc(glFragmentLightivSGIX, `glFragmentLightivSGIX`);
-			bindFunc(glFragmentLightModelfSGIX, `glFragmentLightModelfSGIX`);
-			bindFunc(glFragmentLightModelfvSGIX, `glFragmentLightModelfvSGIX`);
-			bindFunc(glFragmentLightModeliSGIX, `glFragmentLightModeliSGIX`);
-			bindFunc(glFragmentLightModelivSGIX, `glFragmentLightModelivSGIX`);
-			bindFunc(glFragmentMaterialfSGIX, `glFragmentMaterialfSGIX`);
-			bindFunc(glFragmentMaterialfvSGIX, `glFragmentMaterialfvSGIX`);
-			bindFunc(glFragmentMaterialiSGIX, `glFragmentMaterialiSGIX`);
-			bindFunc(glFragmentMaterialivSGIX, `glFragmentMaterialivSGIX`);
-			bindFunc(glGetFragmentLightfvSGIX, `glGetFragmentLightfvSGIX`);
-			bindFunc(glGetFragmentLightivSGIX, `glGetFragmentLightivSGIX`);
-			bindFunc(glGetFragmentMaterialfvSGIX, `glGetFragmentMaterialfvSGIX`);
-			bindFunc(glGetFragmentMaterialivSGIX, `glGetFragmentMaterialivSGIX`);
-			bindFunc(glLightEnviSGIX, `glLightEnviSGIX`);
+			bindFunc!(glFragmentColorMaterialSGIX);
+			bindFunc!(glFragmentLightfSGIX);
+			bindFunc!(glFragmentLightfvSGIX);
+			bindFunc!(glFragmentLightiSGIX);
+			bindFunc!(glFragmentLightivSGIX);
+			bindFunc!(glFragmentLightModelfSGIX);
+			bindFunc!(glFragmentLightModelfvSGIX);
+			bindFunc!(glFragmentLightModeliSGIX);
+			bindFunc!(glFragmentLightModelivSGIX);
+			bindFunc!(glFragmentMaterialfSGIX);
+			bindFunc!(glFragmentMaterialfvSGIX);
+			bindFunc!(glFragmentMaterialiSGIX);
+			bindFunc!(glFragmentMaterialivSGIX);
+			bindFunc!(glGetFragmentLightfvSGIX);
+			bindFunc!(glGetFragmentLightivSGIX);
+			bindFunc!(glGetFragmentMaterialfvSGIX);
+			bindFunc!(glGetFragmentMaterialivSGIX);
+			bindFunc!(glLightEnviSGIX);
 		}
 		// GL SGIX_framezoom
 		static if (usingExt(`SGIX_framezoom`)) {
-			bindFunc(glFrameZoomSGIX, `glFrameZoomSGIX`);
+			bindFunc!(glFrameZoomSGIX);
 		}
 		// GL SGIX_igloo_interface
 		static if (usingExt(`SGIX_igloo_interface`)) {
-			bindFunc(glIglooInterfaceSGIX, `glIglooInterfaceSGIX`);
+			bindFunc!(glIglooInterfaceSGIX);
 		}
 		// GL SGIX_instruments
 		static if (usingExt(`SGIX_instruments`)) {
-			bindFunc(glGetInstrumentsSGIX, `glGetInstrumentsSGIX`);
-			bindFunc(glInstrumentsBufferSGIX, `glInstrumentsBufferSGIX`);
-			bindFunc(glPollInstrumentsSGIX, `glPollInstrumentsSGIX`);
-			bindFunc(glReadInstrumentsSGIX, `glReadInstrumentsSGIX`);
-			bindFunc(glStartInstrumentsSGIX, `glStartInstrumentsSGIX`);
-			bindFunc(glStopInstrumentsSGIX, `glStopInstrumentsSGIX`);
+			bindFunc!(glGetInstrumentsSGIX);
+			bindFunc!(glInstrumentsBufferSGIX);
+			bindFunc!(glPollInstrumentsSGIX);
+			bindFunc!(glReadInstrumentsSGIX);
+			bindFunc!(glStartInstrumentsSGIX);
+			bindFunc!(glStopInstrumentsSGIX);
 		}
 		// GL SGIX_list_priority
 		static if (usingExt(`SGIX_list_priority`)) {
-			bindFunc(glGetListParameterfvSGIX, `glGetListParameterfvSGIX`);
-			bindFunc(glGetListParameterivSGIX, `glGetListParameterivSGIX`);
-			bindFunc(glListParameterfSGIX, `glListParameterfSGIX`);
-			bindFunc(glListParameterfvSGIX, `glListParameterfvSGIX`);
-			bindFunc(glListParameteriSGIX, `glListParameteriSGIX`);
-			bindFunc(glListParameterivSGIX, `glListParameterivSGIX`);
+			bindFunc!(glGetListParameterfvSGIX);
+			bindFunc!(glGetListParameterivSGIX);
+			bindFunc!(glListParameterfSGIX);
+			bindFunc!(glListParameterfvSGIX);
+			bindFunc!(glListParameteriSGIX);
+			bindFunc!(glListParameterivSGIX);
 		}
 		// GL SGIX_pixel_texture
 		static if (usingExt(`SGIX_pixel_texture`)) {
-			bindFunc(glPixelTexGenSGIX, `glPixelTexGenSGIX`);
+			bindFunc!(glPixelTexGenSGIX);
 		}
 		// GL SGIX_polynomial_ffd
 		static if (usingExt(`SGIX_polynomial_ffd`)) {
-			bindFunc(glDeformationMap3dSGIX, `glDeformationMap3dSGIX`);
-			bindFunc(glDeformationMap3fSGIX, `glDeformationMap3fSGIX`);
-			bindFunc(glDeformSGIX, `glDeformSGIX`);
-			bindFunc(glLoadIdentityDeformationMapSGIX, `glLoadIdentityDeformationMapSGIX`);
+			bindFunc!(glDeformationMap3dSGIX);
+			bindFunc!(glDeformationMap3fSGIX);
+			bindFunc!(glDeformSGIX);
+			bindFunc!(glLoadIdentityDeformationMapSGIX);
 		}
 		// GL SGIX_reference_plane
 		static if (usingExt(`SGIX_reference_plane`)) {
-			bindFunc(glReferencePlaneSGIX, `glReferencePlaneSGIX`);
+			bindFunc!(glReferencePlaneSGIX);
 		}
 		// GL SGIX_sprite
 		static if (usingExt(`SGIX_sprite`)) {
-			bindFunc(glSpriteParameterfSGIX, `glSpriteParameterfSGIX`);
-			bindFunc(glSpriteParameterfvSGIX, `glSpriteParameterfvSGIX`);
-			bindFunc(glSpriteParameteriSGIX, `glSpriteParameteriSGIX`);
-			bindFunc(glSpriteParameterivSGIX, `glSpriteParameterivSGIX`);
+			bindFunc!(glSpriteParameterfSGIX);
+			bindFunc!(glSpriteParameterfvSGIX);
+			bindFunc!(glSpriteParameteriSGIX);
+			bindFunc!(glSpriteParameterivSGIX);
 		}
 		// GL SGIX_tag_sample_buffer
 		static if (usingExt(`SGIX_tag_sample_buffer`)) {
-			bindFunc(glTagSampleBufferSGIX, `glTagSampleBufferSGIX`);
+			bindFunc!(glTagSampleBufferSGIX);
 		}
 		// GL SUN_global_alpha
 		static if (usingExt(`SUN_global_alpha`)) {
-			bindFunc(glGlobalAlphaFactorbSUN, `glGlobalAlphaFactorbSUN`);
-			bindFunc(glGlobalAlphaFactordSUN, `glGlobalAlphaFactordSUN`);
-			bindFunc(glGlobalAlphaFactorfSUN, `glGlobalAlphaFactorfSUN`);
-			bindFunc(glGlobalAlphaFactoriSUN, `glGlobalAlphaFactoriSUN`);
-			bindFunc(glGlobalAlphaFactorsSUN, `glGlobalAlphaFactorsSUN`);
-			bindFunc(glGlobalAlphaFactorubSUN, `glGlobalAlphaFactorubSUN`);
-			bindFunc(glGlobalAlphaFactoruiSUN, `glGlobalAlphaFactoruiSUN`);
-			bindFunc(glGlobalAlphaFactorusSUN, `glGlobalAlphaFactorusSUN`);
+			bindFunc!(glGlobalAlphaFactorbSUN);
+			bindFunc!(glGlobalAlphaFactordSUN);
+			bindFunc!(glGlobalAlphaFactorfSUN);
+			bindFunc!(glGlobalAlphaFactoriSUN);
+			bindFunc!(glGlobalAlphaFactorsSUN);
+			bindFunc!(glGlobalAlphaFactorubSUN);
+			bindFunc!(glGlobalAlphaFactoruiSUN);
+			bindFunc!(glGlobalAlphaFactorusSUN);
 		}
 		// GL SUN_mesh_array
 		static if (usingExt(`SUN_mesh_array`)) {
-			bindFunc(glDrawMeshArraysSUN, `glDrawMeshArraysSUN`);
+			bindFunc!(glDrawMeshArraysSUN);
 		}
 		// GL SUN_triangle_list
 		static if (usingExt(`SUN_triangle_list`)) {
-			bindFunc(glReplacementCodePointerSUN, `glReplacementCodePointerSUN`);
-			bindFunc(glReplacementCodeubSUN, `glReplacementCodeubSUN`);
-			bindFunc(glReplacementCodeubvSUN, `glReplacementCodeubvSUN`);
-			bindFunc(glReplacementCodeuiSUN, `glReplacementCodeuiSUN`);
-			bindFunc(glReplacementCodeuivSUN, `glReplacementCodeuivSUN`);
-			bindFunc(glReplacementCodeusSUN, `glReplacementCodeusSUN`);
-			bindFunc(glReplacementCodeusvSUN, `glReplacementCodeusvSUN`);
+			bindFunc!(glReplacementCodePointerSUN);
+			bindFunc!(glReplacementCodeubSUN);
+			bindFunc!(glReplacementCodeubvSUN);
+			bindFunc!(glReplacementCodeuiSUN);
+			bindFunc!(glReplacementCodeuivSUN);
+			bindFunc!(glReplacementCodeusSUN);
+			bindFunc!(glReplacementCodeusvSUN);
 		}
 		// GL SUN_vertex
 		static if (usingExt(`SUN_vertex`)) {
-			bindFunc(glColor3fVertex3fSUN, `glColor3fVertex3fSUN`);
-			bindFunc(glColor3fVertex3fvSUN, `glColor3fVertex3fvSUN`);
-			bindFunc(glColor4fNormal3fVertex3fSUN, `glColor4fNormal3fVertex3fSUN`);
-			bindFunc(glColor4fNormal3fVertex3fvSUN, `glColor4fNormal3fVertex3fvSUN`);
-			bindFunc(glColor4ubVertex2fSUN, `glColor4ubVertex2fSUN`);
-			bindFunc(glColor4ubVertex2fvSUN, `glColor4ubVertex2fvSUN`);
-			bindFunc(glColor4ubVertex3fSUN, `glColor4ubVertex3fSUN`);
-			bindFunc(glColor4ubVertex3fvSUN, `glColor4ubVertex3fvSUN`);
-			bindFunc(glNormal3fVertex3fSUN, `glNormal3fVertex3fSUN`);
-			bindFunc(glNormal3fVertex3fvSUN, `glNormal3fVertex3fvSUN`);
-			bindFunc(glReplacementCodeuiColor3fVertex3fSUN, `glReplacementCodeuiColor3fVertex3fSUN`);
-			bindFunc(glReplacementCodeuiColor3fVertex3fvSUN, `glReplacementCodeuiColor3fVertex3fvSUN`);
-			bindFunc(glReplacementCodeuiColor4fNormal3fVertex3fSUN, `glReplacementCodeuiColor4fNormal3fVertex3fSUN`);
-			bindFunc(glReplacementCodeuiColor4fNormal3fVertex3fvSUN, `glReplacementCodeuiColor4fNormal3fVertex3fvSUN`);
-			bindFunc(glReplacementCodeuiColor4ubVertex3fSUN, `glReplacementCodeuiColor4ubVertex3fSUN`);
-			bindFunc(glReplacementCodeuiColor4ubVertex3fvSUN, `glReplacementCodeuiColor4ubVertex3fvSUN`);
-			bindFunc(glReplacementCodeuiNormal3fVertex3fSUN, `glReplacementCodeuiNormal3fVertex3fSUN`);
-			bindFunc(glReplacementCodeuiNormal3fVertex3fvSUN, `glReplacementCodeuiNormal3fVertex3fvSUN`);
-			bindFunc(glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN, `glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN`);
-			bindFunc(glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN, `glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN`);
-			bindFunc(glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN, `glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN`);
-			bindFunc(glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN, `glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN`);
-			bindFunc(glReplacementCodeuiTexCoord2fVertex3fSUN, `glReplacementCodeuiTexCoord2fVertex3fSUN`);
-			bindFunc(glReplacementCodeuiTexCoord2fVertex3fvSUN, `glReplacementCodeuiTexCoord2fVertex3fvSUN`);
-			bindFunc(glReplacementCodeuiVertex3fSUN, `glReplacementCodeuiVertex3fSUN`);
-			bindFunc(glReplacementCodeuiVertex3fvSUN, `glReplacementCodeuiVertex3fvSUN`);
-			bindFunc(glTexCoord2fColor3fVertex3fSUN, `glTexCoord2fColor3fVertex3fSUN`);
-			bindFunc(glTexCoord2fColor3fVertex3fvSUN, `glTexCoord2fColor3fVertex3fvSUN`);
-			bindFunc(glTexCoord2fColor4fNormal3fVertex3fSUN, `glTexCoord2fColor4fNormal3fVertex3fSUN`);
-			bindFunc(glTexCoord2fColor4fNormal3fVertex3fvSUN, `glTexCoord2fColor4fNormal3fVertex3fvSUN`);
-			bindFunc(glTexCoord2fColor4ubVertex3fSUN, `glTexCoord2fColor4ubVertex3fSUN`);
-			bindFunc(glTexCoord2fColor4ubVertex3fvSUN, `glTexCoord2fColor4ubVertex3fvSUN`);
-			bindFunc(glTexCoord2fNormal3fVertex3fSUN, `glTexCoord2fNormal3fVertex3fSUN`);
-			bindFunc(glTexCoord2fNormal3fVertex3fvSUN, `glTexCoord2fNormal3fVertex3fvSUN`);
-			bindFunc(glTexCoord2fVertex3fSUN, `glTexCoord2fVertex3fSUN`);
-			bindFunc(glTexCoord2fVertex3fvSUN, `glTexCoord2fVertex3fvSUN`);
-			bindFunc(glTexCoord4fColor4fNormal3fVertex4fSUN, `glTexCoord4fColor4fNormal3fVertex4fSUN`);
-			bindFunc(glTexCoord4fColor4fNormal3fVertex4fvSUN, `glTexCoord4fColor4fNormal3fVertex4fvSUN`);
-			bindFunc(glTexCoord4fVertex4fSUN, `glTexCoord4fVertex4fSUN`);
-			bindFunc(glTexCoord4fVertex4fvSUN, `glTexCoord4fVertex4fvSUN`);
+			bindFunc!(glColor3fVertex3fSUN);
+			bindFunc!(glColor3fVertex3fvSUN);
+			bindFunc!(glColor4fNormal3fVertex3fSUN);
+			bindFunc!(glColor4fNormal3fVertex3fvSUN);
+			bindFunc!(glColor4ubVertex2fSUN);
+			bindFunc!(glColor4ubVertex2fvSUN);
+			bindFunc!(glColor4ubVertex3fSUN);
+			bindFunc!(glColor4ubVertex3fvSUN);
+			bindFunc!(glNormal3fVertex3fSUN);
+			bindFunc!(glNormal3fVertex3fvSUN);
+			bindFunc!(glReplacementCodeuiColor3fVertex3fSUN);
+			bindFunc!(glReplacementCodeuiColor3fVertex3fvSUN);
+			bindFunc!(glReplacementCodeuiColor4fNormal3fVertex3fSUN);
+			bindFunc!(glReplacementCodeuiColor4fNormal3fVertex3fvSUN);
+			bindFunc!(glReplacementCodeuiColor4ubVertex3fSUN);
+			bindFunc!(glReplacementCodeuiColor4ubVertex3fvSUN);
+			bindFunc!(glReplacementCodeuiNormal3fVertex3fSUN);
+			bindFunc!(glReplacementCodeuiNormal3fVertex3fvSUN);
+			bindFunc!(glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN);
+			bindFunc!(glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN);
+			bindFunc!(glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN);
+			bindFunc!(glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN);
+			bindFunc!(glReplacementCodeuiTexCoord2fVertex3fSUN);
+			bindFunc!(glReplacementCodeuiTexCoord2fVertex3fvSUN);
+			bindFunc!(glReplacementCodeuiVertex3fSUN);
+			bindFunc!(glReplacementCodeuiVertex3fvSUN);
+			bindFunc!(glTexCoord2fColor3fVertex3fSUN);
+			bindFunc!(glTexCoord2fColor3fVertex3fvSUN);
+			bindFunc!(glTexCoord2fColor4fNormal3fVertex3fSUN);
+			bindFunc!(glTexCoord2fColor4fNormal3fVertex3fvSUN);
+			bindFunc!(glTexCoord2fColor4ubVertex3fSUN);
+			bindFunc!(glTexCoord2fColor4ubVertex3fvSUN);
+			bindFunc!(glTexCoord2fNormal3fVertex3fSUN);
+			bindFunc!(glTexCoord2fNormal3fVertex3fvSUN);
+			bindFunc!(glTexCoord2fVertex3fSUN);
+			bindFunc!(glTexCoord2fVertex3fvSUN);
+			bindFunc!(glTexCoord4fColor4fNormal3fVertex4fSUN);
+			bindFunc!(glTexCoord4fColor4fNormal3fVertex4fvSUN);
+			bindFunc!(glTexCoord4fVertex4fSUN);
+			bindFunc!(glTexCoord4fVertex4fvSUN);
 		}
 		// GL SUNX_constant_data
 		static if (usingExt(`SUNX_constant_data`)) {
-			bindFunc(glFinishTextureSUNX, `glFinishTextureSUNX`);
+			bindFunc!(glFinishTextureSUNX);
 		}
 	}
 }
